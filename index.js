@@ -115,6 +115,10 @@ function chooseTruth(){
     }
 }   
 
+bot.on('guildMemberAdd', (message, member) => {
+    member.fetch();
+});
+
 bot.on('messageReactionAdd', async (reaction, user) => {
     if (reaction.partial) {
 		// If the message this reaction belongs to was removed the fetching might result in an API error, which we need to handle
