@@ -130,15 +130,15 @@ bot.on('messageReactionAdd', async (reaction, user) => {
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
         user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
     }
-    if(!!reaction.message.cache.find(v => v.name == ':one:') && reaction.message.id === '738116196729225226'){
+    if(reaction.emoji.name == ':one:' && reaction.message.id === '738116196729225226'){
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
         user.send("You have the `13-14` role!");
     }
-    if(!!reaction.message.cache.find(v => v.name == ':two:') && reaction.message.id === '738116196729225226'){
+    if((reaction.emoji.name == ':two:' && reaction.message.id === '738116196729225226'){
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
         user.member.send("You have the `15-16` role!");
     }
-    if(!!reaction.message.cache.find(v => v.name == ':three:') && reaction.message.id === '738116196729225226'){
+    if((reaction.emoji.name == ':three:' && reaction.message.id === '738116196729225226'){
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
         user.send("You have the `17-18` role!");
     }
