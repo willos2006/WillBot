@@ -117,7 +117,16 @@ function chooseTruth(){
 
 bot.on('messageReactionAdd', async (reaction, user) => {
     console.log("hi");
-    reaction.channel.fetch();
+    if (reaction.partial) {
+		// If the message this reaction belongs to was removed the fetching might result in an API error, which we need to handle
+		try {
+			await reaction.fetch();
+		} catch (error) {
+			console.log('Something went wrong when fetching the message: ', error);
+			// Return as `reaction.message.author` may be undefined/null
+			return;
+		}
+	}
     if(reaction.message.id === '738112386279669792'){
         console.log("hi");
         user.addRole(reaction.message.guild.roles.find(role => role.name === "Verified"));
