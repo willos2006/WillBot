@@ -115,8 +115,9 @@ function chooseTruth(){
     }
 }   
 
-bot.on('guildMemberAdd', (message, member) => {
-    member.roles.add(message.guild.roles.cache.find(role => role.name === "Person"));
+bot.on('guildMemberAdd', member => {
+    member.fetch();
+    member.guild.members.cache.find(mem => user).roles.add(message.guild.roles.cache.find(role => role.name === "Person"));
 });
 
 bot.on('messageReactionAdd', async (reaction, user) => {
