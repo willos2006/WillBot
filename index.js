@@ -64,7 +64,7 @@ var truths = [
 'LEAVE SPARE'
 ]
 
-let rolesChan = guild.channels.find(channel => channel.id === '738110183389003818');
+let rolesChan = bot.guild.channels.find(channel => channel.id === '738110183389003818');
 
 rolesChan.fetchMessages().then((fetchedChannel) => {
     add(fetchedChannel.messages);
@@ -123,7 +123,7 @@ function chooseTruth(){
 
 bot.on('messageReactionAdd', async (reaction, user) => {
     console.log("hi");
-    memberWhoReacted = guild.members.find(member => member.id === user.id);
+    memberWhoReacted = bot.guild.members.find(member => member.id === user.id);
     if(reaction.message.id === '738112386279669792'){
         console.log("hi");
         memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "Verified"));
