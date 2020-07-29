@@ -132,15 +132,15 @@ bot.on('messageReactionAdd', async (reaction, user) => {
     }
     if(reaction === ':one:' && reaction.message.id === '738116196729225226'){
         reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
-        reaction.message.member.send("You have the `13-14` role!");
+        user.send("You have the `13-14` role!");
     }
     if(reaction === ':two:' && reaction.message.id === '738116196729225226'){
-        reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
-        reaction.message.member.send("You have the `15-16` role!");
+        user.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
+        user.member.send("You have the `15-16` role!");
     }
     if(reaction === ':three:' && reaction.message.id === '738116196729225226'){
         reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
-        reaction.message.member.send("You have the `17-18` role!");
+        user.send("You have the `17-18` role!");
     }
 });
 
