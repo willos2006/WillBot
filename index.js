@@ -115,6 +115,7 @@ function chooseTruth(){
 }   
 
 bot.on('messageReactionAdd', async (reaction, user) => {
+    console.log("hi");
     memberWhoReacted = guild.members.find(member => member.id === user.id);
     if(reaction.message.id === '738112386279669792'){
         console.log("hi");
