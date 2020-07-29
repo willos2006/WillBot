@@ -117,18 +117,22 @@ function chooseTruth(){
 bot.on('messageReactionAdd', async (reaction, user) => {
     memberWhoReacted = guild.members.find(member => member.id === user.id);
     if(reaction.message.id === '738112386279669792'){
+        console.log("hi");
         memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "Verified"));
         memberWhoReacted.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
     }
     if(reaction === ':one:' && reaction.message.id === '738116196729225226'){
+        console.log("one");
         memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "13-14"));
         memberWhoReacted.send("You have the `13-14` role!");
     }
     if(reaction === ':two:' && reaction.message.id === '738116196729225226'){
+        console.log("two");
         memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "15-16"));
         memberWhoReacted.send("You have the `15-16` role!");
     }
     if(reaction === ':three:' && reaction.message.id === '738116196729225226'){
+        console.log("three");
         memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "17-18"));
         memberWhoReacted.send("You have the `17-18` role!");
     }
