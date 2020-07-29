@@ -127,19 +127,19 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
     if(reaction.message.id === '738112386279669792'){
-        reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
-        reaction.message.member.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
+        reaction.author.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
+        user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
     }
     if(reaction === ':one:' && reaction.message.id === '738116196729225226'){
-        reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
+        reaction.author.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
         user.send("You have the `13-14` role!");
     }
     if(reaction === ':two:' && reaction.message.id === '738116196729225226'){
-        user.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
+        reaction.author.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
         user.member.send("You have the `15-16` role!");
     }
     if(reaction === ':three:' && reaction.message.id === '738116196729225226'){
-        reaction.message.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
+        reaction.author.member.roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
         user.send("You have the `17-18` role!");
     }
 });
