@@ -64,7 +64,7 @@ var truths = [
 'LEAVE SPARE'
 ]
 
-let rolesChan = bot.channels.get("id", "738110183389003818");
+let rolesChan = bot.channels.find("id", "738110183389003818");
 
 rolesChan.fetchMessages().then((fetchedChannel) => {
     add(fetchedChannel.messages);
