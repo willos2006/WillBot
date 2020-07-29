@@ -1,6 +1,6 @@
 ﻿//require('dotenv').config(); 
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const bot = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
@@ -63,12 +63,6 @@ var truths = [
 'Who was the last 5 people you dm’ed',
 'LEAVE SPARE'
 ]
-
-let rolesChan = bot.guild.channels.find(channel => channel.id === '738110183389003818');
-
-rolesChan.fetchMessages().then((fetchedChannel) => {
-    add(fetchedChannel.messages);
-});
 
 var daresDone = [];
 var truthsDone = [];
