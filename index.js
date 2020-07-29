@@ -11,6 +11,7 @@ bot.on('ready', () => {
     bot.user.setActivity('with the server!', {
         type: 'PLAYING'
     });
+
 var index = 0;
 setInterval(function(){
     if(index === 0){
@@ -62,6 +63,12 @@ var truths = [
 'Who was the last 5 people you dm’ed',
 'LEAVE SPARE'
 ]
+
+let rolesChan = guild.channels.find(channel => channel.id === '738110183389003818');
+
+rolesChan.fetchMessages().then((fetchedChannel) => {
+    add(fetchedChannel.messages);
+}
 
 var daresDone = [];
 var truthsDone = [];
