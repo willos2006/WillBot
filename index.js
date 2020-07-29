@@ -117,11 +117,11 @@ function chooseTruth(){
 
 bot.on('messageReactionAdd', async (reaction, user) => {
     console.log("hi");
-    fetch(reaction.channel);
+    reaction.channel.fetch();
     if(reaction.message.id === '738112386279669792'){
         console.log("hi");
         user.addRole(reaction.message.guild.roles.find(role => role.name === "Verified"));
-        memberWhoReacted.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
+        user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
     }
     if(reaction === ':one:' && reaction.message.id === '738116196729225226'){
         console.log("one");
@@ -135,8 +135,8 @@ bot.on('messageReactionAdd', async (reaction, user) => {
     }
     if(reaction === ':three:' && reaction.message.id === '738116196729225226'){
         console.log("three");
-        memberWhoReacted.addRole(reaction.message.guild.roles.find(role => role.name === "17-18"));
-        memberWhoReacted.send("You have the `17-18` role!");
+        user.addRole(reaction.message.guild.roles.find(role => role.name === "17-18"));
+        user.send("You have the `17-18` role!");
     }
 });
 
