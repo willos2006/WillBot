@@ -136,7 +136,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
     }
     if(reaction.emoji.name == '2️⃣' && reaction.message.id === '738116196729225226'){
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
-        user.member.send("You have the `15-16` role!");
+        user.send("You have the `15-16` role!");
     }
     if(reaction.emoji.name == '3️⃣' && reaction.message.id === '738116196729225226'){
         reaction.message.guild.members.cache.find(member => user).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
