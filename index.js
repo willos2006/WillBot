@@ -68,7 +68,7 @@ let rolesChan = guild.channels.find(channel => channel.id === '73811018338900381
 
 rolesChan.fetchMessages().then((fetchedChannel) => {
     add(fetchedChannel.messages);
-}
+});
 
 var daresDone = [];
 var truthsDone = [];
