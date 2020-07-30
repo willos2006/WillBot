@@ -148,6 +148,29 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 	}
 });
 
+bot.on('messageReactionRemove', async (reaction, user) => {
+	if (reaction.partial) {
+		try {
+			await reaction.fetch();
+		} catch (error) {
+			console.log('Something went wrong when fetching the message: ', error);
+			return;
+		}
+	}
+	if(reaction.emoji.name == '1️⃣' && reaction.message.id === '738116196729225226'){
+		reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
+		user.send("You have removed the `13-14` role!");
+	}
+	if(reaction.emoji.name == '2️⃣' && reaction.message.id === '738116196729225226'){
+		reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
+		user.send("You have removed the `15-16` role!");
+	}
+	if(reaction.emoji.name == '3️⃣' && reaction.message.id === '738116196729225226'){
+		reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
+		user.send("You have removed the `17-18` role!");
+	}
+});
+
 bot.on('message', msg => {
 	if(msg.content === '-troubleshoot members'){
 		msg.guild.members.cache.forEach(member => console.log(member.user.username)); 
