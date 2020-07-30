@@ -146,14 +146,11 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
 		user.send("You have the `17-18` role!");
 	}
+	message.channel.fetchMessage('738444446768824372').map(r => r).then(message => {
+		message.reactions.forEach(reaction => reaction.remove(reaction.message.guild.members.cache.find(member => member.id === user.id)));
+	});
 	if(reaction.message.id === '738444446768824372'){
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
-			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.has(role => role.name === 'red')){
-				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "red"));
-			}
-			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.has(role => role.name === 'blue')){
-				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
-			}
 			if(reaction.emoji.name == '🔴'){
 				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
 			}
