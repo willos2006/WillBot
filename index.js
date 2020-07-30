@@ -148,7 +148,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 
 bot.on('message', msg => {
 	if(msg.content === '-troubleshoot members'){
-		msg.guild.members.forEach(member => console.log(member.user.username)); 
+		msg.guild.members.cache.forEach(member => console.log(member.user.username)); 
 	}
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
