@@ -206,7 +206,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		if(reaction.emoji.name == '🟣'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "purple"));
 			user.send('You chose the color `purple`');
-			reaction.fetch.remove();
+			reaction.fetch().remove();
 		}
 	}  
 });
