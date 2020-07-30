@@ -121,7 +121,7 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('messageReactionAdd', async (reaction, user) => {
-	reaction.message.guild.members.fetch();
+	bot.guild.fetchMembers();
 	if (reaction.partial) {
 		try {
 			await reaction.fetch();
