@@ -147,6 +147,9 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 });
 
 bot.on('message', msg => {
+	if(msg.content === '-troubleshoot members'){
+		msg.channel.send(bot.guild.members);
+	}
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
 			msg.channel.send("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
