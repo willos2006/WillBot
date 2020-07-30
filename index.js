@@ -148,7 +148,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 	}
 	if(reaction.message.id === '738444446768824372'){
 		let messageEmbed = reaction.message.channel.messages.fetch('738444446768824372').catch(console.error);
-		messageEmbed.reactions.first().remove(message.author.id)
+		messageEmbed.reactions.cache.first().remove(message.author.id)
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
 				reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red").id;
