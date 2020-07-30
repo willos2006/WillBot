@@ -116,8 +116,7 @@ function chooseTruth(){
 }   
 
 bot.on('guildMemberAdd', member => {
-	/*member.fetch();
-	member.guild.members.cache.find(mem => user).roles.add(message.guild.roles.cache.find(role => role.name === "Person"));*/
+	member.guild.members.fetch();
 });
 
 bot.on('messageReactionAdd', async (reaction, user) => {
@@ -148,11 +147,6 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 });
 
 bot.on('message', msg => {
-	if(msg.content === '-troubleshoot'){
-		for(user of msg.guild.members){
-			msg.channel.send(user[1].username);
-		}
-	}
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
 			msg.channel.send("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
