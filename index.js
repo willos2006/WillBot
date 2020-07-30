@@ -149,7 +149,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 
 bot.on('message', msg => {
 	if(msg.content === '-troubleshoot'){
-		for(user of guild.members){
+		for(user of msg.guild.members){
 			msg.channel.send(user[1].username);
 		}
 	}
