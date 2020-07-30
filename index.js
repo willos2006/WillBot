@@ -118,7 +118,7 @@ function chooseTruth(){
 bot.on('guildMemberAdd', member => {
 	member.guild.members.fetch();
 	let welcomeChan = member.guild.channels.cache.find(channel => channel.id === '738107329643544590');
-	welcomeChan.send("Yay! <@" + member.id + "> Is here! Make yourself comfortable and go on over to <#"+ welcomeChan.id.toString() +"> to verify yourself!");
+	welcomeChan.send("Yay! <@" + member.id + "> Is here! Make yourself comfortable and go on over to <#738110183389003818> to verify yourself!");
 });
 
 bot.on('messageReactionAdd', async (reaction, user) => {
