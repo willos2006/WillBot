@@ -147,7 +147,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		user.send("You have the `17-18` role!");
 	}
 	if(reaction.message.id === '738444446768824372'){
-		const userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id));
+		let userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id));
 		try {
 			for (const reaction of userReactions.values()) {
 				await reaction.users.remove(user.id);
@@ -157,10 +157,26 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
-				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red");
+				let userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id) && reaction.emoji.name != '🔴');
+				try {
+					for (const reaction of userReactions.values()) {
+						await reaction.users.remove(user.id);
+					}
+				} catch (error) {
+					console.error('Failed to remove reactions.');
+				}
+				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red").id;
 			}
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "blue")){
-				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "blue");
+				let userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id) && reaction.emoji.name != '🔵');
+				try {
+					for (const reaction of userReactions.values()) {
+						await reaction.users.remove(user.id);
+					}
+				} catch (error) {
+					console.error('Failed to remove reactions.');
+				}
+				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "blue").id;
 			}
 			if(reaction.emoji.name == '🔴'){
 				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
