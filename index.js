@@ -157,16 +157,16 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
-				reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red").id;
+				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red");
 			}
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "blue")){
-				reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "blue");
+				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "blue");
 			}
 			if(reaction.emoji.name == '🔴'){
-				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
 			}
 			if(reaction.emoji.name == '🔵'){
-				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
 			}
 		}
 	}  
