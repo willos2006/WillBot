@@ -117,6 +117,7 @@ function chooseTruth(){
 
 bot.on('guildMemberAdd', member => {
 	member.guild.members.fetch();
+	member.guild.channels.fetch();
 	let welcomChan = member.guild.channels.cache.find(channel => channel.id === '738107329643544590');
 	welcomeChan.send("Yay! <@" + member.id + "> Is here! Make yourself comfortable and go on over to #roles to verify yourself!");
 });
