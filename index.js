@@ -168,14 +168,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 			if(reaction.emoji.name == '🔵'){
 				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
 			}
-			const userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id));
-			try {
-				for (const reaction1 of userReactions.values()) {
-					await reaction1.users.remove(user.id);
-				}
-			} catch (error) {
-				console.error('Failed to remove reactions.');
-			}
+			
 		}
 	}  
 });
