@@ -135,6 +135,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
 	}
 	if(reaction.message.id === '738116196729225226'){
+		let msg = await channel.fetchMessage('738116196729225226');
 		if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "13-14")){
 			await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
 		}
@@ -147,18 +148,21 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		if(reaction.emoji.name == '1️⃣' && reaction.message.id === '738116196729225226'){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
 			user.send("You have the `13-14` role!");
+			reaction.message.reactions.resolve("1️⃣").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '2️⃣' && reaction.message.id === '738116196729225226'){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
 			user.send("You have the `15-16` role!");
+			reaction.message.reactions.resolve("2️⃣").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '3️⃣' && reaction.message.id === '738116196729225226'){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
 			user.send("You have the `17-18` role!");
+			reaction.message.reactions.resolve("3️⃣").users.remove(user.id);
 		}
-		reaction.remove(user);
 	}
 	if(reaction.message.id === '738444446768824372'){
+		let msg = await channel.fetchMessage('738444446768824372');
 		if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
 			await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "red"));
 		}
@@ -177,24 +181,28 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		if(reaction.emoji.name == '🔴'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
 			user.send('You chose the color `red`');
+			reaction.message.reactions.resolve("🔴").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '🔵'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
 			user.send('You chose the color `blue`');
+			reaction.message.reactions.resolve("🔵").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '🟢'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "green"));
 			user.send('You chose the color `green`');
+			reaction.message.reactions.resolve("🟢").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '🟠'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "orange"));
 			user.send('You chose the color `orange`');
+			reaction.message.reactions.resolve("🟠").users.remove(user.id);
 		}
 		if(reaction.emoji.name == '🟣'){
 			await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "purple"));
 			user.send('You chose the color `purple`');
+			reaction.message.reactions.resolve("🟣").users.remove(user.id);
 		}
-		reaction.remove(user);
 	}  
 });
 
