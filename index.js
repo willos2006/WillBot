@@ -146,6 +146,20 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
 		user.send("You have the `17-18` role!");
 	}
+	if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
+		switch(reaction.message.guild.members.cache.find(member => member.id === user.id).roles){
+			case '🔴':
+				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "red"));
+			case '🔵':
+				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
+		}
+		if(reaction.emoji.name == '🔴'){
+			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
+		}
+		if(reaction.emoji.name == '🔵'){
+			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "blue"));
+		}
+	}
 });
 
 bot.on('messageReactionRemove', async (reaction, user) => {
