@@ -121,7 +121,6 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('messageReactionAdd', async (reaction, user) => {
-	bot.guild.fetchMembers();
 	if (reaction.partial) {
 		try {
 			await reaction.fetch();
@@ -149,6 +148,11 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 });
 
 bot.on('message', msg => {
+	if(msg.content === '-troubleshoot'){
+		for(user of guild.members){
+			msg.channel.send(user[1].username);
+		}
+	}
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
 			msg.channel.send("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
