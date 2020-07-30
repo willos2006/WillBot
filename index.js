@@ -157,10 +157,10 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
-				let userReactions = reaction.message.reactions.cache.filter(reaction => reaction.users.cache.has(user.id) && reaction.emoji.name == '🔴');
+				let userReactions = reaction.message.reactions.cache.filter(reaction => reaction.emoji.name == '🔴');
 				try {
-					for (const reaction of userReactions.values()) {
-						await reaction.users.remove(user.id);
+					for (const reaction1 of userReactions.values()) {
+						await reaction1.users.remove(user.id);
 					}
 				} catch (error) {
 					console.error('Failed to remove reactions.');
