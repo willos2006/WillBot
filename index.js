@@ -148,14 +148,13 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 	}
 	if(reaction.message.id === '738444446768824372'){
 		if(reaction.emoji.name == '🔴' || reaction.emoji.name == '🔵'){
-			reaction.message.channel.messages.cache.fetch('738444446768824372').map(r => r).then(message => {
-				reaction.message.cache.reactions.cache.forEach(reaction => reaction.remove(reaction.message.guild.members.cache.find(member => member.id === user.id)));
-			});
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.has(role => role.name === "red")){
 				reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "red");
+				reaction.message.reactions.cache.find(member => member.id === user.id).remove();
 			}
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.has(role => role.name === "blue")){
 				reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(role => role.name === "blue");
+				reaction.message.reactions.cache.find(member => member.id === user.id).remove();
 			}
 			if(reaction.emoji.name == '🔴'){
 				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "red"));
