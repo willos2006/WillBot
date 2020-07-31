@@ -372,9 +372,9 @@ bot.on('message', msg => {
 		msg.channel.send("You must have the `Admins` role to perfrom this command");
 	}
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
-		let userTo = msg.content.slice(6);
+		let userToID = msg.content.slice(6);
 		let regex = /<!@(.*)>/;
-		userTo = regex.exec(userTo);
+		userTo = regex.exec(userToID);
 		console.log(userTo);
 	}
 });
