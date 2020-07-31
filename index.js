@@ -343,7 +343,7 @@ bot.on('message', msg => {
 		let nickname = msg.content.slice(10);
 		msg.member.setNickname(nickname);
 	}
-	if(msg.content.startsWith('-delete') && msg.member.roles.find(role => role.name === 'Admins')){
+	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let amount = msg.content.slice(7);
 		if(isNaN(amount) && amount != ''){
 			msg.channel.send("Please enter a valid number");
