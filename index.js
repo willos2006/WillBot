@@ -341,6 +341,6 @@ bot.on('message', msg => {
 	}
 	if(msg.content.startsWith('-nickname')){
 		let nickname = msg.content.slice(10);
-		msg.author.member.setNickname(nickname);
+		msg.member.setNickname(nickname);
 	}
 });
