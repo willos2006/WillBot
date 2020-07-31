@@ -380,7 +380,6 @@ bot.on('message', msg => {
 		}
 		catch{
 			msg.channel.send("Invalid User");
-			msg.delete();
 		}
 	}
 });
