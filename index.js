@@ -339,4 +339,8 @@ bot.on('message', msg => {
 			}
 		}
 	}
+	if(msg.content.startsWith('-nickname')){
+		let nickname = msg.content.slice(10);
+		msg.guild.member.cache.find(member => member.id == user.id).setNickname(nickname);
+	}
 });
