@@ -382,4 +382,15 @@ bot.on('message', msg => {
 			msg.channel.send("Invalid User");
 		}
 	}
+	if(msg.content.startsWith('-ban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
+		let userToKick = msg.content.slice(5);
+		userToKick = userToKick.replace(/[\\<>@#&!]/g, "");
+		try{
+			msg.guild.members.cache.find(member => member.id === userToKick).ban();
+			msg.delete();
+		}
+		catch{
+			msg.channel.send("Invalid User");
+		}
+	}
 });
