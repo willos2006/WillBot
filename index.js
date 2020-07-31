@@ -37,11 +37,11 @@ bot.on('ready', () => {
 		m.react("🟠");
 		m.react("🟣");
 	});
-	rolesChan.messages.fetch("738722915217833996"){
+	rolesChan.messages.fetch("738722915217833996").then(m => {
 		m.react("👨");
 		m.react("👩");
 		m.react("⭕");
-	}
+	});
 });
 		
 		
