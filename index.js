@@ -23,10 +23,10 @@ bot.on('ready', () => {
 			bot.user.setActivity("with the server!", {type: "PLAYING"});}
 	}, 7000);
 	//react to it's messages
-	let guild = bot.guilds.get('738107329643544587');
-	let rolesChan = guild.channels.find(channel => channel.name === "roles");
-	let msg1 = rolesChan.messages.find(message => message.id === "738116196729225226");
-	let msg2 = rolesChan.messages.find(message => message.id === "738444446768824372");
+	let guild = bot.guilds.cache.get('738107329643544587');
+	let rolesChan = guild.channels.cache.find(channel => channel.name === "roles");
+	let msg1 = rolesChan.messages.cache.find(message => message.id === "738116196729225226");
+	let msg2 = rolesChan.messages.cache.find(message => message.id === "738444446768824372");
 	msg1.react("1️⃣");
 	msg1.react("2️⃣");
 	msg1.react("3️⃣");
