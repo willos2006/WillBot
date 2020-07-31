@@ -374,7 +374,7 @@ bot.on('message', msg => {
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(6);
 		userToKick = userToKick.replace(/[\\<>@#&!]/g, "");
-		msg.guild.members.cache.find(member => member.id === userToKick).try({kick()}).catch(error => {
+		msg.guild.members.cache.find(member => member.id === userToKick).try(m => {kick();}).catch(error => {
 			msg.channel.send("Invalid User: " + error);
 		});
 	}
