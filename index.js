@@ -154,7 +154,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		if(reaction.message.id === '738112386279669792' && !(reaction.message.guild.members.cache.find(member => member.id == user.id).roles.cache.find(role => role.name === "Verified"))){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
 			user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
-			reaction.message.reactions.users.remove(user.id);
+			reaction.message.reactions.resolve('✅').users.remove(user.id);
 		}
 		if(reaction.message.id === '738116196729225226'){
 			let msg = await reaction.message.channel.messages.fetch('738116196729225226');
