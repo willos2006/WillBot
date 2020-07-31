@@ -25,16 +25,18 @@ bot.on('ready', () => {
 	//react to it's messages
 	let guild = bot.guilds.cache.get('738107329643544587');
    	let rolesChan = guild.channels.cache.find(channel => channel.id === "738110183389003818");
-	let msg1 = await rolesChan.messages.fetch("738116196729225226");
-	let msg2 = await rolesChan.messages.fetch("738444446768824372");
-	msg1.react("1️⃣");
-	msg1.react("2️⃣");
-	msg1.react("3️⃣");
-	msg2.react("🔴");
-	msg2.react("🔵");
-	msg2.react("🟢");
-	msg2.react("🟠");
-	msg2.react("🟣");
+	rolesChan.messages.fetch("738116196729225226").then(m => {
+		m.react("1️⃣");
+		m.react("2️⃣");
+		m.react("3️⃣");
+	});
+	rolesChan.messages.fetch("738444446768824372").then(m => {
+		m.react("🔴");
+		m.react("🔵");
+		m.react("🟢");
+		m.react("🟠");
+		m.react("🟣");
+	});
 });
 		
 		
