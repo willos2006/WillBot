@@ -324,7 +324,7 @@ bot.on('message', msg => {
 		bot.destroy();
 	}
 	if(msg.content === '-help'){
-		msg.channel.send("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-delete [numberOfMessages](not required)`");
+		msg.channel.send("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n *ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]`");
 	} 
 	if(msg.channel.id === '738109254036226228'){
 		if(!isNaN(msg.content)){
