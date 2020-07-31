@@ -23,6 +23,7 @@ bot.on('ready', () => {
 			bot.user.setActivity("with the server!", {type: "PLAYING"});}
 	}, 7000);
 	//react to it's messages
+	let guild = client.guilds.get(guildID);
 	let rolesChan = bot.guild.channels.find(channel => channel.name === "roles");
 	let msg1 = rolesChan.messages.find(message => message.id === "738116196729225226");
 	let msg2 = rolesChan.messages.find(message => message.id === "738444446768824372");
