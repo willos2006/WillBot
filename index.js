@@ -354,7 +354,7 @@ bot.on('message', msg => {
 			});
 		}
 		else{
-			amount = int(amount);
+			amount = parseInt(amount, 10);
 			if(amount >= 99){
 				msg.channel.messages.fetch({limit: 100}).then(messages => {
 					msg.channel.bulkDelete(messages);
