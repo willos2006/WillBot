@@ -343,4 +343,27 @@ bot.on('message', msg => {
 		let nickname = msg.content.slice(10);
 		msg.member.setNickname(nickname);
 	}
+	if(msg.content.startsWith('-delete') && msg.member.roles.find(role => role.name === 'Admins')){
+		let amount = msg.content.slice(7);
+		if(isNaN(amount) && amount != ''){
+			msg.channel.send("Please enter a valid number");
+		}
+		else if(amount == ''){
+			await msg.channel.messages.fetch({limit: 2}).then(messages => {
+				await msg.channel.bulkDelete(messages);
+			});
+		}
+		else{
+			if(amount >= 99){
+				await msg.channel.messages.fetch({limit: 100}).then(messages => {
+					await msg.channel.bulkDelete(messages);
+				});
+			}
+			else{
+				await msg.channel.messages.fetch({limit: amount + 1}).then(messages => {
+					await msg.channel.bulkDelete(messages);
+				});
+			}
+		}
+	}
 });
