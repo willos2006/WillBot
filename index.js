@@ -369,7 +369,7 @@ bot.on('message', msg => {
 		}
 	}
 	else if(msg.content.startsWith('-delete')){
-		msg.channel.send("You must have the `Admins` role to perfrom this command");
+		msg.channel.send("You must have the `Admins` role to use this command");
 	}
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(6);
@@ -382,6 +382,9 @@ bot.on('message', msg => {
 			msg.channel.send("Invalid User");
 		}
 	}
+	else if(msg.content.startsWith('-kick')){
+		msg.channel.send("You must have the `Admins` role to use this command")
+	}
 	if(msg.content.startsWith('-ban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(5);
 		userToKick = userToKick.replace(/[\\<>@#&!]/g, "");
@@ -393,6 +396,9 @@ bot.on('message', msg => {
 			msg.channel.send("Invalid User");
 		}
 	}
+	else if(msg.content.startsWith('-ban')){
+		msg.channel.send("You must have the `Admins` role to use this command")
+	}
 	if(msg.content.startsWith('-unban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(8);
 		userToKick = userToKick.replace(/[\\<>@#&!]/g, "");
@@ -403,5 +409,8 @@ bot.on('message', msg => {
 		catch{
 			msg.channel.send("Invalid User");
 		}
+	}
+	else if(msg.content.startsWith('-unban')){
+		msg.channel.send("You must have the `Admins` role to use this command")
 	}
 });
