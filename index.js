@@ -159,6 +159,9 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 			user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
 			reaction.message.reactions.resolve('✅').users.remove(user.id);
 		}
+		else if(reaction.message.id === '738112386279669792'){
+			reaction.message.reactions.resolve('✅').users.remove(user.id);
+		}
 		if(reaction.message.id === '738116196729225226'){
 			let msg = await reaction.message.channel.messages.fetch('738116196729225226');
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "13-14")){
