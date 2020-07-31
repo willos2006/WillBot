@@ -24,7 +24,7 @@ bot.on('ready', () => {
 	}, 7000);
 	//react to it's messages
 	let guild = bot.guilds.cache.get('738107329643544587');
-	let rolesChan = guild.channels.cache.fetch(channel => channel.name === "roles");
+	let rolesChan = guild.channels.cache.find(channel => channel.name === "roles");
 	let msg1 = rolesChan.messages.cache.fetch(message => message.id === "738116196729225226");
 	let msg2 = rolesChan.messages.cache.fetch(message => message.id === "738444446768824372");
 	msg1.react("1️⃣");
