@@ -373,7 +373,7 @@ bot.on('message', msg => {
 	}
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToID = msg.content.slice(6);
-		let regex = /<!@(.*)>/;
+		let regex = /<((@!?\d+)|(:.+?:\d+))>/
 		userTo = regex.exec(userToID);
 		console.log(userTo);
 	}
