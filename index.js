@@ -367,4 +367,7 @@ bot.on('message', msg => {
 			}
 		}
 	}
+	else if(msg.content.startsWith('-delete')){
+		msg.channel.send("You must have the `Admins` role to perfrom this command");
+	}
 });
