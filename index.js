@@ -37,6 +37,11 @@ bot.on('ready', () => {
 		m.react("🟠");
 		m.react("🟣");
 	});
+	rolesChan.messages.fetch("738722915217833996"){
+		m.react("👨");
+		m.react("👩");
+		m.react("⭕");
+	}
 });
 		
 		
@@ -219,7 +224,34 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 				user.send('You chose the color `purple`');
 				reaction.message.reactions.resolve("🟣").users.remove(user.id);
 			}
-		}  
+		} 
+		if(reaction.message.id === "738722915217833996"){
+			let msg = await reaction.message.channel.messages.fetch('738722915217833996');
+			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "Male")){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "Male").id);
+			}
+			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "Female")){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "Female").id);
+			}
+			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "Other")){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "Other").id);
+			}
+			if(reaction.emoji.name == '👨'){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Male"));
+				user.send("You chose the `Male` role");
+				reaction.message.reactions.resolve('👨').users.remove(user.id);
+			}
+			if(reaction.emoji.name == '👩'){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Female"));
+				user.send("You chose the `Female` role");
+				reaction.message.reactions.resolve('👩').users.remove(user.id);
+			}
+			if(reaction.emoji.name == '⭕'){
+				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Other"));
+				user.send("You chose the `Other` role");
+				reaction.message.reactions.resolve('⭕').users.remove(user.id);
+			}
+		} 
 	}
 });
 
