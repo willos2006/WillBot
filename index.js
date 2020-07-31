@@ -344,7 +344,7 @@ bot.on('message', msg => {
 		msg.member.setNickname(nickname);
 	}
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
-		let amount = msg.content.slice(7);
+		let amount = msg.content.slice(8);
 		if(isNaN(amount) && amount != ''){
 			msg.channel.send("Please enter a valid number");
 		}
@@ -354,7 +354,6 @@ bot.on('message', msg => {
 			});
 		}
 		else{
-			console.log(amount);
 			if(amount >= 99){
 				msg.channel.messages.fetch({limit: 100}).then(messages => {
 					msg.channel.bulkDelete(messages);
