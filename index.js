@@ -343,6 +343,7 @@ bot.on('message', msg => {
 		let nickname = msg.content.slice(10);
 		msg.member.setNickname(nickname);
 	}
+	//admin commands
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let amount = msg.content.slice(8);
 		if(isNaN(amount) && amount != ''){
@@ -369,5 +370,9 @@ bot.on('message', msg => {
 	}
 	else if(msg.content.startsWith('-delete')){
 		msg.channel.send("You must have the `Admins` role to perfrom this command");
+	}
+	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
+		let userTo = msg.content.slice(6);
+		console.log(userTo);
 	}
 });
