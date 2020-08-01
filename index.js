@@ -362,7 +362,7 @@ bot.on('message', msg => {
 			}
 			else{
 				number = parseInt(number, 10);
-				result += Math.floor(Math.random() * Math.floor(6)) + 1; 
+				result += (Math.floor(Math.random() * Math.floor(6)) + 1); 
 				if(number > 2){
 					for(i = 0; i < number - 2; i++){
 						result += ", " + (Math.floor(Math.random() * Math.floor(6)) + 1);
