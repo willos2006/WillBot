@@ -495,7 +495,7 @@ bot.on('message', msg => {
 			else if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
 				msg.channel.send("No such user exists!");
 			}
-			else if(!(roles.cache.find(role => role.id === roletogive))){
+			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
 				msg.channel.send("No such role exists!");
 			}
 			else{
@@ -503,16 +503,16 @@ bot.on('message', msg => {
 			}
 		}
 		catch{
-			if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
+			/*if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
 				msg.channel.send("No such user exists!");
 			}
-			else if(!(roles.cache.find(role => role.id === roletogive))){
+			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
 				msg.channel.send("No such role exists!");
 			}
 			else{
 				msg.channel.send("The user does not have the specified role!");
-			}
-			//msg.channel.send('Invalid Input');
+			}*/
+			msg.channel.send('Invalid Input');
 		}
 	}
 	else if(msg.content.startsWith('-removeRole')){
