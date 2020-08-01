@@ -278,11 +278,13 @@ bot.on('message', msg => {
 			}
 			else{
 				embed.setDescription('thinking of truth...');
+				msg.channel.send({embed});
 				chooseTruth();
-				msg.reply(truths[chosen]);
+				embed.setDescription("<@"+msg.author.id + ">, " +truths[chosen]);
 				truthsDone.push(chosen);
 			}
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content === '-truth'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
@@ -299,40 +301,49 @@ bot.on('message', msg => {
 			}
 			else{
 				embed.setDescription('thinking of dare...');
+				msg.channel.send({embed});
 				chooseDare();
-				msg.reply('I dare you to... ' + dares[chosen]);
+				embed.setDescription("<@"+msg.author.id+'>, I dare you to... ' + dares[chosen]);
 				daresDone.push(chosen);
 			}
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content === '-dare'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
+		msg.channel.send({embed});
 	}
 	
 	if(msg.content === '-resetDare'  && msg.channel.id === '738109060640931952'){
 		embed.setDescription('Reset Dares!');
 		daresDone = [];
 		needDareReset = false;
+		msg.channel.send({embed});
 	}
 	else if(msg.content === '-resetDare'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
+		msg.channel.send({embed});
 	}
 	if(msg.content === '-resetTruth'  && msg.channel.id === '738109060640931952'){
 		embed.setDescription('Reset Truths!');
 		truthsDone = [];
 		needTruthReset = false;
+		msg.channel.send({embed});
 	}
 	else if(msg.content === '-resetTruth'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
+		msg.channel.send({embed});
 	}
 	if(msg.content === 'hey bot!'){
-		msg.reply('Hi!');
+		embed.setDescription('Hi!');
+		msg.channel.send({embed});
 	}
 	if(msg.content === 'shutdown'){
 		bot.destroy();
 	}
 	if(msg.content === '-help'){
 		embed.setDescription("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-dice [Number of dice to roll](not required)` \n*ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]` \n `-giveRole [user] [role]` \n `-removeRole [user] [role]`");
+		msg.channel.send({embed});
 	} 
 	if(msg.channel.id === '738109254036226228'){
 		if(!isNaN(msg.content)){
@@ -346,6 +357,7 @@ bot.on('message', msg => {
 				embed.setDescription("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
 			}
 		}
+		msg.channel.send({embed});
 	}
 	if(msg.content.startsWith('-nickname')){
 		let nickname = msg.content.slice(10);
@@ -382,6 +394,7 @@ bot.on('message', msg => {
 				embed.setDescription("Please pick a value equal to or below 600!");
 			}
 		}
+		msg.channel.send({embed});
 	}
 	//admin commands
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
@@ -407,9 +420,11 @@ bot.on('message', msg => {
 				});
 			}
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-delete')){
 		embed.setDescription("You must have the `Admins` role to use this command");
+		msg.channel.send({embed});
 	}
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(6);
@@ -421,6 +436,7 @@ bot.on('message', msg => {
 		catch{
 			embed.setDescription("Invalid User");
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-kick')){
 		embed.setDescription("You must have the `Admins` role to use this command")
@@ -435,9 +451,11 @@ bot.on('message', msg => {
 		catch{
 			embed.setDescription("Invalid User");
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-ban')){
-		embed.setDescription("You must have the `Admins` role to use this command")
+		embed.setDescription("You must have the `Admins` role to use this command");
+		msg.channel.send({embed});
 	}
 	if(msg.content.startsWith('-unban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(8);
@@ -449,9 +467,11 @@ bot.on('message', msg => {
 		catch{
 			embed.setDescription("Invalid User");
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-unban')){
 		embed.setDescription("You must have the `Admins` role to use this command");
+		msg.channel.send({embed});
 	}
 	if(msg.content.startsWith('-giveRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let usertoRole = msg.content.slice(10, 31);
@@ -476,9 +496,11 @@ bot.on('message', msg => {
 		catch{
 			embed.setDescription('Invalid Input');
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-giveRole')){
 		embed.setDescription("You must have the `Admins` role to use this command!");
+		msg.channel.send({embed});
 	}
 	if(msg.content.startsWith('-removeRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let usertoRole = msg.content.slice(12, 33);
@@ -517,9 +539,10 @@ bot.on('message', msg => {
 				embed.setDescription("The user does not have the specified role!");
 			}
 		}
+		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-removeRole')){
 		embed.setDescription("You must have the `Admins` role to use this command!");
+		msg.channel.send({embed});
 	}
-	msg.channel.send({embed});
 });                 
