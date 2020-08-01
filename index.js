@@ -487,12 +487,17 @@ bot.on('message', msg => {
 		}
 		let roletogive = msg.content.slice(35);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
-		//try{
+		try{
 			if(msg.guild.members.cache.find(member => member.id === usertoRole).roles.cache.find(role => role.id === roletogive)){
 				msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
 				msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 			}
-			else if(isNaN(usertoRole)){
+			else{
+				msg.channel.send("There was an undetectable error with your command... Please DM <@303097521314725890> so he can quickly recitfy the problem!");
+			}
+		}
+		catch{
+			if(isNaN(usertoRole)){
 				msg.channel.send("No such user exists!");
 			}
 			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
@@ -501,19 +506,7 @@ bot.on('message', msg => {
 			else{
 				msg.channel.send("The user does not have the specified role!");
 			}
-		//}
-		//catch{
-			/*if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
-				msg.channel.send("No such user exists!");
-			}
-			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
-				msg.channel.send("No such role exists!");
-			}
-			else{
-				msg.channel.send("The user does not have the specified role!");
-			}*/
-			/*msg.channel.send('Invalid Input');
-		}*/
+		}
 	}
 	else if(msg.content.startsWith('-removeRole')){
 		msg.channel.send("You must have the `Admins` role to use this command!");
