@@ -426,7 +426,7 @@ bot.on('message', msg => {
 		if(usertoRole.length == 17){
 			usertoRole = usertoRole.substring(0, 17);
 		}
-		let roletogive = msg.content.slice(32);
+		let roletogive = msg.content.slice(33);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		console.log(roletogive);
 		try{
