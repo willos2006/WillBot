@@ -365,10 +365,10 @@ bot.on('message', msg => {
 				result += Math.floor(Math.random() * Math.floor(6)) + 1; 
 				if(number > 2){
 					for(i = 0; i < number - 2; i++){
-						result += ", " + Math.floor(Math.random() * Math.floor(6));
+						result += ", " + Math.floor(Math.random() * Math.floor(6)) + 1;
 					}
 				}
-				result += " and a " + Math.floor(Math.random() * Math.floor(6)) + "!";
+				result += " and a " + Math.floor(Math.random() * Math.floor(6)) + 1 + "!";
 				msg.channel.send("You rolled a " + result);
 			}
 		}
