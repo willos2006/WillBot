@@ -428,16 +428,34 @@ bot.on('message', msg => {
 		}
 		let roletogive = msg.content.slice(33);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
-		console.log(roletogive);
-		//try{
+		try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
 			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.id + '>');
-		//}
-		/*catch{
+		}
+		catch{
 			msg.channel.send('Invalid Input');
-		}*/
+		}
 	}
 	else if(msg.content.startsWith('-giveRole')){
+		msg.channel.send("You must have the `Admins` role to use this command!");
+	}
+	if(msg.content.startsWith('-removeRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
+		let usertoRole = msg.content.slice(10, 31);
+		usertoRole = usertoRole.replace(/[\\<>@#&!]/g, "");
+		if(usertoRole.length == 17){
+			usertoRole = usertoRole.substring(0, 17);
+		}
+		let roletogive = msg.content.slice(33);
+		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
+		try{
+			msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
+			msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.author.id + '>');
+		}
+		catch{
+			msg.channel.send('Invalid Input');
+		}
+	}
+	else if(msg.content.startsWith('-removeRole')){
 		msg.channel.send("You must have the `Admins` role to use this command!");
 	}
 });                 
