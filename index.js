@@ -361,15 +361,21 @@ bot.on('message', msg => {
 				msg.channel.send("Invalid Input");
 			}
 			else{
+				var total = 0;
 				number = parseInt(number, 10);
 				result += (Math.floor(Math.random() * Math.floor(6)) + 1); 
+				total += result;
 				if(number > 2){
 					for(i = 0; i < number - 2; i++){
-						result += ", " + (Math.floor(Math.random() * Math.floor(6)) + 1);
+						var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
+						result += ", " + current;
+						total += current;
 					}
 				}
-				result += " and a " + (Math.floor(Math.random() * Math.floor(6)) + 1) + "!";
-				msg.channel.send("You rolled a " + result);
+				var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
+				result += " and a " + current + "!";
+				total += current;
+				msg.channel.send("You rolled a " + result + "for a total of " + total);
 			}
 		}
 	}
