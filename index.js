@@ -360,7 +360,7 @@ bot.on('message', msg => {
 			if(isNaN(number)){
 				msg.channel.send("Invalid Input");
 			}
-			else{
+			else if(number <= 600){
 				var total = 0;
 				number = parseInt(number, 10);
 				result += (Math.floor(Math.random() * Math.floor(6)) + 1); 
@@ -376,6 +376,9 @@ bot.on('message', msg => {
 				result += " and a " + current;
 				total += current;
 				msg.channel.send("You rolled a " + result + " for a total of " + total + "!");
+			}
+			else{
+				msg.channel.send("Please pick a value equal to or below 600!");
 			}
 		}
 	}
