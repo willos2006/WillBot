@@ -154,16 +154,16 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 	if(user.id != bot.user.id){
-		if(reaction.message.id === '738112386279669792' && !(reaction.message.guild.members.cache.find(member => member.id == user.id).roles.cache.find(role => role.name === "Verified"))){
+		if(reaction.message.id === '739234003357401118' && !(reaction.message.guild.members.cache.find(member => member.id == user.id).roles.cache.find(role => role.name === "Verified"))){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
 			user.send("You have been verified in my server! Please remember to be respectful and kind at all times! Other than that, do what you like!");
 			reaction.message.reactions.resolve('✅').users.remove(user.id);
 		}
-		else if(reaction.message.id === '738112386279669792'){
+		else if(reaction.message.id === '739234003357401118'){
 			reaction.message.reactions.resolve('✅').users.remove(user.id);
 		}
-		if(reaction.message.id === '738116196729225226'){
-			let msg = await reaction.message.channel.messages.fetch('738116196729225226');
+		if(reaction.message.id === '739234078066475090'){
+			let msg = await reaction.message.channel.messages.fetch('739234078066475090');
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "13-14")){
 				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
 			}
@@ -173,24 +173,24 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "17-18")){
 				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
 			}
-			if(reaction.emoji.name == '1️⃣' && reaction.message.id === '738116196729225226'){
+			if(reaction.emoji.name == '1️⃣' && reaction.message.id === '739234078066475090'){
 				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "13-14"));
 				user.send("You have the `13-14` role!");
 				reaction.message.reactions.resolve("1️⃣").users.remove(user.id);
 			}
-			if(reaction.emoji.name == '2️⃣' && reaction.message.id === '738116196729225226'){
+			if(reaction.emoji.name == '2️⃣' && reaction.message.id === '739234078066475090'){
 				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "15-16"));
 				user.send("You have the `15-16` role!");
 				reaction.message.reactions.resolve("2️⃣").users.remove(user.id);
 			}
-			if(reaction.emoji.name == '3️⃣' && reaction.message.id === '738116196729225226'){
+			if(reaction.emoji.name == '3️⃣' && reaction.message.id === '739234078066475090'){
 				reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "17-18"));
 				user.send("You have the `17-18` role!");
 				reaction.message.reactions.resolve("3️⃣").users.remove(user.id);
 			}
 		}
-		if(reaction.message.id === '738444446768824372'){
-			let msg = await reaction.message.channel.messages.fetch('738444446768824372');
+		if(reaction.message.id === '739234797024706641'){
+			let msg = await reaction.message.channel.messages.fetch('739234797024706641');
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "red")){
 				await reaction.message.guild.members.cache.find(member => member.id == user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "red"));
 			}
@@ -232,8 +232,8 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 				reaction.message.reactions.resolve("🟣").users.remove(user.id);
 			}
 		} 
-		if(reaction.message.id === "738722915217833996"){
-			let msg = await reaction.message.channel.messages.fetch('738722915217833996');
+		if(reaction.message.id === "739234158043201539"){
+			let msg = await reaction.message.channel.messages.fetch('739234158043201539');
 			if(reaction.message.guild.members.cache.find(member => member.id === user.id).roles.cache.find(role => role.name === "Male")){
 				await reaction.message.guild.members.cache.find(member => member.id === user.id).roles.remove(reaction.message.guild.roles.cache.find(role => role.name === "Male").id);
 			}
