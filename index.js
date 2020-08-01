@@ -440,5 +440,4 @@ bot.on('message', msg => {
 	else if(msg.content.startsWith('-giveRole')){
 		msg.channel.send("You must have the `Admins` role to use this command!");
 	}
-});
-                        
+});                 
