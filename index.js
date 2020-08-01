@@ -503,7 +503,16 @@ bot.on('message', msg => {
 			}
 		}
 		catch{
-			msg.channel.send('Invalid Input');
+			if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
+				msg.channel.send("No such user exists!");
+			}
+			else if(!(roles.cache.find(role => role.id === roletogive))){
+				msg.channel.send("No such role exists!");
+			}
+			else{
+				msg.channel.send("The user does not have the specified role!");
+			}
+			//msg.channel.send('Invalid Input');
 		}
 	}
 	else if(msg.content.startsWith('-removeRole')){
