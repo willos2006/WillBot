@@ -364,18 +364,18 @@ bot.on('message', msg => {
 				var total = 0;
 				number = parseInt(number, 10);
 				result += (Math.floor(Math.random() * Math.floor(6)) + 1); 
-				total += result;
+				total += parseInt(result, 10);
 				if(number > 2){
 					for(i = 0; i < number - 2; i++){
 						var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
 						result += ", " + current;
-						total += current;
+						total += parseInt(current, 10);
 					}
 				}
 				var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
-				result += " and a " + current + "!";
+				result += " and a " + current;
 				total += current;
-				msg.channel.send("You rolled a " + result + "for a total of " + total);
+				msg.channel.send("You rolled a " + result + " for a total of " + total);
 			}
 		}
 	}
