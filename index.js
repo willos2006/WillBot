@@ -461,8 +461,13 @@ bot.on('message', msg => {
 		let roletogive = msg.content.slice(33);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
-			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+			if(msg.guild.roles.cache.find(role => role.id === roletogive)){
+				msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
+				msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+			}
+			else{
+				msg.channel.send("No such role exists!");
+			}
 		}
 		catch{
 			msg.channel.send('Invalid Input');
@@ -480,8 +485,13 @@ bot.on('message', msg => {
 		let roletogive = msg.content.slice(35);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
-			msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+			if(msg.guild.members.cache.find(member => member.id === usertoRole).roles.cache.find(role => role.id === roletogive)){
+				msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
+				msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+			}
+			else{
+				msg.channel.send("This user does not have the role specified!");
+			}
 		}
 		catch{
 			msg.channel.send('Invalid Input');
