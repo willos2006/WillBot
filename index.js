@@ -270,21 +270,21 @@ bot.on('message', msg => {
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
 			embed.setDescription("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
+			msg.channel.send({embed});
 		}
 		else{
 			if(truthsDone.length == truths.length - 1){
 				embed.setDescription("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
+				msg.channel.send({embed});
 				needTruthReset = true;
 			}
 			else{
-				embed.setDescription('thinking of truth...');
-				msg.channel.send({embed});
+				msg.channel.send('thinking of truth...');
 				chooseTruth();
-				embed.setDescription("<@"+msg.author.id + ">, " +truths[chosen]);
+				msg.reply(truths[chosen]);
 				truthsDone.push(chosen);
 			}
 		}
-		msg.channel.send({embed});
 	}
 	else if(msg.content === '-truth'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
@@ -293,21 +293,21 @@ bot.on('message', msg => {
 	if(msg.content === '-dare'  && msg.channel.id === '738109060640931952'){
 		if(needDareReset){
 			embed.setDescription("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
+			msg.channel.send({embed});
 		}
 		else{
 			if(daresDone.length == dares.length - 1){
 				embed.setDescription("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
 				needDareReset = true;
+				msg.channel.send({embed});
 			}
 			else{
-				embed.setDescription('thinking of dare...');
-				msg.channel.send({embed});
+				msg.channel.send('thinking of dare...');
 				chooseDare();
-				embed.setDescription("<@"+msg.author.id+'>, I dare you to... ' + dares[chosen]);
+				msg.reply('I dare you to... ' + dares[chosen]);
 				daresDone.push(chosen);
 			}
 		}
-		msg.channel.send({embed});
 	}
 	else if(msg.content === '-dare'){
 		embed.setDescription("You can only use me in the truth or dare channel!"); 
@@ -420,7 +420,6 @@ bot.on('message', msg => {
 				});
 			}
 		}
-		msg.channel.send({embed});
 	}
 	else if(msg.content.startsWith('-delete')){
 		embed.setDescription("You must have the `Admins` role to use this command");
