@@ -354,7 +354,7 @@ bot.on('message', msg => {
 		let number = msg.content.slice(6);
 		result = '';
 		if(number === '' || number == '1'){
-			msg.channel.send('You rolled a... ' + Math.floor(Math.random() * Math.floor(6)) + "!");
+			msg.channel.send('You rolled a... ' + (Math.floor(Math.random() * Math.floor(6)) + 1) + "!");
 		}
 		else{
 			if(isNaN(number)){
