@@ -263,7 +263,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 });
 
 bot.on('message', msg => {
-	var embed = new Discord.RichEmbed().setTitle("WillBot").setColor(0x0046ff);
+	var embed = new Discord.MessageEmbed().setTitle("WillBot").setColor(0x0046ff);
 	if(msg.content === '-troubleshoot members'){
 		msg.guild.members.cache.forEach(member => console.log(member.user.username)); 
 	}
