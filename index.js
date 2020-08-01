@@ -521,5 +521,5 @@ bot.on('message', msg => {
 	else if(msg.content.startsWith('-removeRole')){
 		embed.setDescription("You must have the `Admins` role to use this command!");
 	}
-	message.channel.send({embed});
+	msg.channel.send({embed});
 });                 
