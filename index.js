@@ -487,7 +487,7 @@ bot.on('message', msg => {
 		}
 		let roletogive = msg.content.slice(35);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
-		try{
+		//try{
 			if(msg.guild.members.cache.find(member => member.id === usertoRole).roles.cache.find(role => role.id === roletogive)){
 				msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
 				msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
@@ -501,7 +501,7 @@ bot.on('message', msg => {
 			else{
 				msg.channel.send("The user does not have the specified role!");
 			}
-		}
+		//}
 		//catch{
 			/*if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
 				msg.channel.send("No such user exists!");
