@@ -502,7 +502,7 @@ bot.on('message', msg => {
 				msg.channel.send("The user does not have the specified role!");
 			}
 		}
-		catch{
+		//catch{
 			/*if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
 				msg.channel.send("No such user exists!");
 			}
@@ -512,8 +512,8 @@ bot.on('message', msg => {
 			else{
 				msg.channel.send("The user does not have the specified role!");
 			}*/
-			msg.channel.send('Invalid Input');
-		}
+			/*msg.channel.send('Invalid Input');
+		}*/
 	}
 	else if(msg.content.startsWith('-removeRole')){
 		msg.channel.send("You must have the `Admins` role to use this command!");
