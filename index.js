@@ -462,7 +462,7 @@ bot.on('message', msg => {
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.id + '>');
+			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 		}
 		catch{
 			msg.channel.send('Invalid Input');
@@ -481,7 +481,7 @@ bot.on('message', msg => {
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.author.id + '>');
+			msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 		}
 		catch{
 			msg.channel.send('Invalid Input');
