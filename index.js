@@ -431,7 +431,7 @@ bot.on('message', msg => {
 		console.log(roletogive);
 		//try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.user.id + '>');
+			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.member.id + '>');
 		//}
 		/*catch{
 			msg.channel.send('Invalid Input');
@@ -441,3 +441,4 @@ bot.on('message', msg => {
 		msg.channel.send("You must have the `Admins` role to use this command!");
 	}
 });
+                        
