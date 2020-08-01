@@ -396,6 +396,17 @@ bot.on('message', msg => {
 		}
 		msg.channel.send({embed});
 	}
+	if(msg.content.startsWith("-sayEmbed")){
+		var content = msg.content.slice(10);
+		embed.setDescription(content);
+		msg.channel.send({embed});
+		msg.delete();
+	}
+	if(msg.content.startsWith("-say")){
+		var content = msg.content.slice(5);
+		msg.channel.send(content);
+		msg.delete();
+	}
 	//admin commands
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let amount = msg.content.slice(8);
