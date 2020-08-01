@@ -429,7 +429,7 @@ bot.on('message', msg => {
 		let roletogive = msg.content.slice(32);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
-			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(role => role.id === roletogive);
+			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
 			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.user.id + '>');
 		}
 		catch{
