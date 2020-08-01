@@ -350,6 +350,29 @@ bot.on('message', msg => {
 		let nickname = msg.content.slice(10);
 		msg.member.setNickname(nickname);
 	}
+	if(msg.content.startsWith('-dice')){
+		let number = msg.content.slice(6);
+		result = '';
+		if(number === '' || number == '1'){
+			msg.channel.send('You rolled a... ' + Math.floor(Math.random() * Math.floor(6)) + "!");
+		}
+		else{
+			if(isNaN(number)){
+				msg.channel.send("Invalid Input");
+			}
+			else{
+				number = parseInt(number, 10);
+				result += Math.floor(Math.random() * Math.floor(6))
+				if(number > 2){
+					for(i = 0; i < number - 2; i++){
+						result += ", " + Math.floor(Math.random() * Math.floor(6));
+					}
+				}
+				result += "and a " + Math.floor(Math.random() * Math.floor(6)) + "!";
+				msg.channel.send("You rolled a " + result);
+			}
+		}
+	}
 	//admin commands
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let amount = msg.content.slice(8);
