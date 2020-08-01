@@ -356,9 +356,9 @@ bot.on('message', msg => {
 					msg.react('❌');
 					currentNo = 0;
 					embed.setDescription("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
+					msg.channel.send({embed});
 				}
 			}
-			msg.channel.send({embed});
 		}
 		if(msg.content.startsWith('-nickname')){
 			let nickname = msg.content.slice(10);
