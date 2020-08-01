@@ -418,6 +418,25 @@ bot.on('message', msg => {
 		}
 	}
 	else if(msg.content.startsWith('-unban')){
-		msg.channel.send("You must have the `Admins` role to use this command")
+		msg.channel.send("You must have the `Admins` role to use this command");
+	}
+	if(msg.content.startsWith('-giveRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
+		let usertoRole = msg.content.slice(10, 31);
+		usertoRole = usertoRole.replace(/[\\<>@#&!]/g, "");
+		if(usertoRole.length == 17){
+			usertoRole = usertoRole.substring(0, 17);
+		}
+		let roletogive = msg.content.slice(32);
+		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
+		try{
+			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(role => role.id === roletogive);
+			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.user.id + '>');
+		}
+		catch{
+			msg.channel.send('Invalid Input');
+		}
+	}
+	else if(msg.content.startsWith('-giveRole')){
+		msg.channel.send("You must have the `Admins` role to use this command!");
 	}
 });
