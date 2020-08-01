@@ -343,7 +343,7 @@ bot.on('message', msg => {
 			bot.destroy();
 		}
 		if(msg.content === '-help'){
-			embed.setDescription("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-dice [Number of dice to roll](not required)` \n*ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]` \n `-giveRole [user] [role]` \n `-removeRole [user] [role]`");
+			embed.setDescription("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-dice [Number of dice to roll](not required)` \n `-say [message]` \n `-sayEmbed [message]` \n*ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]` \n `-giveRole [user] [role]` \n `-removeRole [user] [role]`");
 			msg.channel.send({embed});
 		} 
 		if(msg.channel.id === '738109254036226228'){
