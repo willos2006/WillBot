@@ -429,13 +429,13 @@ bot.on('message', msg => {
 		let roletogive = msg.content.slice(33);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		console.log(roletogive);
-		try{
+		//try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
 			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.user.id + '>');
-		}
-		catch{
+		//}
+		/*catch{
 			msg.channel.send('Invalid Input');
-		}
+		}*/
 	}
 	else if(msg.content.startsWith('-giveRole')){
 		msg.channel.send("You must have the `Admins` role to use this command!");
