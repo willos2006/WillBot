@@ -263,20 +263,21 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 });
 
 bot.on('message', msg => {
+	var embed = new Discord.RichEmbed().setTitle("WillBot").setColor(0x0046ff);
 	if(msg.content === '-troubleshoot members'){
 		msg.guild.members.cache.forEach(member => console.log(member.user.username)); 
 	}
 	if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 		if(needTruthReset){
-			msg.channel.send("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
+			embed.setDescription("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
 		}
 		else{
 			if(truthsDone.length == truths.length - 1){
-				msg.channel.send("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
+				embed.setDescription("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
 				needTruthReset = true;
 			}
 			else{
-				msg.channel.send('thinking of truth...');
+				embed.setDescription('thinking of truth...');
 				chooseTruth();
 				msg.reply(truths[chosen]);
 				truthsDone.push(chosen);
@@ -284,20 +285,20 @@ bot.on('message', msg => {
 		}
 	}
 	else if(msg.content === '-truth'){
-		msg.channel.send("You can only use me in the truth or dare channel!"); 
+		embed.setDescription("You can only use me in the truth or dare channel!"); 
 	}
 	
 	if(msg.content === '-dare'  && msg.channel.id === '738109060640931952'){
 		if(needDareReset){
-			msg.channel.send("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
+			embed.setDescription("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
 		}
 		else{
 			if(daresDone.length == dares.length - 1){
-				msg.channel.send("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
+				embed.setDescription("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
 				needDareReset = true;
 			}
 			else{
-				msg.channel.send('thinking of dare...');
+				embed.setDescription('thinking of dare...');
 				chooseDare();
 				msg.reply('I dare you to... ' + dares[chosen]);
 				daresDone.push(chosen);
@@ -305,24 +306,24 @@ bot.on('message', msg => {
 		}
 	}
 	else if(msg.content === '-dare'){
-		msg.channel.send("You can only use me in the truth or dare channel!"); 
+		embed.setDescription("You can only use me in the truth or dare channel!"); 
 	}
 	
 	if(msg.content === '-resetDare'  && msg.channel.id === '738109060640931952'){
-		msg.channel.send('Reset Dares!');
+		embed.setDescription('Reset Dares!');
 		daresDone = [];
 		needDareReset = false;
 	}
 	else if(msg.content === '-resetDare'){
-		msg.channel.send("You can only use me in the truth or dare channel!"); 
+		embed.setDescription("You can only use me in the truth or dare channel!"); 
 	}
 	if(msg.content === '-resetTruth'  && msg.channel.id === '738109060640931952'){
-		msg.channel.send('Reset Truths!');
+		embed.setDescription('Reset Truths!');
 		truthsDone = [];
 		needTruthReset = false;
 	}
 	else if(msg.content === '-resetTruth'){
-		msg.channel.send("You can only use me in the truth or dare channel!"); 
+		embed.setDescription("You can only use me in the truth or dare channel!"); 
 	}
 	if(msg.content === 'hey bot!'){
 		msg.reply('Hi!');
@@ -331,7 +332,7 @@ bot.on('message', msg => {
 		bot.destroy();
 	}
 	if(msg.content === '-help'){
-		msg.channel.send("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-dice [Number of dice to roll](not required)` \n*ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]` \n `-giveRole [user] [role]` \n `-removeRole [user] [role]`");
+		embed.setDescription("Hey! Heres a list of commands:\n `-truth` \n `-dare` \n `-resetTruth` \n `-resetDare` \n `Hey Bot!` \n `-nickname [your new nickname]` just `-nickname` will reset your nickname \n `-dice [Number of dice to roll](not required)` \n*ADMIN COMMANDS* \n `-delete [numberOfMessages](not required)` \n `-kick [user]` \n `-ban [user]` \n `-unban [user]` \n `-giveRole [user] [role]` \n `-removeRole [user] [role]`");
 	} 
 	if(msg.channel.id === '738109254036226228'){
 		if(!isNaN(msg.content)){
@@ -342,7 +343,7 @@ bot.on('message', msg => {
 			else{
 				msg.react('❌');
 				currentNo = 0;
-				msg.channel.send("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
+				embed.setDescription("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
 			}
 		}
 	}
@@ -354,11 +355,11 @@ bot.on('message', msg => {
 		let number = msg.content.slice(6);
 		result = '';
 		if(number === '' || number == '1'){
-			msg.channel.send('You rolled a... ' + (Math.floor(Math.random() * Math.floor(6)) + 1) + "!");
+			embed.setDescription('You rolled a... ' + (Math.floor(Math.random() * Math.floor(6)) + 1) + "!");
 		}
 		else{
 			if(isNaN(number)){
-				msg.channel.send("Invalid Input");
+				embed.setDescription("Invalid Input");
 			}
 			else if(number <= 600){
 				var total = 0;
@@ -375,10 +376,10 @@ bot.on('message', msg => {
 				var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
 				result += " and a " + current;
 				total += current;
-				msg.channel.send("You rolled a " + result + " for a total of " + total + "!");
+				embed.setDescription("You rolled a " + result + " for a total of " + total + "!");
 			}
 			else{
-				msg.channel.send("Please pick a value equal to or below 600!");
+				embed.setDescription("Please pick a value equal to or below 600!");
 			}
 		}
 	}
@@ -386,7 +387,7 @@ bot.on('message', msg => {
 	if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let amount = msg.content.slice(8);
 		if(isNaN(amount) && amount != ''){
-			msg.channel.send("Please enter a valid number");
+			embed.setDescription("Please enter a valid number");
 		}
 		else if(amount == ''){
 			msg.channel.messages.fetch({limit: 2}).then(messages => {
@@ -408,7 +409,7 @@ bot.on('message', msg => {
 		}
 	}
 	else if(msg.content.startsWith('-delete')){
-		msg.channel.send("You must have the `Admins` role to use this command");
+		embed.setDescription("You must have the `Admins` role to use this command");
 	}
 	if(msg.content.startsWith('-kick') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(6);
@@ -418,11 +419,11 @@ bot.on('message', msg => {
 			msg.delete();
 		}
 		catch{
-			msg.channel.send("Invalid User");
+			embed.setDescription("Invalid User");
 		}
 	}
 	else if(msg.content.startsWith('-kick')){
-		msg.channel.send("You must have the `Admins` role to use this command")
+		embed.setDescription("You must have the `Admins` role to use this command")
 	}
 	if(msg.content.startsWith('-ban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(5);
@@ -432,11 +433,11 @@ bot.on('message', msg => {
 			msg.delete();
 		}
 		catch{
-			msg.channel.send("Invalid User");
+			embed.setDescription("Invalid User");
 		}
 	}
 	else if(msg.content.startsWith('-ban')){
-		msg.channel.send("You must have the `Admins` role to use this command")
+		embed.setDescription("You must have the `Admins` role to use this command")
 	}
 	if(msg.content.startsWith('-unban') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let userToKick = msg.content.slice(8);
@@ -446,11 +447,11 @@ bot.on('message', msg => {
 			msg.delete();
 		}
 		catch{
-			msg.channel.send("Invalid User");
+			embed.setDescription("Invalid User");
 		}
 	}
 	else if(msg.content.startsWith('-unban')){
-		msg.channel.send("You must have the `Admins` role to use this command");
+		embed.setDescription("You must have the `Admins` role to use this command");
 	}
 	if(msg.content.startsWith('-giveRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let usertoRole = msg.content.slice(10, 31);
@@ -463,21 +464,21 @@ bot.on('message', msg => {
 		try{
 			if(msg.guild.roles.cache.find(role => role.id === roletogive)){
 				msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
-				msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+				embed.setDescription('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 			}
 			else if(msg.guild.members.cache.find(member => member.id === usertoRole)){
-				msg.channel.send("No such role exists!");
+				embed.setDescription("No such role exists!");
 			}
 			else{
-				msg.channel.send("No such user exists!");
+				embed.setDescription("No such user exists!");
 			}
 		}
 		catch{
-			msg.channel.send('Invalid Input');
+			embed.setDescription('Invalid Input');
 		}
 	}
 	else if(msg.content.startsWith('-giveRole')){
-		msg.channel.send("You must have the `Admins` role to use this command!");
+		embed.setDescription("You must have the `Admins` role to use this command!");
 	}
 	if(msg.content.startsWith('-removeRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 		let usertoRole = msg.content.slice(12, 33);
@@ -490,34 +491,35 @@ bot.on('message', msg => {
 		try{
 			if(msg.guild.members.cache.find(member => member.id === usertoRole).roles.cache.find(role => role.id === roletogive)){
 				msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
-				msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
+				embed.setDescription('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 			}
 			else if(isNaN(usertoRole)){
-				msg.channel.send("No such user exists!");
+				embed.setDescription("No such user exists!");
 			}
 			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
-				msg.channel.send("No such role exists!");
+				embed.setDescription("No such role exists!");
 			}
 			else if(!(msg.guild.members.cache.find(member => member.id === usertoRole).roles.cache.find(role => role.id === roletogive))){
-				msg.channel.send("The user does not have the specified role!");
+				embed.setDescription("The user does not have the specified role!");
 			}
 			else{
-				msg.channel.send("There was an undetectable error with your command... Please DM <@303097521314725890> so he can quickly recitfy the problem!");
+				embed.setDescription("There was an undetectable error with your command... Please DM <@303097521314725890> so he can quickly recitfy the problem!");
 			}
 		}
 		catch{
 			if(isNaN(usertoRole)){
-				msg.channel.send("No such user exists!");
+				embed.setDescription("No such user exists!");
 			}
 			else if(!(msg.guild.roles.cache.find(role => role.id === roletogive))){
-				msg.channel.send("No such role exists!");
+				embed.setDescription("No such role exists!");
 			}
 			else{
-				msg.channel.send("The user does not have the specified role!");
+				embed.setDescription("The user does not have the specified role!");
 			}
 		}
 	}
 	else if(msg.content.startsWith('-removeRole')){
-		msg.channel.send("You must have the `Admins` role to use this command!");
+		embed.setDescription("You must have the `Admins` role to use this command!");
 	}
+	message.channel.send({embed});
 });                 
