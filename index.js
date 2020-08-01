@@ -492,11 +492,14 @@ bot.on('message', msg => {
 				msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
 				msg.channel.send('successfully removed role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> from <@' + msg.guild.members.cache.find(member => member.id === usertoRole).id + '>');
 			}
-			else if(msg.guild.members.cache.find(member => member.id === usertoRole)){
-				msg.channel.send("This user does not have the role specified!");
+			else if(!(msg.guild.members.cache.find(member => member.id === usertoRole))){
+				msg.channel.send("No such user exists!");
+			}
+			else if(!(roles.cache.find(role => role.id === roletogive))){
+				msg.channel.send("No such role exists!");
 			}
 			else{
-				msg.channel.send("No such user exists!");
+				msg.channel.send("The user does not have the specified role!");
 			}
 		}
 		catch{
