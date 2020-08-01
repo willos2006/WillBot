@@ -375,7 +375,7 @@ bot.on('message', msg => {
 				var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
 				result += " and a " + current;
 				total += current;
-				msg.channel.send("You rolled a " + result + " for a total of " + total);
+				msg.channel.send("You rolled a " + result + " for a total of " + total + "!");
 			}
 		}
 	}
