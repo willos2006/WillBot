@@ -402,7 +402,7 @@ bot.on('message', msg => {
 		msg.channel.send({embed});
 		msg.delete();
 	}
-	if(msg.content.startsWith("-say")){
+	else if(msg.content.startsWith("-say")){
 		var content = msg.content.slice(5);
 		msg.channel.send(content);
 		msg.delete();
