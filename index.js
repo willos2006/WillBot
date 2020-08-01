@@ -440,12 +440,12 @@ bot.on('message', msg => {
 		msg.channel.send("You must have the `Admins` role to use this command!");
 	}
 	if(msg.content.startsWith('-removeRole') && msg.member.roles.cache.find(role => role.name === 'Admins')){
-		let usertoRole = msg.content.slice(10, 31);
+		let usertoRole = msg.content.slice(12, 33);
 		usertoRole = usertoRole.replace(/[\\<>@#&!]/g, "");
 		if(usertoRole.length == 17){
 			usertoRole = usertoRole.substring(0, 17);
 		}
-		let roletogive = msg.content.slice(33);
+		let roletogive = msg.content.slice(35);
 		roletogive = roletogive.replace(/[\\<>@#&!]/g, "");
 		try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.remove(msg.guild.roles.cache.find(role => role.id === roletogive));
