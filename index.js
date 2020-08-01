@@ -431,7 +431,7 @@ bot.on('message', msg => {
 		console.log(roletogive);
 		//try{
 			msg.guild.members.cache.find(member => member.id === usertoRole).roles.add(msg.guild.roles.cache.find(role => role.id === roletogive));
-			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.member.id + '>');
+			msg.channel.send('successfully gave role <@&'+ msg.guild.roles.cache.find(role => role.id === roletogive).id + '> to <@' + msg.author.id + '>');
 		//}
 		/*catch{
 			msg.channel.send('Invalid Input');
