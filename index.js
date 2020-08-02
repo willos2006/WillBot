@@ -47,8 +47,8 @@ bot.on('ready', () => {
 	let userOnline = guild.channels.cache.find(channel => channel.id === '739487262248796254');
 	let userTot = guild.channels.cache.find(channel => channel.id === '739487343668363344');
 	setInterval(function(){
-		guild.first().members.fetch().then(m => {
-			var totalUsersOnline = guild.members.cache.filter(member => member.presence.status === 'online').array.length;
+		guild.members.fetch().then(m => {
+			var totalUsersOnline = m.cache.filter(member => member.presence.status === 'online').array.length;
 			userOnline.setName("Users Online: " + totalUsersOnline);
 			console.log(totalUsersOnline);
 		});
