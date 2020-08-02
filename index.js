@@ -11,7 +11,6 @@ bot.on('ready', () => {
 	bot.user.setActivity('with the server!', {
 		type: 'PLAYING'
 	});
-	
 	var index = 0;
 	setInterval(function(){
 		if(index === 0){
@@ -45,6 +44,11 @@ bot.on('ready', () => {
 		m.react("👩");
 		m.react("⭕");
 	});
+	let userOnline = guild.channels.cache.find('739487262248796254');
+	let userTot = guild.channels.cache.find('739487343668363344');
+	setInterval(function(){
+		userOnline.setName("Users Online: " + guild.members.filter(member => member.presence.status === 'online').size);
+	}, 100);
 });
 		
 		
@@ -447,7 +451,6 @@ bot.on('message', msg => {
 			catch{
 				embed.setDescription("Invalid User");
 			}
-			msg.channel.send({embed});
 		}
 		else if(msg.content.startsWith('-kick')){
 			embed.setDescription("You must have the `Admins` role to use this command")
