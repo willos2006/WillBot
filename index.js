@@ -55,7 +55,7 @@ bot.on('ready', () => {
 		guild.members.fetch();
 		var totalUsersOnline = guild.members.cache.filter(member => member.presence.status === 'online').array;
 		userOnline.setName("Users Online: " + totalUsersOnline);
-		console.log(totalUsersOnline);
+		console.log(totalUsersOnline[0]);
 	}, 1000);
 });
 		
