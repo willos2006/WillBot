@@ -49,7 +49,7 @@ bot.on('ready', () => {
 	setInterval(function(){
 		var totalUsersOnline;
 		guild.members.fetch().then(m => {
-			totalUsersOnline = m.filter(member => member.presence.status === 'online').size;
+			totalUsersOnline = m.filter(member => member.presence.status === 'online').array.length;
 		});
 		userOnline.setName("Users Online: " + totalUsersOnline);
 	}, 100);
