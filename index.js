@@ -5,7 +5,7 @@ const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
 
-bot.on('ready', () => {
+bot.on('ready', async() => {
 	console.info(`Logged in as ${bot.user.tag}!`);
 	bot.user.setStatus('available')
 	bot.user.setActivity('with the server!', {
