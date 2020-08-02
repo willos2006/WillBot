@@ -44,8 +44,8 @@ bot.on('ready', () => {
 		m.react("👩");
 		m.react("⭕");
 	});
-	let userOnline = guild.channels.cache.find('739487262248796254');
-	let userTot = guild.channels.cache.find('739487343668363344');
+	let userOnline = guild.channels.cache.find(channel => channel.id === '739487262248796254');
+	let userTot = guild.channels.cache.find(channel => channel.id === '739487343668363344');
 	setInterval(function(){
 		userOnline.setName("Users Online: " + guild.members.filter(member => member.presence.status === 'online').size);
 	}, 100);
