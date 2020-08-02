@@ -47,15 +47,15 @@ bot.on('ready', () => {
 	let userOnline = guild.channels.cache.find(channel => channel.id === '739487262248796254');
 	let userTot = guild.channels.cache.find(channel => channel.id === '739487343668363344');
 	setInterval(function(){
-		/*guild.members.fetch().then(m => {
+		guild.first().members.fetch().then(m => {
 			var totalUsersOnline = guild.members.cache.filter(member => member.presence.status === 'online').array.length;
 			userOnline.setName("Users Online: " + totalUsersOnline);
 			console.log(totalUsersOnline);
-		});*/
-		guild.members.fetch();
+		});
+		/*guild.members.fetch();
 		var totalUsersOnline = guild.members.cache.filter(member => member.presence.status === 'online').array;
 		userOnline.setName("Users Online: " + totalUsersOnline);
-		console.log(totalUsersOnline[0]);
+		console.log(totalUsersOnline[0]);*/
 	}, 1000);
 });
 		
