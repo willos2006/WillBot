@@ -5,7 +5,7 @@ const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
 
-bot.on('ready', async function() {
+bot.on('ready', bot =>  {
 	console.info(`Logged in as ${bot.user.tag}!`);
 	bot.user.setStatus('available')
 	bot.user.setActivity('with the server!', {
@@ -49,7 +49,7 @@ bot.on('ready', async function() {
 	setInterval(function(){
 		guild.members.fetch();
 		var numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
-		userOnline.setName("Current Online Users: " + numberOfOnline);
+		userOnline.setName("Online Users: " + numberOfOnline);
 	}, 50);
 });
 		
