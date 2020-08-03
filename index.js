@@ -56,6 +56,9 @@ bot.on('ready', () => {
 		var numberOfUser = guild.members.cache.array().length;
 		userTot.setName("Users Total: " + numberOfUser);
 	}, 500);
+	guild.members.fetch();
+	var numberOfUser = guild.members.cache.array().length;
+	console.log(numberOfUser);
 });
 		
 var dares = [
