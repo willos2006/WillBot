@@ -53,7 +53,7 @@ bot.on('ready', () => {
 	}, 500);
 	setInterval(function(){
 		guild.members.fetch();
-		var numberOfUser = guild.members.fetch().length;
+		var numberOfUser = guild.members.cache.array().length;
 		userTot.setName("Users Total: " + numberOfUser);
 	}, 500);
 });
