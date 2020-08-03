@@ -46,7 +46,7 @@ bot.on('ready', () => {
 	});
 	var numberOfUser;
 	var numberOfOnline;
-	let userOnline = guild.channels.cache.find(channel => channel.id === '739950776457363516');
+	let userOnline = guild.channels.cache.find(channel => channel.id === '739487262248796254');
 	let userTot = guild.channels.cache.find(channel => channel.id === '739487343668363344');
 	setInterval(async function(){
 		guild.members.fetch();
