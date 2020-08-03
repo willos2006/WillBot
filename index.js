@@ -50,11 +50,13 @@ bot.on('ready', () => {
 		guild.members.fetch();
 		var numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
 		userOnline.edit({name: "Online Users: " + numberOfOnline});
+		console.log(`Online: ${numberOfOnline}`);
 	}, 2000);
 	setInterval(async function(){
 		guild.members.fetch();
 		var numberOfUser = guild.members.cache.array().length;
 		userTot.edit({name: "Users Total: " + numberOfUser});
+		console.log(`Total: ${userTot}`);
 	}, 2000);
 });
 		
