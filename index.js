@@ -54,12 +54,10 @@ bot.on('ready', () => {
 	setInterval(function(){
 		guild.members.fetch();
 		var numberOfUser = guild.members.cache.array().length;
-		userTot.setName("Users Total: " + numberOfUser);
-		console.log(numberOfUser);
+		userTot.eidt({name: "Users Total: " + numberOfUser});
 	}, 500);
 	guild.members.fetch();
 	var numberOfUser = guild.members.cache.array().length;
-	console.log(numberOfUser);
 });
 		
 var dares = [
