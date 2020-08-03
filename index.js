@@ -49,12 +49,12 @@ bot.on('ready', () => {
 	setInterval(function(){
 		guild.members.fetch();
 		var numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
-		userOnline.setName("Online Users: " + numberOfOnline);
+		userOnline.edit({name: "Online Users: " + numberOfOnline});
 	}, 500);
 	setInterval(function(){
 		guild.members.fetch();
 		var numberOfUser = guild.members.cache.array().length;
-		userTot.eidt({name: "Users Total: " + numberOfUser});
+		userTot.edit({name: "Users Total: " + numberOfUser});
 	}, 500);
 	guild.members.fetch();
 	var numberOfUser = guild.members.cache.array().length;
