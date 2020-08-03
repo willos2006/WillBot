@@ -53,13 +53,13 @@ bot.on('ready', () => {
 		numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
 		userOnline.edit({name: "Online Users: " + numberOfOnline});
 		console.log(`Online: ${numberOfOnline}`);
-	}, 2000);
+	}, 5000);
 	setInterval(async function(){
 		guild.members.fetch();
 		numberOfUser = guild.members.cache.array().length;
 		userTot.edit({name: "Users Total: " + numberOfUser});
 		console.log(`Total: ${numberOfUser}`);
-	}, 2000);
+	}, 5000);
 });
 		
 var dares = [
