@@ -51,8 +51,12 @@ bot.on('ready', () => {
 		var numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
 		userOnline.setName("Online Users: " + numberOfOnline);
 	}, 500);
+	setInterval(function(){
+		guild.members.fetch();
+		var numberOfUser = guild.members.array().length;
+		userTot.setName("Users Total: " + numberOfUser);
+	}, 500);
 });
-		
 		
 var dares = [
 	'Send a screenshot of your home screen',
