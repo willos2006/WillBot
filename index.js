@@ -51,15 +51,19 @@ bot.on('ready', () => {
 	setInterval(async function(){
 		guild.members.fetch();
 		numberOfOnline = guild.members.cache.filter(member => member.presence.status == 'online').array().length;
-		userOnline.edit({name: "Online Users: " + numberOfOnline});
-		console.log(`Online: ${numberOfOnline}`);
-	}, 5000);
+    if (numberOfOnline != userOnline.name.slice(14)){
+		  userOnline.edit({name: "Online Users: " + numberOfOnline});
+      console.log(`Online: ${numberOfOnline}`);
+    }
+	}, 1000);
 	setInterval(async function(){
 		guild.members.fetch();
 		numberOfUser = guild.members.cache.array().length;
-		userTot.edit({name: "Users Total: " + numberOfUser});
-		console.log(`Total: ${numberOfUser}`);
-	}, 5000);
+    if (numberOfUser != userTot.name.slice(13)){ 
+		  userTot.edit({name: "Users Total: " + numberOfUser});
+      console.log(`Total: ${numberOfUser}`);
+    }
+	}, 1000);
 });
 		
 var dares = [
