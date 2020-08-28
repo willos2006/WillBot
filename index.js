@@ -288,10 +288,19 @@ bot.on('message', msg => {
 		if(msg.content.startsWith('-openTicket') && msg.channel.id == '748990835844055112'){
 			var reason = msg.content.slice(12);
 			var user = msg.author.id;
+      var id = Math.floor(Math.random() * 100000) + 1;
+      var roleid = msg.guild.roles.create({data: {name: id}});
+      msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.fetch(roleid.id))
+			msg.guild.channels.create("Ticket no: " + id, {
+				permissionOverwrites: [{
+					id: roleid.id,
+					allow: ['READ_MESSAGES', 'SEND_MESSAGES']
+				}]
+      });
 			var data1 = {
 				"username": user,
 				"reason": reason,
-				"id": Math.floor(Math.random() * 100000) + 1
+				"id": id
 			}
 			var fs = require('fs');
 			fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
