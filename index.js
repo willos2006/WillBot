@@ -289,15 +289,15 @@ bot.on('message', msg => {
 		if(msg.content.startsWith('-openTicket') && msg.channel.id == '748990835844055112'){
 			var reason = msg.content.slice(12);
 			var user = msg.author;
-			var data = {
+			var data1 = {
 				"username": user,
 				"reason": reason,
 				"id": Math.floor(Math.random() * 100000) + 1
 			}
 			var fs = require('fs');
-			fs.readFile('tickets.json', json, 'utf8', function readFileCallback(err, data){
+			fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
 				obj = JSON.parse(data);
-				obj.push(data);
+				obj.push(data1);
 				json = JSON.stringify(obj);
 				fs.writeFile('tickets.json', json, 'utf8', callback);
 			});
