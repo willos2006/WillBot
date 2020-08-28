@@ -290,7 +290,7 @@ bot.on('message', msg => {
 			var user = msg.author.id;
       var id = Math.floor(Math.random() * 100000) + 1;
       var roleid = msg.guild.roles.create({data: {name: id}});
-      msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.fetch(roleid.id))
+      msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.cache.find(role => role.id == roleid.id));
 			msg.guild.channels.create("Ticket no: " + id, {
 				permissionOverwrites: [{
 					id: roleid.id,
