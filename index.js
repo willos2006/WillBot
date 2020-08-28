@@ -2,7 +2,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const TOKEN = process.env.TOKEN;
-var tickets = require('tickets.json')
 bot.login(TOKEN);
 
 bot.on('ready', () => {
