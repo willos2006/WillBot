@@ -287,7 +287,7 @@ bot.on('message', msg => {
 		}
 		if(msg.content.startsWith('-openTicket') && msg.channel.id == '748990835844055112'){
 			var reason = msg.content.slice(12);
-			var user = msg.author;
+			var user = msg.author.id;
 			var data1 = {
 				"username": user,
 				"reason": reason,
@@ -298,7 +298,7 @@ bot.on('message', msg => {
 				obj = JSON.parse(data);
 				obj.push(data1);
 				json = JSON.stringify(obj);
-				fs.writeFile('tickets.json', json, 'utf8', callback);
+				fs.writeFile('tickets.json', json, 'utf8', function(){});
 			});
 		}
 		if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
