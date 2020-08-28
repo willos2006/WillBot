@@ -1,7 +1,7 @@
 ﻿//require('dotenv').config(); 
 const Discord = require('discord.js');
 const bot = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
-const TOKEN = process.env.TOKEN;
+const TOKEN = "NzM4MTExMjQ1OTE1MjU5MDcx.XyHJqg.qEIElhNRmvLUJa-apEVn2suMew8";
 
 bot.login(TOKEN);
 
