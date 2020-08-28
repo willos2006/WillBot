@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const TOKEN = process.env.TOKEN;
-
+var tickets = require('tickets.json')
 bot.login(TOKEN);
 
 bot.on('ready', () => {
@@ -285,6 +285,22 @@ bot.on('message', msg => {
 		var embed = new Discord.MessageEmbed().setTitle("WillBot").setColor(0x0046ff);
 		if(msg.content === '-troubleshoot members'){
 			msg.guild.members.cache.forEach(member => console.log(member.user.username)); 
+		}
+		if(msg.content.startsWith('-openTicket') && msg.channel.id == '748990835844055112'){
+			var reason = msg.content.slice(12);
+			var user = msg.author;
+			var data = {
+				"username": user,
+				"reason": reason,
+				"id": Math.floor(Math.random() * 100000) + 1
+			}
+			var fs = require('fs');
+			fs.readFile('tickets.json', json, 'utf8', function readFileCallback(err, data){
+				obj = JSON.parse(data);
+				obj.push(data);
+				json = JSON.stringify(obj);
+				fs.writeFile('tickets.json', json, 'utf8', callback);
+			});
 		}
 		if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 			if(needTruthReset){
