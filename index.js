@@ -289,14 +289,26 @@ bot.on('message', msg => {
 			var reason = msg.content.slice(12);
 			var user = msg.author.id;
       var id = Math.floor(Math.random() * 100000) + 1;
-      var roleid = msg.guild.roles.create({data: {name: id}});
-      msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.cache.find(role => role.id == roleid.id));
-			msg.guild.channels.create("Ticket no: " + id, {
-				permissionOverwrites: [{
-					id: roleid.id,
-					allow: ['READ_MESSAGES', 'SEND_MESSAGES']
-				}]
-      });
+      msg.guild.roles.create({data: {name: id}})
+      setTimeout(function(){
+        var roleid =  msg.guild.roles.cache.find(role => role.name == `${id}`).id;
+        msg.guild.setRolePositions([{role: roleid, position: 0}]);
+        msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.cache.find(role => role.name == `${id}`));
+        msg.guild.channels.create("Ticket no: " + id, {
+          permissionOverwrites: [{
+            id: msg.guild.roles.cache.find(role => role.name == `${id}`),
+            allow: ['VIEW_CHANNEL']
+          },
+          {
+            id: msg.guild.roles.everyone.id,
+            deny: ['VIEW_CHANNEL']
+          },
+          {
+            id: msg.guild.roles.cache.find(role => role.name == 'Admins').id,
+            deny: ['VIEW_CHANNEL']
+          }
+          ]});
+      }, 500);
 			var data1 = {
 				"username": user,
 				"reason": reason,
