@@ -289,10 +289,12 @@ bot.on('message', msg => {
 			var reason = msg.content.slice(12);
 			var user = msg.author.id;
       var id = Math.floor(Math.random() * 100000) + 1;
-      msg.guild.roles.create({data: {name: id}})
+      msg.guild.roles.create({data: {name: id}});
+      channelID = 0;
+      msgID = 0;
       setTimeout(function(){
-        var roleid =  msg.guild.roles.cache.find(role => role.name == `${id}`).id;
-        msg.guild.setRolePositions([{role: roleid, position: 0}]);
+        var topRole = msg.guild.roles.cache.size;
+        msg.guild.roles.cache.find(role => role.name == `${id}`).setPosition(topRole - 2).then().catch(error => {console.log(error)});
         msg.guild.members.cache.find(member => member.id == msg.author.id).roles.add(msg.guild.roles.cache.find(role => role.name == `${id}`));
         msg.guild.channels.create("Ticket no: " + id, {
           permissionOverwrites: [{
@@ -304,24 +306,43 @@ bot.on('message', msg => {
             deny: ['VIEW_CHANNEL']
           },
           {
-            id: msg.guild.roles.cache.find(role => role.name == 'Admins').id,
+            id: msg.guild.roles.cache.find(role => role.name == "Admins"),
             deny: ['VIEW_CHANNEL']
           }
-          ]});
+          ]}).then(c => {
+            channelID = c.id;
+          });
+          var ticketReq = msg.guild.channels.cache.find(channel => channel.id == "749381667562455190");
+          embed.setDescription(`User: <@!${msg.author.id}> has just opened a support ticket for reason: ***${reason}***. Please react to this message to accept it!`);
+          ticketReq.send({embed}).then(m => {
+            msgID = m.id;
+          });
       }, 500);
-			var data1 = {
-				"username": user,
-				"reason": reason,
-				"id": id
-			}
-			var fs = require('fs');
-			fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
-				obj = JSON.parse(data);
-				obj.push(data1);
-				json = JSON.stringify(obj);
-				fs.writeFile('tickets.json', json, 'utf8', function(){});
-			});
+      setTimeout(function(){
+        msg.guild.channels.cache.find(channel => channel.id == channelID).send("Thanks for opening a support ticket with us... Please wait patiently while a staff member accepts your request.");
+        var data1 = {
+          "username": user,
+          "reason": reason,
+          "id": id,
+          "channelID": channelID,
+          "msgID": msgID
+        }
+        var fs = require('fs');
+        fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
+          obj = JSON.parse(data);
+          obj.push(data1);
+          json = JSON.stringify(obj);
+          fs.writeFile('tickets.json', json, 'utf8', function(){});
+        });
+      }, 1000);
 		}
+    if(msg.content == '-deleteTicketRoles'){
+      msg.guild.roles.cache.forEach(r => {
+        if (!isNaN(r.name)){
+          r.delete();
+        }
+      })
+    }
 		if(msg.content === '-truth' && msg.channel.id === '738109060640931952'){
 			if(needTruthReset){
 				embed.setDescription("You have gone through them all! Please use the `-resetTruth` command to start over, or just do some dares!");
