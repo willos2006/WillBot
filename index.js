@@ -170,6 +170,7 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 			return;
 		}
 	}
+	if(reaction.message)
 	if(user.id != bot.user.id){
 		if(reaction.message.id === '739234003357401118' && !(reaction.message.guild.members.cache.find(member => member.id == user.id).roles.cache.find(role => role.name === "Verified"))){
 			reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name === "Verified"));
@@ -178,6 +179,20 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 		}
 		else if(reaction.message.id === '739234003357401118'){
 			reaction.message.reactions.resolve('✅').users.remove(user.id);
+		}
+		if(reaction.message.channel.id == "749381667562455190"){
+			fs = require('fs');
+			fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
+				stuff = JSON.parse(data);
+				switch(stuff.msgID){
+					case reaction.message.id:
+						JSON.parse(data).forEach(m => {
+							if(m.msgID == reaction.message.id){
+								reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name == m.id));
+							}
+						});
+				}
+			});
 		}
 		if(reaction.message.id === '739234078066475090'){
 			let msg = await reaction.message.channel.messages.fetch('739234078066475090');
@@ -315,7 +330,8 @@ bot.on('message', msg => {
           var ticketReq = msg.guild.channels.cache.find(channel => channel.id == "749381667562455190");
           embed.setDescription(`User: <@!${msg.author.id}> has just opened a support ticket for reason: ***${reason}***. Please react to this message to accept it!`);
           ticketReq.send({embed}).then(m => {
-            msgID = m.id;
+			msgID = m.id;
+			m.react("✅");
           });
       }, 500);
       setTimeout(function(){
