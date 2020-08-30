@@ -184,14 +184,17 @@ bot.on('messageReactionAdd', async (reaction, user) => {
 			fs = require('fs');
 			fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
 				stuff = JSON.parse(data);
-				switch(stuff.msgID){
-					case reaction.message.id:
+				stuff.forEach(m => {
+					if(m.msgID == reaction.message.id){
 						JSON.parse(data).forEach(m => {
 							if(m.msgID == reaction.message.id){
 								reaction.message.guild.members.cache.find(member => member.id === user.id).roles.add(reaction.message.guild.roles.cache.find(role => role.name == m.id));
+                reaction.message.guild.channels.cache.find(channel => channel.id == m.channelID).send("Staff <@!" + user.id + "> has joined");
+                reaction.message.delete();
 							}
 						});
-				}
+          }
+        });
 			});
 		}
 		if(reaction.message.id === '739234078066475090'){
@@ -350,8 +353,31 @@ bot.on('message', msg => {
           json = JSON.stringify(obj);
           fs.writeFile('tickets.json', json, 'utf8', function(){});
         });
+        msg.delete();
+        embed.setDescription("Opened ticket! Please wait patiently...");
+        msg.channel.send({embed}).then(m => {
+          setTimeout(function(){
+            m.delete();
+          }, 1500);
+        });
       }, 1000);
 		}
+    if(msg.content == "-closeTicket"){
+      var fs = require('fs');
+      fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data){
+        var stuff = JSON.parse(data);
+        stuff.forEach(m => {
+          if(m.channelID == msg.channel.id){
+            var index = stuff.findIndex(x => x.channelID == msg.channel.id);
+            stuff.splice(index, 1);
+            stuff = JSON.stringify(stuff);
+            fs.writeFile('tickets.json', stuff, 'utf8', function(){});
+            msg.channel.delete();
+            msg.channel.guild.roles.cache.find(role => role.name == m.id).delete();
+          }
+        });
+      });
+    }
     if(msg.content == '-deleteTicketRoles'){
       msg.guild.roles.cache.forEach(r => {
         if (!isNaN(r.name)){
