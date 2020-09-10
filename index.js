@@ -2,6 +2,8 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const TOKEN = process.env.TOKEN;
+const keepAlive = require('./server');
+keepAlive()
 bot.login(TOKEN);
 
 bot.on('ready', () => {
@@ -452,9 +454,8 @@ bot.on('message', msg => {
 			embed.setDescription("You can only use me in the truth or dare channel!"); 
 			msg.channel.send({embed});
 		}
-		if(msg.content === 'hey bot!'){
-			embed.setDescription('Hi!');
-			msg.channel.send({embed});
+		if(msg.content.tolowecase().startsWith("hey bot")){
+			msg.reply('hey!');
 		}
 		if(msg.content === 'shutdown'){
 			bot.destroy();
