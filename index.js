@@ -433,7 +433,7 @@ bot.on('message', msg => {
 			embed.setDescription("You can only use me in the truth or dare channel!"); 
 			msg.channel.send({embed});
 		}
-		if(msg.content = 'ping'){
+		if(msg.content.toLowerCase() = 'ping'){
       msg.channel.send("Pong! I'm alive! Check out my status here: https://stats.uptimerobot.com/pXEYlIzpJJ");
     }
 		if(msg.content === '-resetDare'  && msg.channel.id === '738109060640931952'){
