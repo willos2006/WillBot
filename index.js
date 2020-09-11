@@ -528,6 +528,33 @@ bot.on('message', msg => {
 			msg.channel.send(content);
 			msg.delete();
 		}
+		if(msg.content.toLowerCase() == '-daily'){
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
+			var numdate = dd + mm + yyyy;
+			var fs = require('fs');
+      		fs.readFile('shop.json', 'utf8', function readFileCallback(err, data){
+				  var stuff = JSON.parse(data);
+				  stuff.forEach(m => {
+					if(m.userID == msg.author.id){
+						if(numdate >= m.lastSeen + 24){
+							var index = stuff.findIndex(x => x.userID == m.userID);
+							currentMoney = stuff[index].money;
+							stuff.splice(index, 1);
+							var json = {
+								"userID": m.userID,
+								"lastSeen": numdate,
+								"money": currentMoney += 500
+							};
+							stuff = JSON.stringify(stuff);
+							fs.writeFile('shop.json', stuff, 'utf8', function(){});
+						}
+					}
+				});
+			});
+		}
 		//admin commands
 		if(msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')){
 			let amount = msg.content.slice(8);
