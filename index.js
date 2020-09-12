@@ -681,13 +681,16 @@ bot.on('message', msg => {
       var list = "";
       fs = require('fs');
       fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data){
-        var stuff = JSON.parse(data);
+        stuff = JSON.parse(data);
         stuff.forEach(m => {
-          list += m.name + ": `" + m.price + "`\n";
-        })
+          list += m.name + ": `£" + m.price + "`\n";
+        });
       });
-      embed.setTitle("Shop Stock");
-      embed.setDescription(list)
+      setTimeout(function() {
+        embed.setTitle("Shop Stock");
+        embed.setDescription(list);
+        msg.channel.send({embed});
+      }, 50);
     }
     //admin commands
     if (msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')) {
