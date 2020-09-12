@@ -710,10 +710,10 @@ bot.on('message', msg => {
     if(msg.content.toLowerCase().startsWith("-buy")){
       var item = msg.content.toLowerCase().slice(5);
       fs = require('fs');
+      var money = 0;
       var isAble = true;
       fs.readFile('shop.json', 'utf8', function (err, data){
         var count = 0;
-        var money = 0;
         stuff = JSON.parse(data);
         stuff.forEach(m => {
           if(m.userID == msg.author.id){
@@ -734,40 +734,42 @@ bot.on('message', msg => {
           var price = 0;
           var id = 0;
           var canContinue = true;
-          fs.readFile('shopInventory', 'utf8', function (err, data){
+          fs.readFile('shopInventory.json', 'utf8', function (err, data){
             stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
-              if(m.name == item){
+              if(m.name.toLowerCase() == item){
                 count += 1;
                 price = m.price;
                 id = m.id;
               }
             });
-            if(count == 0){
-              canContinue = false;
-              embed.setTitle("Error");
-              embed.setDescription(`No such item: ${item}`);
-              msg.channel.send({embed});
-            }
+            setTimeout(function(){
+              if(count == 0){
+                canContinue = false;
+                embed.setTitle("Error");
+                embed.setDescription(`No such item: ${item}`);
+                msg.channel.send({embed});
+              }
+            }, 10);
           });
           setTimeout(function(){
             if(canContinue){
-              if(price >= money){
+              if(price <= money){
                 fs.readFile('shop.json', 'utf8', function (err,data){
                   stuff = JSON.parse(data);
                   index = stuff.findIndex(x => x.userID == msg.author.id);
-                  json = {
+                  jsonStuff = {
                     "userID": msg.author.id,
                     "lastSeen": stuff[index].lastSeen,
                     "money": stuff[index].money -= price,
                     "inv": stuff[index].inv
                   }
-                  json.inv.push(id);
+                  jsonStuff.inv.push(id);
                   stuff.splice(index, 1);
-                  stuff.push(json);
+                  stuff.push(jsonStuff);
                   stuff = JSON.stringify(stuff);
-                  fs.writeFile('shop.json', 'utf8', stuff);
+                  fs.writeFile('shop.json', stuff, 'utf8', function (){});
                   embed.setTitle("Bought item");
                   embed.setDescription(`Successfully bought ${item}.`);
                   msg.channel.send({embed});
@@ -779,7 +781,7 @@ bot.on('message', msg => {
                 msg.channel.send({embed});
               }
             }
-          }, 20);
+          }, 50);
         }
       }, 50);
     }
