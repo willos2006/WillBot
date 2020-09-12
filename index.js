@@ -677,19 +677,29 @@ bot.on('message', msg => {
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
       msg.channel.send({embed});
     }
-    if(msg.content.toLowerCase() == "-stock"){
+    if(msg.content.toLowerCase() == "-shop"){
       var list = "";
+      var shop = msg.content.toLowerCase().splice(6);
       fs = require('fs');
       fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data){
         stuff = JSON.parse(data);
         stuff.forEach(m => {
-          list += m.name + ": `£" + m.price + "`\n";
+          if(m.category == shop){
+            list += m.name + ": `£" + m.price + "`\n";
+          }
         });
       });
       setTimeout(function() {
-        embed.setTitle("Shop Stock");
-        embed.setDescription(list);
-        msg.channel.send({embed});
+        if(list == ""){
+          embed.setTitle("Error");
+          embed.setDescription(`${shop} is not a valid shop!`);
+          msg.channel.send({embed});
+        }
+        else{
+          embed.setTitle("Shop Stock");
+          embed.setDescription(list);
+          msg.channel.send({embed});
+        }
       }, 50);
     }
     //admin commands

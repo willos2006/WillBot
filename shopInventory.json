@@ -3,12 +3,119 @@
         "name": "Beans",
         "price": 20,
         "sellPrice": 16,
-        "id": 0
+        "id": 0,
+        "category": "food"
     },
     {
         "name": "Extra special beans",
         "price": 40,
         "sellPrice": 32,
-        "id": 1
+        "id": 1,
+        "category": "food"
+    },
+    {
+        "name": "Ham",
+        "price": 5,
+        "sellPrice": 4,
+        "id": 2,
+        "category": "food"
+    },
+    {
+        "name": "Cheese",
+        "price": 10,
+        "sellPrice": 8,
+        "id": 3,
+        "category": "food"
+    },
+    {
+        "name": "Steak",
+        "price": 50,
+        "sellPrice": 40,
+        "id": 4,
+        "category": "food"
+    },
+    {
+        "name": "Porkchops",
+        "price": 30,
+        "sellPrice": 24,
+        "id": 5,
+        "category": "food"
+    },
+    {
+        "name": "Lamb",
+        "price": 20,
+        "sellPrice": 16,
+        "id": 6,
+        "category": "food"
+    },
+    {
+        "name": "Canned Tomatoes",
+        "price": 5,
+        "sellPrice": 4,
+        "id": 7,
+        "category": "food"
+    },
+    {
+        "name": "Baked Beans",
+        "price": 5,
+        "sellPrice": 4,
+        "id": 8,
+        "category": "food"
+    },
+    {
+        "name": "Tinned Tuna",
+        "price": 10,
+        "sellPrice": 8,
+        "id": 9,
+        "category": "food"
+    },
+    {
+        "name": "Watermelon",
+        "price": 15,
+        "sellPrice": 12,
+        "id": 10,
+        "category": "food"
+    },
+    {
+        "name": "Pineapple",
+        "price": 20,
+        "sellPrice": 16,
+        "id": 11,
+        "category": "food"
+    },
+    {
+        "name": "Apple",
+        "price": 20,
+        "sellPrice": 16,
+        "id": 12,
+        "category": "food"
+    },
+    {
+        "name": "Carrots",
+        "price": 3,
+        "sellPrice": 2.40,
+        "id": 13,
+        "category": "food"
+    },
+    {
+        "name": "Beansprouts",
+        "price": 3,
+        "sellPrice": 2.40,
+        "id": 14,
+        "category": "food"
+    },
+    {
+        "name": "Tomato",
+        "price": 10,
+        "sellPrice": 8,
+        "id": 15,
+        "category": "food"
+    },
+    {
+        "name": "Test Item (clothing)",
+        "price": 10,
+        "sellPrice": 8,
+        "id": 16,
+        "category": "clothing"
     }
 ]
