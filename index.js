@@ -531,7 +531,7 @@ bot.on('message', msg => {
       msg.delete();
     }
     if (msg.content.toLowerCase() == '-daily') {
-      var today = new Date();
+      /*var today = new Date();
       var dd = String(today.getDate()).padStart(2, '0');
       var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
       var yyyy = today.getFullYear();
@@ -586,10 +586,13 @@ bot.on('message', msg => {
             }
           });
         });
-      }, 50);
+      }, 300);*/
+      embed.setTitle("Command Disabled");
+      embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
+      msg.channel.send({embed});
     }
     if(msg.content.toLowerCase() == '-wallet'){
-      fs = require('fs');
+      /*fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
         stuff = JSON.parse(data);
@@ -620,10 +623,13 @@ bot.on('message', msg => {
             }
           });
         });
-      }, 50)
+      }, 300)*/
+      embed.setTitle("Command Disabled");
+      embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
+      msg.channel.send({embed});
     }
     if (msg.content.toLowerCase() == '-regular') {
-      var fs = require('fs');
+      /*var fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
         stuff = JSON.parse(data);
@@ -666,7 +672,10 @@ bot.on('message', msg => {
             }
           });
         });
-      }, 50);
+      }, 50);*/
+      embed.setTitle("Command Disabled");
+      embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
+      msg.channel.send({embed});
     }
     //admin commands
     if (msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')) {
