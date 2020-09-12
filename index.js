@@ -1,4 +1,4 @@
-//require('dotenv').config(); 
+﻿//require('dotenv').config(); 
 const Discord = require('discord.js');
 const bot = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const TOKEN = process.env.TOKEN;
@@ -676,6 +676,18 @@ bot.on('message', msg => {
       embed.setTitle("Command Disabled");
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
       msg.channel.send({embed});
+    }
+    if(msg.content.toLowerCase() == "-stock"){
+      var list = "";
+      fs = require('fs');
+      fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data){
+        var stuff = JSON.parse(data);
+        stuff.forEach(m => {
+          list += m.name + ": `" + m.price + "`\n";
+        })
+      });
+      embed.setTitle("Shop Stock");
+      embed.setDescription(list)
     }
     //admin commands
     if (msg.content.startsWith('-delete') && msg.member.roles.cache.find(role => role.name === 'Admins')) {
