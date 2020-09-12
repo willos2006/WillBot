@@ -677,9 +677,9 @@ bot.on('message', msg => {
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
       msg.channel.send({embed});
     }
-    if(msg.content.toLowerCase() == "-shop"){
+    if(msg.content.toLowerCase().startsWith("-shop")){
       var list = "";
-      var shop = msg.content.toLowerCase().splice(6);
+      var shop = msg.content.toLowerCase().slice(6);
       fs = require('fs');
       fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data){
         stuff = JSON.parse(data);
@@ -696,7 +696,8 @@ bot.on('message', msg => {
           msg.channel.send({embed});
         }
         else{
-          embed.setTitle("Shop Stock");
+          shop = shop.charAt(0).toUpperCase() + shop.slice(1);
+          embed.setTitle(`${shop} Shop Stock`);
           embed.setDescription(list);
           msg.channel.send({embed});
         }
