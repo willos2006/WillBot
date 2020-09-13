@@ -1,4 +1,4 @@
-﻿//require('dotenv').config(); 
+//require('dotenv').config(); 
 const Discord = require('discord.js');
 const { json } = require('express');
 const bot = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
@@ -301,9 +301,15 @@ bot.on('messageReactionAdd', async (reaction, user) => {
     }
 });
 
+var sureSellAll = { "tag": 0, "isReady": false };
+
 bot.on('message', msg => {
   if (msg.author.id != bot.user.id) {
+    if(msg.channel.id == 738757083381366916){
+      msg.react('✅');
+    }
     var embed = new Discord.MessageEmbed().setTitle("WillBot").setColor(0x0046ff);
+    embed.setFooter(msg.author.tag);
     if (msg.content === '-troubleshoot members') {
       msg.guild.members.cache.forEach(member => console.log(member.user.username));
     }
@@ -470,18 +476,30 @@ bot.on('message', msg => {
       msg.channel.send({ embed });
     }
     if (msg.channel.id === '738109254036226228') {
-      if (!isNaN(msg.content)) {
-        if (msg.content == currentNo + 1) {
-          msg.react('✅');
-          currentNo += 1;
+      fs = require('fs');
+      fs.readFile('number.json', 'utf8', function(err, data) {
+        var currentNo = JSON.parse(data)[0].number;
+        if (!isNaN(msg.content)) {
+          if (msg.content == currentNo + 1) {
+            msg.react('✅');
+            var jsonStuff = [{
+              "number": currentNo + 1
+            }]
+            jsonStuff = JSON.stringify(jsonStuff);
+            fs.writeFile('number.json', jsonStuff, 'utf8', function() { })
+          }
+          else {
+            msg.react('❌');
+            embed.setDescription("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
+            msg.channel.send({ embed });
+            var jsonStuff = [{
+              "number": 0
+            }]
+            jsonStuff = JSON.stringify(jsonStuff);
+            fs.writeFile('number.json', jsonStuff, 'utf8', function() { })
+          }
         }
-        else {
-          msg.react('❌');
-          currentNo = 0;
-          embed.setDescription("<@" + msg.author.id + ">  has ruined it! The current number has been reset... start again from 1!");
-          msg.channel.send({ embed });
-        }
-      }
+      });
     }
     if (msg.content.startsWith('-nickname')) {
       let nickname = msg.content.slice(10);
@@ -532,68 +550,12 @@ bot.on('message', msg => {
       msg.delete();
     }
     if (msg.content.toLowerCase() == '-daily') {
-      /*var today = new Date();
+      var today = new Date();
       var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
       var yyyy = today.getFullYear();
       var numdate = dd + mm + yyyy;
       var fs = require('fs');
-      fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
-        var count = 0;
-        stuff = JSON.parse(data);
-        stuff.forEach(m => {
-          if (m.userID == msg.author.id) {
-            count += 1;
-          }
-        });
-        if (count == 0) {
-          var json = {
-            "userID": msg.author.id,
-            "lastSeen": 0,
-            "money": 0
-          }
-          stuff.push(json);
-          stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function() { });
-        }
-      });
-      setTimeout(function() {
-        fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
-          var stuff = JSON.parse(data);
-          stuff.forEach(m => {
-            if (m.userID == msg.author.id) {
-              if (numdate > m.lastSeen) {
-                var index = stuff.findIndex(x => x.userID == m.userID);
-                currentMoney = stuff[index].money;
-                stuff.splice(index, 1);
-                var json = {
-                  "userID": m.userID,
-                  "lastSeen": numdate,
-                  "money": currentMoney + 500
-                };
-                currentMoney += 500;
-                stuff.push(json);
-                stuff = JSON.stringify(stuff);
-                fs.writeFile('shop.json', stuff, 'utf8', function() { });
-                embed.setTitle("Daily Command");
-                embed.setDescription("You have successfully added £500 to your balance! Your balance is now: `£" + currentMoney + "`");
-                msg.channel.send({ embed });
-              }
-              else{
-                embed.setTitle("Daily Command");
-                embed.setDescription("Sorry, You need to wait another day untill you can use this command again!");
-                msg.channel.send({embed});
-              }
-            }
-          });
-        });
-      }, 300);*/
-      embed.setTitle("Command Disabled");
-      embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
-      msg.channel.send({embed});
-    }
-    if(msg.content.toLowerCase() == '-wallet'){
-      /*fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
         stuff = JSON.parse(data);
@@ -614,24 +576,86 @@ bot.on('message', msg => {
           fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function(){
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
-          stuff = JSON.parse(data);
+          var stuff = JSON.parse(data);
           stuff.forEach(m => {
-            if(m.userID == msg.author.id){
-              embed.setTitle("Wallet Balance");
-              embed.setDescription("Your current balance is: `£" + m.money + "`");
-              msg.channel.send({embed});
+            if (m.userID == msg.author.id) {
+              if (numdate > m.lastSeen) {
+                var index = stuff.findIndex(x => x.userID == m.userID);
+                stuff[index].lastSeen = numdate;
+                stuff[index].money += 500;
+                var currentMoney = stuff[index].money;
+                stuff = JSON.stringify(stuff);
+                fs.writeFile('shop.json', stuff, 'utf8', function() { });
+                embed.setTitle("Daily Command");
+                embed.setDescription("You have successfully added £500 to your balance! Your balance is now: `£" + currentMoney + "`");
+                msg.channel.send({ embed });
+              }
+              else {
+                embed.setTitle("Daily Command");
+                embed.setDescription("Sorry, You need to wait another day untill you can use this command again!");
+                msg.channel.send({ embed });
+              }
             }
           });
         });
-      }, 300)*/
+      }, 300);/*
       embed.setTitle("Command Disabled");
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
-      msg.channel.send({embed});
+      msg.channel.send({embed});*/
+    }
+    if (msg.content.toLowerCase() == '-wallet') {
+      fs = require('fs');
+      fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
+        var count = 0;
+        stuff = JSON.parse(data);
+        stuff.forEach(m => {
+          if (m.userID == msg.author.id) {
+            count += 1;
+          }
+        });
+        if (count == 0) {
+          var json = {
+            "userID": msg.author.id,
+            "lastSeen": 0,
+            "money": 0,
+            "inv": []
+          }
+          stuff.push(json);
+          stuff = JSON.stringify(stuff);
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
+        }
+      });
+      setTimeout(function() {
+        fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
+          stuff = JSON.parse(data);
+          var items = stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
+          var totalAssets = 0;
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+            var stuffInv = JSON.parse(data);
+            items.forEach(m => {
+              var index = stuffInv.findIndex(x => x.id == m);
+              totalAssets += stuffInv[index].sellPrice;
+            });
+          });
+          setTimeout(function() {
+            stuff.forEach(m => {
+              if (m.userID == msg.author.id) {
+                embed.setTitle("Wallet Balance");
+                embed.setDescription("Your current balance is: `£" + m.money.toFixed(2) + "`\nYou have `£" + totalAssets.toFixed(2) + "` in assets");
+                msg.channel.send({ embed });
+              }
+            });
+          }, 10);
+        });
+      }, 300)/*
+      embed.setTitle("Command Disabled");
+      embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
+      msg.channel.send({embed});*/
     }
     if (msg.content.toLowerCase() == '-regular') {
-      /*var fs = require('fs');
+      var fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
         stuff = JSON.parse(data);
@@ -658,105 +682,157 @@ bot.on('message', msg => {
           stuff.forEach(m => {
             if (m.userID == msg.author.id) {
               var index = stuff.findIndex(x => x.userID == m.userID);
-              currentMoney = stuff[index].money;
-              stuff.splice(index, 1);
-              var json = {
-                "userID": m.userID,
-                "lastSeen": m.lastSeen,
-                "money": currentMoney + 100,
-                "inv": []
-              };
-              currentMoney += 100;
-              stuff.push(json);
+              var amount = Math.floor(Math.random() * 65) + 1
+              stuff[index].money += amount;
+              var currentMoney = stuff[index].money;
               stuff = JSON.stringify(stuff);
               fs.writeFile('shop.json', stuff, 'utf8', function() { });
               embed.setTitle("Regular Command");
-              embed.setDescription("You have successfully added £100 to your balance! Your balance is now: `£" + currentMoney + "`");
+              embed.setDescription("You have successfully added £" + amount + " to your balance! Your balance is now: `£" + currentMoney.toFixed(2) + "`");
               msg.channel.send({ embed });
             }
           });
         });
-      }, 50);*/
+      }, 50);/*
       embed.setTitle("Command Disabled");
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
-      msg.channel.send({embed});
+      msg.channel.send({embed});*/
     }
-    if(msg.content.toLowerCase().startsWith("-shop")){
-      var list = "";
-      var shop = msg.content.toLowerCase().slice(6);
-      fs = require('fs');
-      fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data){
+    if (msg.content.toLowerCase().startsWith("-sellall")) {
+      var totalAssets = 0;
+      var fs = require('fs');
+      fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         stuff = JSON.parse(data);
-        stuff.forEach(m => {
-          if(m.category == shop){
-            list += m.name + ": `£" + m.price + "`\n";
-          }
+        var items = stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
+        fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+          var stuffInv = JSON.parse(data);
+          items.forEach(m => {
+            var index = stuffInv.findIndex(x => x.id == m);
+            totalAssets += stuffInv[index].sellPrice;
+          });
         });
       });
       setTimeout(function() {
-        if(list == ""){
-          embed.setTitle("Error");
-          embed.setDescription(`${shop} is not a valid shop!`);
-          msg.channel.send({embed});
-        }
-        else{
-          shop = shop.charAt(0).toUpperCase() + shop.slice(1);
-          embed.setTitle(`${shop} Shop Stock`);
-          embed.setDescription(list + "\n *remember you can use `-buy [item]` to purchase something*");
-          msg.channel.send({embed});
-        }
-      }, 50);
+        embed.setTitle("Confirm");
+        embed.setDescription("Are you sure you want to sell all your items? You would get a total of `£" + totalAssets.toFixed(2) + "` for everything.\nType `y/n` to confirm or cancel");
+        sureSellAll = { "tag": msg.author.id, "isReady": true };
+        msg.channel.send({ embed });
+      }, 10);
     }
-    if(msg.content.toLowerCase().startsWith("-buy")){
+    if (sureSellAll.isReady && msg.author.id == sureSellAll.tag) {
+      var fs = require('fs');
+      if (msg.content.toLowerCase() == 'y') {
+        var totalAssets = 0;
+        fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
+          stuff = JSON.parse(data);
+          var items = stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+            var stuffInv = JSON.parse(data);
+            items.forEach(m => {
+              var index = stuffInv.findIndex(x => x.id == m);
+              totalAssets += stuffInv[index].sellPrice;
+            });
+          });
+          setTimeout(function() {
+            stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv = [];
+            stuff[stuff.findIndex(x => x.userID == msg.author.id)].money += totalAssets;
+            fs.writeFile('shop.json', JSON.stringify(stuff), 'utf8', function() { });
+          }, 50);
+          embed.setTitle("Success");
+          embed.setDescription("Succesfully sold all your assets");
+          msg.channel.send({ embed });
+        });
+      }
+      else if (msg.content.toLowerCase() == 'n') {
+        embed.setTitle("Canceled");
+        embed.setDescription("Canceled operation");
+        msg.channel.send({ embed });
+      }
+      sureSellAll = false;
+    }
+    if (msg.content.toLowerCase().startsWith("-shop")) {
+      var list = "";
+      var shop = msg.content.toLowerCase().slice(6);
+      if (shop == "") {
+        embed.setTitle("List of Shops");
+        embed.setDescription("To look at a shop, type `-shop` followed by one of these:\n***food***\n***clothing***\n***other***");
+        msg.channel.send({ embed });
+      }
+      else {
+        fs = require('fs');
+        fs.readFile('shopInventory.json', 'utf8', function readFileCallback(err, data) {
+          stuff = JSON.parse(data);
+          stuff.forEach(m => {
+            if (m.category == shop) {
+              list += m.name + ": `£" + m.price + "`\n";
+            }
+          });
+        });
+        setTimeout(function() {
+          if (list == "") {
+            embed.setTitle("Error");
+            embed.setDescription(`${shop} is not a valid shop!`);
+            msg.channel.send({ embed });
+          }
+          else {
+            shop = shop.charAt(0).toUpperCase() + shop.slice(1);
+            embed.setTitle(`${shop} Shop Stock`);
+            embed.setDescription(list + "\n *remember you can use `-buy [item]` to purchase something*");
+            msg.channel.send({ embed });
+          }
+        }, 50);
+      }
+    }
+    if (msg.content.toLowerCase().startsWith("-buy")) {
       var item = msg.content.toLowerCase().slice(5);
       fs = require('fs');
       var money = 0;
       var isAble = true;
-      fs.readFile('shop.json', 'utf8', function (err, data){
+      fs.readFile('shop.json', 'utf8', function(err, data) {
         var count = 0;
         stuff = JSON.parse(data);
         stuff.forEach(m => {
-          if(m.userID == msg.author.id){
+          if (m.userID == msg.author.id) {
             count += 1;
             money = m.money;
           }
         });
-        if(count == 0){
+        if (count == 0) {
           isAble == false;
         }
       });
-      setTimeout(function(){
-        if(!isAble){
+      setTimeout(function() {
+        if (!isAble) {
           embed.setTitle("Error");
           embed.setDescription("Sorry, you do not have the funds to purchase this item.");
         }
-        else{
+        else {
           var price = 0;
           var id = 0;
           var canContinue = true;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data){
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
-              if(m.name.toLowerCase() == item){
+              if (m.name.toLowerCase() == item) {
                 count += 1;
                 price = m.price;
                 id = m.id;
               }
             });
-            setTimeout(function(){
-              if(count == 0){
+            setTimeout(function() {
+              if (count == 0) {
                 canContinue = false;
                 embed.setTitle("Error");
                 embed.setDescription(`No such item: ${item}`);
-                msg.channel.send({embed});
+                msg.channel.send({ embed });
               }
             }, 10);
           });
-          setTimeout(function(){
-            if(canContinue){
-              if(price <= money){
-                fs.readFile('shop.json', 'utf8', function (err,data){
+          setTimeout(function() {
+            if (canContinue) {
+              if (price <= money) {
+                fs.readFile('shop.json', 'utf8', function(err, data) {
                   stuff = JSON.parse(data);
                   index = stuff.findIndex(x => x.userID == msg.author.id);
                   jsonStuff = {
@@ -769,16 +845,16 @@ bot.on('message', msg => {
                   stuff.splice(index, 1);
                   stuff.push(jsonStuff);
                   stuff = JSON.stringify(stuff);
-                  fs.writeFile('shop.json', stuff, 'utf8', function (){});
+                  fs.writeFile('shop.json', stuff, 'utf8', function() { });
                   embed.setTitle("Bought item");
                   embed.setDescription(`Successfully bought ${item}.`);
-                  msg.channel.send({embed});
+                  msg.channel.send({ embed });
                 });
               }
-              else{
+              else {
                 embed.setTitle("Error");
                 embed.setDescription(`Sorry, you do not have the funds to purchase this item.`);
-                msg.channel.send({embed});
+                msg.channel.send({ embed });
               }
             }
           }, 50);
@@ -931,6 +1007,25 @@ bot.on('message', msg => {
     else if (msg.content.startsWith('-removeRole')) {
       embed.setDescription("You must have the `Admins` role to use this command!");
       msg.channel.send({ embed });
+    }
+    if(msg.content.toLowerCase().startsWith("-renamechannel") && msg.member.roles.cache.find(role => role.name === 'Admins')){
+      var oldname = msg.channel.name;
+      var newname = msg.content.slice(15);
+      if(newname != ""){
+        msg.channel.setName(newname);
+        embed.setTitle("Success");
+        embed.setDescription("Successfuly changed channel name from `" + oldname + "` to `" + newname + "`");
+      }
+      else{
+        embed.setTitle("Error");
+        embed.setDescription("Please enter a valid name");
+      }
+      msg.channel.send({embed});
+    }
+    else if(msg.content.toLowerCase().startsWith("-renamechannel")){
+      embed.setTitle("Insufficient Privelages");
+      embed.setDescription("Sorry, but you must have the `Admins` role to use this command!");
+      msg.channel.send({embed});
     }
   }
 });                 
