@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap%27" rel="stylesheet">
+    <title>WillBot</title>
+    <style>
+        *{
+            font-family: 'Indie Flower';
+            letter-spacing: 3px;
+        }
+        h1{
+            text-align: center;
+        }
+        hr{
+            width: 100%;
+        }
+        .container{
+            width: 75%;
+            margin: 0 auto;
+        }
+        #intro{
+            transform: rotate(-1deg);
+        }
+        .nav{
+            display: flex;
+            justify-content: space-around;
+        }
+        img{
+            display: inline;
+            position: relative;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, 0)
+        }
+        #navbit{
+            display: inline-block;
+        }
+        a:link, a:visited{
+            text-decoration: none;
+            color: black;
+        }
+        .sidebar{
+            display: inline-block;
+            border: black;
+            border-style: solid;
+            border-width: 100;
+            width: 12%;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            float: left;
+            margin-right: 20px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1>WillBot!</h1>
+            <div class="nav">
+                <div id='navbit'><a href="https://github.com/willos2006/WillBot"><img height="30" src="https://image.flaticon.com/icons/png/512/25/25231.png"><br></a><a href="https://github.com/willos2006/WillBot"><i>Github</i></a></div>
+                <div id='navbit'><a href="https://repl.it/@willos2006/WillBot#index.js"><img height="30" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Repl.it_logo.svg/1200px-Repl.it_logo.svg.png"><br></a><a href="https://repl.it/@willos2006/WillBot#index.js"><i>Repl.it</i></a></div>
+                <div id='navbit'><a href="https://discord.gg/twmmfda"><img height="30" src="https://www.iconfinder.com/data/icons/popular-services-brands-vol-2/512/discord-512.png"><br></a><a href="https://discord.gg/twmmfda"><i>Discord</i></a></div>
+            </div>
+            <h5 style="text-align: center;">(my links :->)</h5>
+            <hr>
+        </div>
+        <h4 id='intro'><i>Hey! Welcome to the website for WillBot! WillBot is a discord.js bot with many capabilities and is always being developed! Feature suggestions are always welcome so please
+            do submit something using the form below! You can also check your user statistics, such as you wallet ballance, and things you own. Before you go any further, i must give 
+            credit to <b>Spoink#2793</b> for loads and loads of suggestions, along with tremendous help with the scripting!
+        </i></h4>
+        <div class="sidebar">
+            <h3 style="text-align: center;">Status</h3>
+            <hr style="width: 70%;">
+            <h4 style="margin-bottom: 0;">Total Members :</h4>
+            <a id='memberCount'>test</a>
+            <hr style="width: 70%;">
+            <h4 style="margin-bottom: 0;">Total Online Members :</h4>
+            <a id='memberOnlineCount'>test</a>
+            <hr style="width: 70%;">
+            <h4 style="margin-bottom: 0;">Total Bot Money :</h4>
+            <a id='memberMoneyCount'>test</a>
+            <hr style="width: 70%;">
+            <div style="display: flex; justify-content: center;">
+                <button id='refreshStat'>Refresh Status</button>
+            </div>
+        </div>
+        <a style="float: left"><b>ugh idk what to put hereee</b></a>
+        <script>
+            $.ajax({url: '/urmum'}).done(function (data){
+                $('#memberCount').val = data;
+            });
+        </script>
+    </div>
+</body>
