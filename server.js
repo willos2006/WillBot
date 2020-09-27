@@ -3,10 +3,10 @@ const server = express();
 const fs = require('fs');
 
 server.all('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/ajaxURL', function (req, res) {
+server.get('/index.html', function (req, res) {
   res.send('I want this string to return to the client');
 });
 
