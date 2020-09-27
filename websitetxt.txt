@@ -1,0 +1,1 @@
+<head><link href='https://fonts.googleapis.com/css?family=Amarante' rel='stylesheet'><style>body {font-family: 'Amarante';font-size: 22px;}</style></head><body><h1>WillBot</h1></body>

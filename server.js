@@ -1,8 +1,9 @@
 const express = require("express");
 const server = express();
+const fs = require('fs');
 
 server.all('/', (req, res) => {
-  res.send("Your bot is alive!");
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 function keepAlive() {

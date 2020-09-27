@@ -361,7 +361,7 @@ bot.on('message', msg => {
         fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data) {
           obj = JSON.parse(data);
           obj.push(data1);
-          json = JSON.stringify(obj);
+          var json = JSON.stringify(obj);
           fs.writeFile('tickets.json', json, 'utf8', function() { });
         });
         msg.delete();
@@ -418,7 +418,11 @@ bot.on('message', msg => {
     else if (msg.content === '-truth') {
       embed.setDescription("You can only use me in the truth or dare channel!");
     }
-
+    if(msg.content.toLowerCase() == '-credits'){
+      embed.setTitle("Credits");
+      embed.setDescription("***Hi!***\nThank you for using `WillBot`. I'm sure you can appreciate the time and effort put into this bot!\n***Key People***\n<@!697194959119319130> - Overwhelming majority of things suggested submitted from `Spoink` and help with code\n<@!303097521314725890> - Project Lead / Big Brain Person 😎");
+      msg.channel.send({embed});
+    }
     if (msg.content === '-dare' && msg.channel.id === '738109060640931952') {
       if (needDareReset) {
         embed.setDescription("You have gone through them all! Please use the `-resetDare` command to start over, or just do some truths!");
@@ -697,6 +701,12 @@ bot.on('message', msg => {
       embed.setTitle("Command Disabled");
       embed.setDescription("Sorry, this command is disabled at the moment for reason:\n`WIP`");
       msg.channel.send({embed});*/
+    }
+    if(msg.content.toLowerCase().startsWith('-afk')){
+      var fs = require('fs');
+      async function step(){
+        //
+      }
     }
     if (msg.content.toLowerCase().startsWith("-sellall")) {
       var totalAssets = 0;
