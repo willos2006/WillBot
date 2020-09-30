@@ -1,11 +1,45 @@
 //require('dotenv').config(); 
+'use strict';
 const Discord = require('discord.js');
-const { json } = require('express');
-const bot = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const TOKEN = process.env.TOKEN;
+const bot = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+bot.login(TOKEN);
+module.exports.data = function(callback){
+  var totalNum = bot.guilds.cache.get('738107329643544587').members.cache.array().length;
+  var totalOnlineNum = bot.guilds.cache.get('738107329643544587').members.cache.filter(member => member.presence.status != 'offline').array().length;
+  var totalBotMoney = 0;
+  var fs = require('fs');
+  fs.readFile('shop.json', 'utf8', function(err, data){
+    data = JSON.parse(data);
+    data.forEach(m => {
+      totalBotMoney += m.money;
+    })
+  });
+  setTimeout(function(){
+    var jsonArr = {
+      "tot": totalNum,
+      "totOn": totalOnlineNum,
+      "totMon": "£" + totalBotMoney.toFixed(2)
+    }
+    callback(jsonArr);
+  }, 30);
+}
+
+module.exports.contact = function(contactform){
+  var fname = contactform.fname;
+  var lname = contactform.lname;
+  var discordname = contactform.discordname;
+  var subject = contactform.subject;
+  var body = contactform.body;
+  var embed = new Discord.MessageEmbed().setTitle("Contact Form Submition").setColor(0x0046ff);
+  embed.setDescription(`***First Name:*** ${fname}\n***Last Name:*** ${lname}\n***Discord Tag:*** ${discordname}\n***Subject:*** ${subject}\n***Message Body:*** ${body}`);
+  bot.guilds.cache.get('738107329643544587').channels.cache.find(channel => channel.id == "759804392970518579").send({embed});
+}
+
+const { json } = require('express');
 const keepAlive = require('./server');
 keepAlive()
-bot.login(TOKEN);
+var data = []; 
 
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
@@ -318,8 +352,8 @@ bot.on('message', msg => {
       var user = msg.author.id;
       var id = Math.floor(Math.random() * 100000) + 1;
       msg.guild.roles.create({ data: { name: id } });
-      channelID = 0;
-      msgID = 0;
+      var channelID = 0;
+      var msgID = 0;
       setTimeout(function() {
         var topRole = msg.guild.roles.cache.size;
         msg.guild.roles.cache.find(role => role.name == `${id}`).setPosition(topRole - 2).then().catch(error => { console.log(error) });
@@ -359,7 +393,7 @@ bot.on('message', msg => {
         }
         var fs = require('fs');
         fs.readFile('tickets.json', 'utf8', function readFileCallback(err, data) {
-          obj = JSON.parse(data);
+          var obj = JSON.parse(data);
           obj.push(data1);
           var json = JSON.stringify(obj);
           fs.writeFile('tickets.json', json, 'utf8', function() { });
@@ -511,7 +545,7 @@ bot.on('message', msg => {
     }
     if (msg.content.startsWith('-dice')) {
       let number = msg.content.slice(6);
-      result = '';
+      var result = '';
       if (number === '' || number == '1') {
         embed.setDescription('You rolled a... ' + (Math.floor(Math.random() * Math.floor(6)) + 1) + "!");
       }
@@ -525,7 +559,7 @@ bot.on('message', msg => {
           result += (Math.floor(Math.random() * Math.floor(6)) + 1);
           total += parseInt(result, 10);
           if (number > 2) {
-            for (i = 0; i < number - 2; i++) {
+            for (var i = 0; i < number - 2; i++) {
               var current = (Math.floor(Math.random() * Math.floor(6)) + 1);
               result += ", " + current;
               total += parseInt(current, 10);
@@ -562,7 +596,7 @@ bot.on('message', msg => {
       var fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
-        stuff = JSON.parse(data);
+        var stuff = JSON.parse(data);
         stuff.forEach(m => {
           if (m.userID == msg.author.id) {
             count += 1;
@@ -593,7 +627,7 @@ bot.on('message', msg => {
                 stuff = JSON.stringify(stuff);
                 fs.writeFile('shop.json', stuff, 'utf8', function() { });
                 embed.setTitle("Daily Command");
-                embed.setDescription("You have successfully added £500 to your balance! Your balance is now: `£" + currentMoney + "`");
+                embed.setDescription("You have successfully added £500 to your balance! Your balance is now: `£" + currentMoney.toFixed(2) + "`");
                 msg.channel.send({ embed });
               }
               else {
@@ -662,7 +696,7 @@ bot.on('message', msg => {
       var fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
         var count = 0;
-        stuff = JSON.parse(data);
+        var stuff = JSON.parse(data);
         stuff.forEach(m => {
           if (m.userID == msg.author.id) {
             count += 1;
@@ -800,7 +834,7 @@ bot.on('message', msg => {
       var isAble = true;
       fs.readFile('shop.json', 'utf8', function(err, data) {
         var count = 0;
-        stuff = JSON.parse(data);
+        var stuff = JSON.parse(data);
         stuff.forEach(m => {
           if (m.userID == msg.author.id) {
             count += 1;
@@ -821,7 +855,7 @@ bot.on('message', msg => {
           var id = 0;
           var canContinue = true;
           fs.readFile('shopInventory.json', 'utf8', function(err, data) {
-            stuff = JSON.parse(data);
+            var stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
               if (m.name.toLowerCase() == item) {
@@ -843,9 +877,9 @@ bot.on('message', msg => {
             if (canContinue) {
               if (price <= money) {
                 fs.readFile('shop.json', 'utf8', function(err, data) {
-                  stuff = JSON.parse(data);
-                  index = stuff.findIndex(x => x.userID == msg.author.id);
-                  jsonStuff = {
+                  var stuff = JSON.parse(data);
+                  var index = stuff.findIndex(x => x.userID == msg.author.id);
+                  var jsonStuff = {
                     "userID": msg.author.id,
                     "lastSeen": stuff[index].lastSeen,
                     "money": stuff[index].money -= price,
