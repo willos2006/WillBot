@@ -5,7 +5,6 @@ module.exports = async (bot, config) => {
     var embed = new Discord.MessageEmbed().setColor(0x0046ff);
 
     bot.on('message', async msg => {
-        embed.setFooter(msg.author.tag);
         embed.setTitle("WillBot Message");
         if (msg.content.startsWith(prefix + 'sayEmbed')) {
             var content = msg.content.slice(10);
