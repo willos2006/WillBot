@@ -3,7 +3,6 @@ module.exports = async (client, configFile) => {
   const embed = new Discord.MessageEmbed()
   const settings = require('../settings/settings.json');
   var prefix = settings.prefix;
-  prefix = settings.prefix;
 
   client.on("message", async msg => {
     if (msg.content.toLowerCase().startsWith(prefix + "dm")) {
