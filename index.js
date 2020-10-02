@@ -9,6 +9,7 @@ const settingFile = require('./settings/settings.json')
 var prefix = settingFile.prefix
 var stuff;
 var json;
+bot.setMaxListeners(100);
 bot.login(process.env.TOKEN);
 module.exports.data = function(callback) {
   var stuff;
@@ -116,7 +117,7 @@ bot.on('ready', () => {
   eventFunction = require('./commands/sayCommands.js');
   eventFunction(bot, configFile)
 
-  eventFunction = require('./commands/counting.js');
+  eventFunction = require('./serverEvents/counting.js');
   eventFunction(bot, configFile)
 });
 
