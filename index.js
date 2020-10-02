@@ -1,4 +1,4 @@
-//require('dotenv').config();
+﻿//require('dotenv').config();
 'use strict';
 const Discord = require('discord.js');
 const bot = new Discord.Client({
@@ -124,100 +124,6 @@ embed.setColor('#0099ff')
 
 /*bot.on('message', async msg => {
   embed.setFooter(msg.author.tag)
-  if (msg.content.toLowerCase() === prefix + 'truth' && msg.channel.id === '738109060640931952') {
-    if (needTruthReset) {
-      embed.setDescription(
-        `You have gone through them all! Please use the \`${prefix}resetTruth\` command to start over, or just do some dares!`
-      );
-      msg.channel.send({ embed });
-    } else {
-      if (truthsDone.length == truths.length - 1) {
-        embed.setDescription(
-          `You have gone through them all! Please use the \`${prefix}resetTruth\` command to start over, or just do some dares!`
-        );
-        msg.channel.send({ embed });
-        needTruthReset = true;
-      } else {
-        msg.channel.send('thinking of truth...');
-        chooseTruth();
-        msg.reply(truths[chosen]);
-        truthsDone.push(chosen);
-      }
-    }
-  } else if (msg.content.toLowerCase() === prefix + 'truth') {
-    embed.setTitle('Error');
-    embed.setDescription(
-      'You can only use me in the truth or dare channel!'
-    );
-    msg.channel.send({ embed });
-  }
-  if (msg.content.toLowerCase() == prefix + 'credits') {
-    embed.setTitle('Credits');
-    embed.setDescription(
-      "***Hi!***\nThank you for using `WillBot`. I'm sure you can appreciate the time and effort put into this bot!\n***Key People***\n<@!697194959119319130> - Overwhelming majority of things suggested submitted from `Spoink` and help with code\n<@!303097521314725890> - Project Lead / Big Brain Person 😎"
-    );
-    msg.channel.send({ embed });
-  }
-  if (msg.content.toLowerCase() === prefix + 'dare' && msg.channel.id === '738109060640931952') {
-    if (needDareReset) {
-      embed.setDescription(
-        `You have gone through them all! Please use the \`${prefix}resetDare\` command to start over, or just do some truths!`
-      );
-      msg.channel.send({ embed });
-    } else {
-      if (daresDone.length == dares.length - 1) {
-        embed.setDescription(
-          `You have gone through them all! Please use the \`${prefix}resetDare\` command to start over, or just do some truths!`
-        );
-        needDareReset = true;
-        msg.channel.send({ embed });
-      } else {
-        msg.channel.send('thinking of dare...');
-        chooseDare();
-        msg.reply('I dare you to... ' + dares[chosen]);
-        daresDone.push(chosen);
-      }
-    }
-  } else if (msg.content === prefix + 'dare') {
-    embed.setTitle('Error');
-    embed.setDescription(
-      'You can only use me in the truth or dare channel!'
-    );
-    msg.channel.send({ embed });
-  }
-  if (msg.content.toLowerCase() == 'ping') {
-    msg.channel.send(
-      "Pong! I'm alive! Check out my status here: https://stats.uptimerobot.com/pXEYlIzpJJ"
-    );
-  }
-  if (
-    msg.content === prefix + 'resetDare' &&
-    msg.channel.id === '738109060640931952'
-  ) {
-    embed.setDescription('Reset Dares!');
-    daresDone = [];
-    needDareReset = false;
-    msg.channel.send({ embed });
-  } else if (msg.content.toLowerCase() === prefix + 'resetDare') {
-    embed.setDescription(
-      'You can only use me in the truth or dare channel!'
-    );
-    msg.channel.send({ embed });
-  }
-  if (
-    msg.content === prefix + 'resetTruth' &&
-    msg.channel.id === '738109060640931952'
-  ) {
-    embed.setDescription('Reset Truths!');
-    truthsDone = [];
-    needTruthReset = false;
-    msg.channel.send({ embed });
-  } else if (msg.content.toLowerCase() === prefix + 'resetTruth') {
-    embed.setDescription(
-      'You can only use me in the truth or dare channel!'
-    );
-    msg.channel.send({ embed });
-  }
   if (msg.content.toLowerCase().startsWith('hey bot')) {
     msg.reply('hey!');
   }

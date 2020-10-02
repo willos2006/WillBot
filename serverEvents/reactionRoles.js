@@ -1,5 +1,4 @@
 module.exports =async (client, configFile) => {
-  
   let guild = client.guilds.cache.get(configFile.guildID);
 	let rolesChan = guild.channels.cache.find(
 		channel => channel.id === '738110183389003818'
