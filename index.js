@@ -115,6 +115,9 @@ bot.on('ready', () => {
 
   eventFunction = require('./commands/sayCommands.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./commands/counting.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {
@@ -134,7 +137,8 @@ var fs;
 embed.setTitle("WillBot")
 embed.setColor('#0099ff')
 
-/*bot.on('message', async msg => {
+//misc commands that don't belong in any module
+bot.on('message', async msg => {
   embed.setFooter(msg.author.tag)
   if (msg.content.toLowerCase().startsWith('hey bot')) {
     msg.reply('hey!');
@@ -154,37 +158,4 @@ embed.setColor('#0099ff')
     );
     msg.channel.send({ embed });
   }
-  if (msg.channel.id === '738109254036226228') {
-    fs = require('fs');
-    fs.readFile('number.json', 'utf8', function(err, data) {
-      var currentNo = JSON.parse(data)[0].number;
-      if (!isNaN(msg.content)) {
-        if (msg.content == currentNo + 1) {
-          msg.react('✅');
-          var jsonStuff = [
-            {
-              number: currentNo + 1
-            }
-          ];
-          jsonStuff = JSON.stringify(jsonStuff);
-          fs.writeFile('number.json', jsonStuff, 'utf8', function() { });
-        } else {
-          msg.react('❌');
-          embed.setDescription(
-            '<@' +
-            msg.author.id +
-            '>  has ruined it! The current number has been reset... start again from 1!'
-          );
-          msg.channel.send({ embed });
-          var jsonStuff = [
-            {
-              number: 0
-            }
-          ];
-          jsonStuff = JSON.stringify(jsonStuff);
-          fs.writeFile('number.json', jsonStuff, 'utf8', function() { });
-        }
-      }
-    });
-  }
-});*/
+});
