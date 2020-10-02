@@ -3,9 +3,9 @@ module.exports = async (bot, config) => {
     const settings = require('../settings/settings.json');
     var prefix = settings.prefix;
 
-    var embed = Discord.MessageEmbed().setColor(0x0046ff);
+    var embed = new Discord.MessageEmbed().setColor(0x0046ff);
 
-    bot.onEvent("message", async msg => {
+    bot.on("message", async msg => {
         embed.setFooter(msg.author.tag);
         embed.setTitle('Dice Roll');
         if (msg.content.startsWith(prefix + 'dice')) {
