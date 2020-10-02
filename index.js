@@ -103,6 +103,11 @@ bot.on('ready', () => {
 
   eventFunction = require('./commands/nickname.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./serverEvents/suggestionAdd.js');
+  eventFunction(bot, configFile)
+  eventFunction = require('./commands/dice.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {
@@ -115,7 +120,7 @@ bot.on('guildMemberAdd', member => {
   );
 });
 
-var sureSellAll = { tag: 0, isReady: false };
+
 
 var fs;
 
@@ -175,43 +180,6 @@ embed.setColor('#0099ff')
       }
     });
   }
-})
-if (msg.content.startsWith(prefix + 'dice')) {
-  let number = msg.content.slice(6);
-  var result = '';
-  if (number === '' || number == '1') {
-    embed.setDescription(
-      'You rolled a... ' +
-      (Math.floor(Math.random() * Math.floor(6)) + 1) +
-      '!'
-    );
-  } else {
-    if (isNaN(number)) {
-      embed.setDescription('Invalid Input');
-    } else if (number <= 600) {
-      var total = 0;
-      number = parseInt(number, 10);
-      result += Math.floor(Math.random() * Math.floor(6)) + 1;
-      total += parseInt(result, 10);
-      if (number > 2) {
-        for (var i = 0; i < number - 2; i++) {
-          var current = Math.floor(Math.random() * Math.floor(6)) + 1;
-          result += ', ' + current;
-          total += parseInt(current, 10);
-        }
-      }
-      var current = Math.floor(Math.random() * Math.floor(6)) + 1;
-      result += ' and a ' + current;
-      total += current;
-      embed.setDescription(
-        'You rolled a ' + result + ' for a total of ' + total + '!'
-      );
-    } else {
-      embed.setDescription('Please pick a value equal to or below 600!');
-    }
-  }
-  msg.channel.send({ embed });
-}
 if (msg.content.startsWith(prefix + 'sayEmbed')) {
   var content = msg.content.slice(10);
   embed.setDescription(content);
@@ -228,73 +196,7 @@ if (msg.content.startsWith(prefix + 'sayEmbed')) {
       //
     }
   }
-  if (msg.content.toLowerCase().startsWith(prefix + 'sellall')) {
-    var totalAssets = 0;
-    var fs = require('fs');
-    fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
-      stuff = JSON.parse(data);
-      var items =
-        stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-      fs.readFile('shopInventory.json', 'utf8', function(err, data) {
-        var stuffInv = JSON.parse(data);
-        items.forEach(m => {
-          var index = stuffInv.findIndex(x => x.id == m);
-          totalAssets += stuffInv[index].sellPrice;
-        });
-      });
-    });
-    setTimeout(function() {
-      embed.setTitle('Confirm');
-      embed.setDescription(
-        'Are you sure you want to sell all your items? You would get a total of `£' +
-        totalAssets.toFixed(2) +
-        '` for everything.\nType `y/n` to confirm or cancel'
-      );
-      sureSellAll = { tag: msg.author.id, isReady: true };
-      msg.channel.send({ embed });
-    }, 10);
-  }
-  if (sureSellAll.isReady && msg.author.id == sureSellAll.tag) {
-    var fs = require('fs');
-    if (msg.content.toLowerCase() == 'y') {
-      var totalAssets = 0;
-      fs.readFile('shop.json', 'utf8', function readFileCallback(
-        err,
-        data
-      ) {
-        stuff = JSON.parse(data);
-        var items =
-          stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-        fs.readFile('shopInventory.json', 'utf8', function(err, data) {
-          var stuffInv = JSON.parse(data);
-          items.forEach(m => {
-            var index = stuffInv.findIndex(x => x.id == m);
-            totalAssets += stuffInv[index].sellPrice;
-          });
-        });
-        setTimeout(function() {
-          stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv = [];
-          stuff[
-            stuff.findIndex(x => x.userID == msg.author.id)
-          ].money += totalAssets;
-          fs.writeFile(
-            'shop.json',
-            JSON.stringify(stuff),
-            'utf8',
-            function() { }
-          );
-        }, 50);
-        embed.setTitle('Success');
-        embed.setDescription('Succesfully sold all your assets');
-        msg.channel.send({ embed });
-      });
-    } else if (msg.content.toLowerCase() == 'n') {
-      embed.setTitle('Canceled');
-      embed.setDescription('Canceled operation');
-      msg.channel.send({ embed });
-    }
-    sureSellAll = false;
-  }
+  
   //admin commands
   if (
     msg.content.startsWith(prefix + 'delete') &&

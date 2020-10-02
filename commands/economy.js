@@ -4,10 +4,80 @@ module.exports = async (client, configFile) => {
   var fs = require('fs');
   const settings = require('../settings/settings.json');
   var prefix = settings.prefix;
-  prefix = settings.prefix
+  prefix = settings.prefix;
+
+  var sureSellAll = { tag: 0, isReady: false };
+
   client.on('message', async msg => {
+    if (msg.content.toLowerCase().startsWith(prefix + 'sellall')) {
+      var totalAssets = 0;
+      var fs = require('fs');
+      fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
+        stuff = JSON.parse(data);
+        var items =
+          stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
+        fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          var stuffInv = JSON.parse(data);
+          items.forEach(m => {
+            var index = stuffInv.findIndex(x => x.id == m);
+            totalAssets += stuffInv[index].sellPrice;
+          });
+        });
+      });
+      setTimeout(function () {
+        embed.setTitle('Confirm');
+        embed.setDescription(
+          'Are you sure you want to sell all your items? You would get a total of `£' +
+          totalAssets.toFixed(2) +
+          '` for everything.\nType `y/n` to confirm or cancel'
+        );
+        sureSellAll = { tag: msg.author.id, isReady: true };
+        msg.channel.send({ embed });
+      }, 10);
+    }
+    if (sureSellAll.isReady && msg.author.id == sureSellAll.tag) {
+      var fs = require('fs');
+      if (msg.content.toLowerCase() == 'y') {
+        var totalAssets = 0;
+        fs.readFile('shop.json', 'utf8', function readFileCallback(
+          err,
+          data
+        ) {
+          stuff = JSON.parse(data);
+          var items =
+            stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
+          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+            var stuffInv = JSON.parse(data);
+            items.forEach(m => {
+              var index = stuffInv.findIndex(x => x.id == m);
+              totalAssets += stuffInv[index].sellPrice;
+            });
+          });
+          setTimeout(function () {
+            stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv = [];
+            stuff[
+              stuff.findIndex(x => x.userID == msg.author.id)
+            ].money += totalAssets;
+            fs.writeFile(
+              'shop.json',
+              JSON.stringify(stuff),
+              'utf8',
+              function () { }
+            );
+          }, 50);
+          embed.setTitle('Success');
+          embed.setDescription('Succesfully sold all your assets');
+          msg.channel.send({ embed });
+        });
+      } else if (msg.content.toLowerCase() == 'n') {
+        embed.setTitle('Canceled');
+        embed.setDescription('Canceled operation');
+        msg.channel.send({ embed });
+      }
+      sureSellAll = false;
+    }
     embed.setFooter(msg.author.tag)
-  embed.setColor(0x0046ff);
+    embed.setColor(0x0046ff);
     if (msg.content.toLowerCase() == prefix + 'wallet') {
       fs = require('fs');
       fs.readFile('shop.json', 'utf8', function readFileCallback(err, data) {
@@ -27,10 +97,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function() { });
+          fs.writeFile('shop.json', stuff, 'utf8', function () { });
         }
       });
-      setTimeout(function() {
+      setTimeout(function () {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -39,14 +109,14 @@ module.exports = async (client, configFile) => {
           var items =
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
           var totalAssets = 0;
-          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
             var stuffInv = JSON.parse(data);
             items.forEach(m => {
               var index = stuffInv.findIndex(x => x.id == m);
               totalAssets += stuffInv[index].sellPrice;
             });
           });
-          setTimeout(function() {
+          setTimeout(function () {
             stuff.forEach(m => {
               if (m.userID == msg.author.id) {
                 embed.setTitle('Wallet Balance');
@@ -86,10 +156,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function() { });
+          fs.writeFile('shop.json', stuff, 'utf8', function () { });
         }
       });
-      setTimeout(function() {
+      setTimeout(function () {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -102,7 +172,7 @@ module.exports = async (client, configFile) => {
               stuff[index].money += amount;
               var currentMoney = stuff[index].money;
               stuff = JSON.stringify(stuff);
-              fs.writeFile('shop.json', stuff, 'utf8', function() { });
+              fs.writeFile('shop.json', stuff, 'utf8', function () { });
               embed.setTitle('Regular Command');
               embed.setDescription(
                 'You have successfully added £' +
@@ -144,10 +214,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function() { });
+          fs.writeFile('shop.json', stuff, 'utf8', function () { });
         }
       });
-      setTimeout(function() {
+      setTimeout(function () {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -161,7 +231,7 @@ module.exports = async (client, configFile) => {
                 stuff[index].money += 500;
                 var currentMoney = stuff[index].money;
                 stuff = JSON.stringify(stuff);
-                fs.writeFile('shop.json', stuff, 'utf8', function() { });
+                fs.writeFile('shop.json', stuff, 'utf8', function () { });
                 embed.setTitle('Daily Command');
                 embed.setDescription(
                   'You have successfully added £500 to your balance! Your balance is now: `£' +
@@ -203,7 +273,7 @@ module.exports = async (client, configFile) => {
             }
           });
         });
-        setTimeout(function() {
+        setTimeout(function () {
           if (list == '') {
             embed.setTitle('Error');
             embed.setDescription(`${shop} is not a valid shop!`);
@@ -225,7 +295,7 @@ module.exports = async (client, configFile) => {
       fs = require('fs');
       var money = 0;
       var isAble = true;
-      fs.readFile('shop.json', 'utf8', function(err, data) {
+      fs.readFile('shop.json', 'utf8', function (err, data) {
         var count = 0;
         var stuff = JSON.parse(data);
         stuff.forEach(m => {
@@ -238,7 +308,7 @@ module.exports = async (client, configFile) => {
           isAble == false;
         }
       });
-      setTimeout(function() {
+      setTimeout(function () {
         if (!isAble) {
           embed.setTitle('Error');
           embed.setDescription(
@@ -248,7 +318,7 @@ module.exports = async (client, configFile) => {
           var price = 0;
           var id = 0;
           var canContinue = true;
-          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
             var stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
@@ -258,7 +328,7 @@ module.exports = async (client, configFile) => {
                 id = m.id;
               }
             });
-            setTimeout(function() {
+            setTimeout(function () {
               if (count == 0) {
                 canContinue = false;
                 embed.setTitle('Error');
@@ -267,10 +337,10 @@ module.exports = async (client, configFile) => {
               }
             }, 10);
           });
-          setTimeout(function() {
+          setTimeout(function () {
             if (canContinue) {
               if (price <= money) {
-                fs.readFile('shop.json', 'utf8', function(err, data) {
+                fs.readFile('shop.json', 'utf8', function (err, data) {
                   var stuff = JSON.parse(data);
                   var index = stuff.findIndex(x => x.userID == msg.author.id);
                   var jsonStuff = {
@@ -283,7 +353,7 @@ module.exports = async (client, configFile) => {
                   stuff.splice(index, 1);
                   stuff.push(jsonStuff);
                   stuff = JSON.stringify(stuff);
-                  fs.writeFile('shop.json', stuff, 'utf8', function() { });
+                  fs.writeFile('shop.json', stuff, 'utf8', function () { });
                   embed.setTitle('Bought item');
                   embed.setDescription(`Successfully bought ${item}.`);
                   msg.channel.send({ embed });

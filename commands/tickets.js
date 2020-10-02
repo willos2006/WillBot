@@ -5,9 +5,6 @@ module.exports = async (client, configFile) => {
   
   client.on('message', async msg => {
     if (msg.author.id != client.user.id) {
-			if (msg.channel.id == 738757083381366916) {
-				msg.react('✅');
-			}
 			var embed = new Discord.MessageEmbed()
 				.setTitle('WillBot')
 				.setColor(0x0046ff);
