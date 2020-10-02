@@ -7,7 +7,7 @@ module.exports = async (client, configFile) => {
   prefix = settings.prefix;
 
   var sureSellAll = { tag: 0, isReady: false };
-  var buyConfirm = { tag: 0, isReady: false, itemName: "", itemID: 0 };
+  var buyConfirm = { tag: 0, isReady: false, itemName: "", itemID: 0, price: 0, category: "" };
 
   client.on('message', async msg => {
     embed.setFooter(msg.author.tag)
@@ -19,7 +19,7 @@ module.exports = async (client, configFile) => {
         stuff = JSON.parse(data);
         var items =
           stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-        fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+        fs.readFile('shopInventory.json', 'utf8', function(err, data) {
           var stuffInv = JSON.parse(data);
           items.forEach(m => {
             var index = stuffInv.findIndex(x => x.id == m);
@@ -27,7 +27,7 @@ module.exports = async (client, configFile) => {
           });
         });
       });
-      setTimeout(function () {
+      setTimeout(function() {
         embed.setTitle('Confirm');
         embed.setDescription(
           'Are you sure you want to sell all your items? You would get a total of `£' +
@@ -54,14 +54,14 @@ module.exports = async (client, configFile) => {
           stuff = JSON.parse(data);
           var items =
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuffInv = JSON.parse(data);
             items.forEach(m => {
               var index = stuffInv.findIndex(x => x.id == m);
               totalAssets += stuffInv[index].sellPrice;
             });
           });
-          setTimeout(function () {
+          setTimeout(function() {
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv = [];
             stuff[
               stuff.findIndex(x => x.userID == msg.author.id)
@@ -70,7 +70,7 @@ module.exports = async (client, configFile) => {
               'shop.json',
               JSON.stringify(stuff),
               'utf8',
-              function () { }
+              function() { }
             );
           }, 50);
           embed.setTitle('Success');
@@ -103,10 +103,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -115,14 +115,14 @@ module.exports = async (client, configFile) => {
           var items =
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
           var totalAssets = 0;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuffInv = JSON.parse(data);
             items.forEach(m => {
               var index = stuffInv.findIndex(x => x.id == m);
               totalAssets += stuffInv[index].sellPrice;
             });
           });
-          setTimeout(function () {
+          setTimeout(function() {
             stuff.forEach(m => {
               if (m.userID == msg.author.id) {
                 embed.setTitle('Wallet Balance');
@@ -167,10 +167,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -183,7 +183,7 @@ module.exports = async (client, configFile) => {
               stuff[index].money += amount;
               var currentMoney = stuff[index].money;
               stuff = JSON.stringify(stuff);
-              fs.writeFile('shop.json', stuff, 'utf8', function () { });
+              fs.writeFile('shop.json', stuff, 'utf8', function() { });
               embed.setTitle('Regular Command');
               embed.setDescription(
                 'You have successfully added £' +
@@ -230,10 +230,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -247,7 +247,7 @@ module.exports = async (client, configFile) => {
                 stuff[index].money += 500;
                 var currentMoney = stuff[index].money;
                 stuff = JSON.stringify(stuff);
-                fs.writeFile('shop.json', stuff, 'utf8', function () { });
+                fs.writeFile('shop.json', stuff, 'utf8', function() { });
                 embed.setTitle('Daily Command');
                 embed.setDescription(
                   'You have successfully added £500 to your balance! Your balance is now: `£' +
@@ -294,7 +294,7 @@ module.exports = async (client, configFile) => {
             }
           });
         });
-        setTimeout(function () {
+        setTimeout(function() {
           if (list == '') {
             embed.setTitle('Error');
             embed.setDescription(`${shop} is not a valid shop!`);
@@ -321,7 +321,7 @@ module.exports = async (client, configFile) => {
       fs = require('fs');
       var money = 0;
       var isAble = true;
-      fs.readFile('shop.json', 'utf8', function (err, data) {
+      fs.readFile('shop.json', 'utf8', function(err, data) {
         var count = 0;
         var stuff = JSON.parse(data);
         stuff.forEach(m => {
@@ -334,7 +334,7 @@ module.exports = async (client, configFile) => {
           isAble == false;
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         if (!isAble) {
           embed.setTitle('Error');
           embed.setDescription(
@@ -344,7 +344,7 @@ module.exports = async (client, configFile) => {
           var price = 0;
           var id = 0;
           var canContinue = true;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
@@ -354,7 +354,7 @@ module.exports = async (client, configFile) => {
                 id = m.id;
               }
             });
-            setTimeout(function () {
+            setTimeout(function() {
               if (count == 0) {
                 canContinue = false;
                 embed.setTitle('Error');
@@ -363,40 +363,24 @@ module.exports = async (client, configFile) => {
               }
             }, 10);
           });
-          setTimeout(function () {
+          setTimeout(async function() {
             if (canContinue) {
               if (price <= money) {
+                var shop;
+                await fs.readFile('shopInventory.json', 'utf8', function(err, data) {
+                  data = JSON.parse(data);
+                  var index = data.findIndex(x => x.name.toLowerCase() == item);
+                  shop = data[index].category;
+                });
                 buyConfirm.tag = msg.author.id;
                 buyConfirm.isReady = true;
                 buyConfirm.itemName = item;
                 buyConfirm.itemID = id;
+                buyConfirm.category = shop;
+                buyConfirm.price = price;
                 embed.setTitle("Confirm Purchase");
                 embed.setDescription("Please confirm your purchase with y/n. If you have a coupon code, please enter it below instead of y or n.");
                 msg.channel.send({ embed });
-                /*fs.readFile('shop.json', 'utf8', function(err, data) {
-                  var stuff = JSON.parse(data);
-                  var index = stuff.findIndex(x => x.userID == msg.author.id);
-                  var jsonStuff = {
-                    userID: msg.author.id,
-                    lastSeen: stuff[index].lastSeen,
-                    money: (stuff[index].money -= price),
-                    inv: stuff[index].inv
-                  };
-                  jsonStuff.inv.push(id);
-                  stuff.splice(index, 1);
-                  stuff.push(jsonStuff);
-                  stuff = JSON.stringify(stuff);
-                  fs.writeFile('shop.json', stuff, 'utf8', function() { });
-                  embed.setTitle('Bought item');
-                  embed.setDescription(`Successfully bought ${item}.`);
-                  msg.channel.send({ embed });
-                });
-              } else {
-                embed.setTitle('Error');
-                embed.setDescription(
-                  `Sorry, you do not have the funds to purchase this item.`
-                );
-                msg.channel.send({ embed });*/
               }
             }
           }, 50);
@@ -409,11 +393,16 @@ module.exports = async (client, configFile) => {
       msg.channel.send({ embed });
     }
     if (buyConfirm.isReady == true && msg.author.id == buyConfirm.tag) {
+      var fs = require('fs');
       var response = msg.content.toLowerCase();
       var id = buyConfirm.itemID;
       var item = buyConfirm.itemName;
+      var price = buyConfirm.price;
+      var cat = buyConfirm.category;
+      var discount = 0;
+      var error = 0;
       if (response == 'y') {
-        fs.readFile('shop.json', 'utf8', function (err, data) {
+        fs.readFile('shop.json', 'utf8', function(err, data) {
           var stuff = JSON.parse(data);
           var index = stuff.findIndex(x => x.userID == msg.author.id);
           var jsonStuff = {
@@ -426,18 +415,63 @@ module.exports = async (client, configFile) => {
           stuff.splice(index, 1);
           stuff.push(jsonStuff);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
           embed.setTitle('Bought item');
           embed.setDescription(`Successfully bought ${item}.`);
           msg.channel.send({ embed });
         });
       }
       else if (response == 'n') {
-        //
+        embed.setTitle("Canceled");
+        embed.setDescription("Purchase Canceled! No charge has been applied to your account.");
+        msg.channel.send({ embed });
       }
       else {
-        //
+        await fs.readFile('discountCodes.json', 'utf8', async function(err, data) {
+          var data = JSON.parse(data);
+          data.forEach(m => {
+            if (m.code != response) {
+              error += 1;
+            }
+            else {
+              discount = m.percent;
+              if (eval(m.param)(item, cat, price, msg.author.id) != true) {
+                error += 1;
+              }
+            }
+          });
+        });
+        setTimeout(function(){
+          if (error == 0) {
+            fs.readFile('shop.json', 'utf8', function(err, data) {
+              var stuff = JSON.parse(data);
+              var index = stuff.findIndex(x => x.userID == msg.author.id);
+              var jsonStuff = {
+                userID: msg.author.id,
+                lastSeen: stuff[index].lastSeen,
+                money: stuff[index].money -= (price * (1 - (discount / 100))),
+                inv: stuff[index].inv
+              };
+              jsonStuff.inv.push(id);
+              stuff.splice(index, 1);
+              stuff.push(jsonStuff);
+              stuff = JSON.stringify(stuff);
+              fs.writeFile('shop.json', stuff, 'utf8', function() { });
+              msg.delete();
+              msg.channel.send("***Code Hidden***")
+              embed.setTitle('Bought item');
+              embed.setDescription(`Successfully bought ${item} with ${discount}% off using a discount code! (£${(price * (1 - (discount / 100))).toFixed(2)} final price)`);
+              msg.channel.send({ embed });
+            });
+          }
+          else{
+            embed.setTitle("Invalid Code");
+            embed.setDescription("Sorry, the code you provided was either invalid, or is not applicible in this situation.");
+            msg.channel.send({embed});
+          }
+        }, 50)
       }
+      buyConfirm.tag = ""; buyConfirm.isReady = false;
     }
   })
 }

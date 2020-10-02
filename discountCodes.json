@@ -1,7 +1,7 @@
 [
     {
         "code": "spoink123",
-        "percent": "50",
-        "param": "if(item == 'extra special beans'){return true;}"
+        "percent": 50,
+        "param": "(function(item, cat, price, person) {if(item == 'extra special beans'){return true;}})"
     }
 ]
