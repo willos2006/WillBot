@@ -112,6 +112,9 @@ bot.on('ready', () => {
 
   eventFunction = require('./commands/adminCommands.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./commands/sayCommands.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {
@@ -184,23 +187,4 @@ embed.setColor('#0099ff')
       }
     });
   }
-if (msg.content.startsWith(prefix + 'sayEmbed')) {
-  var content = msg.content.slice(10);
-  embed.setDescription(content);
-  msg.channel.send({ embed });
-  msg.delete();
-} else if (msg.content.startsWith(prefix + 'say')) {
-  var content = msg.content.slice(5);
-  msg.channel.send(content);
-  msg.delete();
-}
-  if (msg.content.toLowerCase().startsWith(prefix + 'afk')) {
-    var fs = require('fs');
-    async function step() {
-      //
-    }
-  }
-  
-  //admin commands
-  
 });*/
