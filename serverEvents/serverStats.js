@@ -11,7 +11,7 @@ module.exports = async (client, configFile) => {
 	setInterval(async function() {
 		guild.members.fetch();
 		numberOfOnline = guild.members.cache
-			.filter(member => member.presence.status == 'online')
+			.filter(member => member.presence.status != 'offline')
 			.array().length;
 		if (numberOfOnline != userOnline.name.slice(14)) {
 			userOnline.edit({ name: 'Online Users: ' + numberOfOnline });
