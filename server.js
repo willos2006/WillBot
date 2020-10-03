@@ -15,6 +15,10 @@ server.get('/data', (req, res) => {
   });
 });
 
+server.get('/bankstate'){
+  res.sendFile('bankstate.html');
+}
+
 server.post('/contact', (req, res) => {
   let body = '';
   var data;
