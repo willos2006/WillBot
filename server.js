@@ -5,7 +5,7 @@ const fs = require('fs');
 const bot = require("./index");
 const { parse } = require('querystring');
 
-server.all('/', (req, res) => {
+server.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 

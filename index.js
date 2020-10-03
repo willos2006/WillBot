@@ -119,6 +119,9 @@ bot.on('ready', () => {
 
   eventFunction = require('./serverEvents/counting.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./commands/bankCommands.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {
