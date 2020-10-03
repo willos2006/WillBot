@@ -19,7 +19,7 @@ module.exports = async (client, configFile) => {
         stuff = JSON.parse(data);
         var items =
           stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-        fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+        fs.readFile('shopInventory.json', 'utf8', function(err, data) {
           var stuffInv = JSON.parse(data);
           items.forEach(m => {
             var index = stuffInv.findIndex(x => x.id == m);
@@ -27,7 +27,7 @@ module.exports = async (client, configFile) => {
           });
         });
       });
-      setTimeout(function () {
+      setTimeout(function() {
         embed.setTitle('Confirm');
         embed.setDescription(
           'Are you sure you want to sell all your items? You would get a total of `£' +
@@ -44,6 +44,9 @@ module.exports = async (client, configFile) => {
       msg.channel.send({ embed });
     }
     if (sureSellAll.isReady && msg.author.id == sureSellAll.tag && settings.economyCommandsEnabled == true) {
+      var currentDate = new Date();
+      var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
+      var time = currentDate.getHours() + ":" + currentDate.getMinutes();
       var fs = require('fs');
       if (msg.content.toLowerCase() == 'y') {
         var totalAssets = 0;
@@ -54,14 +57,14 @@ module.exports = async (client, configFile) => {
           stuff = JSON.parse(data);
           var items =
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuffInv = JSON.parse(data);
             items.forEach(m => {
               var index = stuffInv.findIndex(x => x.id == m);
               totalAssets += stuffInv[index].sellPrice;
             });
           });
-          setTimeout(function () {
+          setTimeout(function() {
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv = [];
             stuff[
               stuff.findIndex(x => x.userID == msg.author.id)
@@ -77,7 +80,7 @@ module.exports = async (client, configFile) => {
               'shop.json',
               JSON.stringify(stuff),
               'utf8',
-              function () { }
+              function() { }
             );
           }, 50);
           embed.setTitle('Success');
@@ -111,10 +114,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -123,14 +126,14 @@ module.exports = async (client, configFile) => {
           var items =
             stuff[stuff.findIndex(x => x.userID == msg.author.id)].inv;
           var totalAssets = 0;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuffInv = JSON.parse(data);
             items.forEach(m => {
               var index = stuffInv.findIndex(x => x.id == m);
               totalAssets += stuffInv[index].sellPrice;
             });
           });
-          setTimeout(function () {
+          setTimeout(function() {
             stuff.forEach(m => {
               if (m.userID == msg.author.id) {
                 embed.setTitle('Wallet Balance');
@@ -176,10 +179,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -192,7 +195,7 @@ module.exports = async (client, configFile) => {
               stuff[index].money += amount;
               var currentMoney = stuff[index].money;
               stuff = JSON.stringify(stuff);
-              fs.writeFile('shop.json', stuff, 'utf8', function () { });
+              fs.writeFile('shop.json', stuff, 'utf8', function() { });
               embed.setTitle('Regular Command');
               embed.setDescription(
                 'You have successfully added £' +
@@ -240,10 +243,10 @@ module.exports = async (client, configFile) => {
           };
           stuff.push(json);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         fs.readFile('shop.json', 'utf8', function readFileCallback(
           err,
           data
@@ -257,7 +260,7 @@ module.exports = async (client, configFile) => {
                 stuff[index].money += 500;
                 var currentMoney = stuff[index].money;
                 stuff = JSON.stringify(stuff);
-                fs.writeFile('shop.json', stuff, 'utf8', function () { });
+                fs.writeFile('shop.json', stuff, 'utf8', function() { });
                 embed.setTitle('Daily Command');
                 embed.setDescription(
                   'You have successfully added £500 to your balance! Your balance is now: `£' +
@@ -304,7 +307,7 @@ module.exports = async (client, configFile) => {
             }
           });
         });
-        setTimeout(function () {
+        setTimeout(function() {
           if (list == '') {
             embed.setTitle('Error');
             embed.setDescription(`${shop} is not a valid shop!`);
@@ -331,7 +334,7 @@ module.exports = async (client, configFile) => {
       fs = require('fs');
       var money = 0;
       var isAble = true;
-      fs.readFile('shop.json', 'utf8', function (err, data) {
+      fs.readFile('shop.json', 'utf8', function(err, data) {
         var count = 0;
         var stuff = JSON.parse(data);
         stuff.forEach(m => {
@@ -344,7 +347,7 @@ module.exports = async (client, configFile) => {
           isAble == false;
         }
       });
-      setTimeout(function () {
+      setTimeout(function() {
         if (!isAble) {
           embed.setTitle('Error');
           embed.setDescription(
@@ -354,7 +357,7 @@ module.exports = async (client, configFile) => {
           var price = 0;
           var id = 0;
           var canContinue = true;
-          fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+          fs.readFile('shopInventory.json', 'utf8', function(err, data) {
             var stuff = JSON.parse(data);
             var count = 0;
             stuff.forEach(m => {
@@ -364,7 +367,7 @@ module.exports = async (client, configFile) => {
                 id = m.id;
               }
             });
-            setTimeout(function () {
+            setTimeout(function() {
               if (count == 0) {
                 canContinue = false;
                 embed.setTitle('Error');
@@ -373,11 +376,11 @@ module.exports = async (client, configFile) => {
               }
             }, 10);
           });
-          setTimeout(async function () {
+          setTimeout(async function() {
             if (canContinue) {
               if (price <= money) {
                 var shop;
-                await fs.readFile('shopInventory.json', 'utf8', function (err, data) {
+                await fs.readFile('shopInventory.json', 'utf8', function(err, data) {
                   data = JSON.parse(data);
                   var index = data.findIndex(x => x.name.toLowerCase() == item);
                   shop = data[index].category;
@@ -412,7 +415,7 @@ module.exports = async (client, configFile) => {
       var discount = 0;
       var error = 0;
       if (response == 'y') {
-        fs.readFile('shop.json', 'utf8', function (err, data) {
+        fs.readFile('shop.json', 'utf8', function(err, data) {
           var stuff = JSON.parse(data);
           var index = stuff.findIndex(x => x.userID == msg.author.id);
           var stuff = JSON.parse(data);
@@ -422,7 +425,7 @@ module.exports = async (client, configFile) => {
             lastSeen: stuff[index].lastSeen,
             money: stuff[index].money -= (price * (1 - (discount / 100))),
             inv: stuff[index].inv,
-            statement: []
+            statement: stuff[index].statement
           };
           var currentDate = new Date();
           var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
@@ -437,7 +440,7 @@ module.exports = async (client, configFile) => {
           stuff.splice(index, 1);
           stuff.push(jsonStuff);
           stuff = JSON.stringify(stuff);
-          fs.writeFile('shop.json', stuff, 'utf8', function () { });
+          fs.writeFile('shop.json', stuff, 'utf8', function() { });
           embed.setTitle('Bought item');
           embed.setDescription(`Successfully bought ${item}.`);
           msg.channel.send({ embed });
@@ -449,7 +452,7 @@ module.exports = async (client, configFile) => {
         msg.channel.send({ embed });
       }
       else {
-        await fs.readFile('discountCodes.json', 'utf8', async function (err, data) {
+        await fs.readFile('discountCodes.json', 'utf8', async function(err, data) {
           var data = JSON.parse(data);
           data.forEach(m => {
             if (m.code != response) {
@@ -463,9 +466,9 @@ module.exports = async (client, configFile) => {
             }
           });
         });
-        setTimeout(function () {
+        setTimeout(function() {
           if (error == 0) {
-            fs.readFile('shop.json', 'utf8', function (err, data) {
+            fs.readFile('shop.json', 'utf8', function(err, data) {
               var stuff = JSON.parse(data);
               var index = stuff.findIndex(x => x.userID == msg.author.id);
               var jsonStuff = {
@@ -473,7 +476,7 @@ module.exports = async (client, configFile) => {
                 lastSeen: stuff[index].lastSeen,
                 money: stuff[index].money -= (price * (1 - (discount / 100))),
                 inv: stuff[index].inv,
-                statement: []
+                statement: stuff[index].statement
               };
               var currentDate = new Date();
               var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
@@ -488,7 +491,7 @@ module.exports = async (client, configFile) => {
               jsonStuff.inv.push(id);
               stuff.push(jsonStuff);
               stuff = JSON.stringify(stuff);
-              fs.writeFile('shop.json', stuff, 'utf8', function () { });
+              fs.writeFile('shop.json', stuff, 'utf8', function() { });
               msg.delete();
               msg.channel.send("***Code Hidden***")
               embed.setTitle('Bought item');
