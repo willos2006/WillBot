@@ -46,7 +46,15 @@ module.exports = async (client, configFile) => {
     if (sureSellAll.isReady && msg.author.id == sureSellAll.tag && settings.economyCommandsEnabled == true) {
       var currentDate = new Date();
       var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
-      var time = currentDate.getHours() + ":" + currentDate.getMinutes();
+      var hours = currentDate.getHours();
+      if(hours.toString().length < 2){
+        hours = 0 + hours.toString();
+      }
+      var mins = currentDate.getMinutes();
+      if(mins.toString().length < 2){
+        mins = 0 + mins.toString();
+      }
+      var time = hours + ":" + mins;
       var fs = require('fs');
       if (msg.content.toLowerCase() == 'y') {
         var totalAssets = 0;
@@ -194,6 +202,24 @@ module.exports = async (client, configFile) => {
               var amount = Math.floor(Math.random() * 65) + 1;
               stuff[index].money += amount;
               var currentMoney = stuff[index].money;
+              var currentDate = new Date();
+              var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
+              var hours = currentDate.getHours()
+              if(hours.toString().length < 2){
+                hours = 0 + hours.toString();
+              }
+              var mins = currentDate.getMinutes();
+              if(mins.toString().length < 2){
+                mins = 0 + mins.toString();
+              }
+              var time = hours + ":" + mins;
+              var statementJson = {
+                itemName: "Regular Work",
+                itemPrice: amount,
+                date: date,
+                time: time
+              }
+              stuff[index].statement.push(statementJson);
               stuff = JSON.stringify(stuff);
               fs.writeFile('shop.json', stuff, 'utf8', function() { });
               embed.setTitle('Regular Command');
@@ -259,6 +285,24 @@ module.exports = async (client, configFile) => {
                 stuff[index].lastSeen = numdate;
                 stuff[index].money += 500;
                 var currentMoney = stuff[index].money;
+                var currentDate = new Date();
+                var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
+                var hours = currentDate.getHours()
+                if(hours.toString().length < 2){
+                  hours = 0 + hours.toString();
+                }
+                var mins = currentDate.getMinutes();
+                if(mins.toString().length < 2){
+                  mins = 0 + mins.toString();
+                }
+                var time = hours + ":" + mins;
+                var statementJson = {
+                  itemName: "Daily Work",
+                  itemPrice: 500,
+                  date: date,
+                  time: time
+                }
+                stuff[index].statement.push(statementJson);
                 stuff = JSON.stringify(stuff);
                 fs.writeFile('shop.json', stuff, 'utf8', function() { });
                 embed.setTitle('Daily Command');
@@ -420,25 +464,25 @@ module.exports = async (client, configFile) => {
           var index = stuff.findIndex(x => x.userID == msg.author.id);
           var stuff = JSON.parse(data);
           var index = stuff.findIndex(x => x.userID == msg.author.id);
-          var jsonStuff = {
-            userID: msg.author.id,
-            lastSeen: stuff[index].lastSeen,
-            money: stuff[index].money -= (price * (1 - (discount / 100))),
-            inv: stuff[index].inv,
-            statement: stuff[index].statement
-          };
+          stuff[index].money = stuff[index].money - (price * (1 - (discount / 100)));
           var currentDate = new Date();
           var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
-          var time = currentDate.getHours() + ":" + currentDate.getMinutes();
-          stuff.splice(index, 1);
-          jsonStuff.statement.push({
+          var hours = currentDate.getHours()
+          if(hours.toString().length < 2){
+            hours = 0 + hours.toString();
+          }
+          var mins = currentDate.getMinutes();
+          if(mins.toString().length < 2){
+            mins = 0 + mins.toString();
+          }
+          var time = hours + ":" + mins;
+          stuff[index].statement.push({
             itemName: item,
             itemPrice: -1 * (price * (1 - (discount / 100))),
             date: date,
             time: time
-          })
-          stuff.splice(index, 1);
-          stuff.push(jsonStuff);
+          });
+          stuff[index].inv.push(id);
           stuff = JSON.stringify(stuff);
           fs.writeFile('shop.json', stuff, 'utf8', function() { });
           embed.setTitle('Bought item');
@@ -471,25 +515,25 @@ module.exports = async (client, configFile) => {
             fs.readFile('shop.json', 'utf8', function(err, data) {
               var stuff = JSON.parse(data);
               var index = stuff.findIndex(x => x.userID == msg.author.id);
-              var jsonStuff = {
-                userID: msg.author.id,
-                lastSeen: stuff[index].lastSeen,
-                money: stuff[index].money -= (price * (1 - (discount / 100))),
-                inv: stuff[index].inv,
-                statement: stuff[index].statement
-              };
+              stuff[index].money = stuff[index].money - (price * (1 - (discount / 100)));
               var currentDate = new Date();
               var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
-              var time = currentDate.getHours() + ":" + currentDate.getMinutes();
-              stuff.splice(index, 1);
-              jsonStuff.statement.push({
+              var hours = currentDate.getHours()
+              if(hours.toString().length < 2){
+                hours = 0 + hour.toString();
+              }
+              var mins = currentDate.getMinutes();
+              if(mins.toString().length < 2){
+                mins = 0 + mins.toString();
+              }
+              stuff[index].inv.push(id);
+              var time = hours + ":" + mins;
+              stuff[index].statement.push({
                 itemName: item,
                 itemPrice: -1 * (price * (1 - (discount / 100))),
                 date: date,
                 time: time
-              })
-              jsonStuff.inv.push(id);
-              stuff.push(jsonStuff);
+              });
               stuff = JSON.stringify(stuff);
               fs.writeFile('shop.json', stuff, 'utf8', function() { });
               msg.delete();
