@@ -33,7 +33,7 @@ var json;
     var jsonArr = {
       tot: totalNum,
       totOn: totalOnlineNum,
-      totMon: '£' + totalBotMoney.toFixed(2)
+      totMon: '£' + parseInt(totalBotMoney).toFixed(2)
     };
     callback(jsonArr);
   }, 30);
@@ -158,7 +158,7 @@ bot.on('message', async msg => {
   if (msg.content.toLowerCase() === prefix + 'help') {
     embed.setDescription(
       `Hey! Heres a list of commands:\n \`${prefix}truth\` \n \`${prefix}dare\` \n \`${prefix}resetTruth\` \n \`${prefix}resetDare\` \n \`Hey Bot!\` \n \`${prefix}nickname [user] [nickname]\` just \`${prefix}nickname [user]\` will reset 
-          the users nickname \n \`${prefix}dice [Number of dice to roll](not required)\` \n \`${prefix}say [message]\` \n \`${prefix}sayEmbed [message]\` \n*ADMIN COMMANDS* \n \`${prefix}delete [numberOfMessages](not required)\` \n \`${prefix}kick [user]\` \n \`${prefix}ban [user]\` \n \`${prefix}unban [user]\` \n \`${prefix}giveRole [user] [role]\` \n \`${prefix}removeRole [user] [role]\``
+          the users nickname \n \`${prefix}dice [Number of dice to roll](not required)\` \n \`${prefix}say [message]\` \n \`${prefix}sayEmbed [message]\` \n\`${prefix}daily\` will give you your daily dose of money\n\`${prefix}regular\` will give you small burst of money\n\`${prefix}wallet\` will show you your wallet stats\n\`${prefix}onlinebanking\` will give you a link to your WillBot online banking page\n\`${prefix}donate [user] [amount]\` will donate money to a user\n*ADMIN COMMANDS* \n \`${prefix}delete [numberOfMessages](not required)\` \n \`${prefix}kick [user]\` \n \`${prefix}ban [user]\` \n \`${prefix}unban [user]\` \n \`${prefix}giveRole [user] [role]\` \n \`${prefix}removeRole [user] [role]\``
     );
     msg.channel.send({ embed });
   }

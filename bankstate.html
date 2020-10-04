@@ -25,6 +25,10 @@
 			border: 1px solid black;
 			text-align: center;
 		}
+
+    td{
+      word-wrap:break-word;
+    }
 	</style>
 </head>
 
@@ -57,15 +61,15 @@
         <div style="text-align: center; width: 60%; transform: translateX(25%);">
           <h3 style="display: inline;">Statement:</h3>
         </div>
-        <div style="width: 60%; transform: translateX(25%); text-align: right">
+        <div style="width: 80%; transform: translateX(10%); text-align: right">
           <a class='collapse' href='#'>See Less</a>
             <table id='statement' style="table-layout: fixed; width: 100%; border-collapse: collapse;">
                 <tr style="text-align: center;">
-                    <th class="top" width="20%"><b><i>Note</i></b></th>
-                    <th class="top" width="20%"><b><i>Money In</i></b></th>
-                    <th class="top" width="20%"><b><i>Money Out</i></b></th>
-                    <th class="top" width="20%"><b><i>Date</i></b></th>
-                    <th class="top" width="20%"><b><i>Time</i></b></th>
+                    <th class="top"><b><i>Note</i></b></th>
+                    <th class="top"><b><i>Money In</i></b></th>
+                    <th class="top"><b><i>Money Out</i></b></th>
+                    <th class="top"><b><i>Date</i></b></th>
+                    <th class="top"><b><i>Time</i></b></th>
                 </tr>
                 <br>
                 <tr id="loading">
@@ -116,14 +120,14 @@
                 if(index != -1){
                     hasAccount = true;
                     balance = data[index].money;
-                    $("#ownerbal").html("Account Balance: £"+balance.toFixed(2));
+                    $("#ownerbal").html("Account Balance: £"+parseFloat(balance).toFixed(2));
                 }
                 statement = data[index].statement;
                 if(statement.length > 0){
                   var count = 0;
                   if(isFull == 'false'){
                     statement.reverse().forEach(m => {
-                      if(count < 20){
+                      if(count < 15){
                         $('#loading').remove();
                         var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
                         var newNode = tr.appendChild(document.createElement("TD"));
@@ -142,16 +146,16 @@
                           moneyIn = 0;
                         }
                         var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode("£"+moneyOut.toFixed(2)));
+                        newNode.appendChild(document.createTextNode("£"+parseFloat(moneyOut).toFixed(2)));
                         var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode("£"+moneyIn.toFixed(2))); 
+                        newNode.appendChild(document.createTextNode("£"+parseFloat(moneyIn).toFixed(2))); 
                         var newNode = tr.appendChild(document.createElement("TD"));
                         newNode.appendChild(document.createTextNode(m.date));
                         var newNode = tr.appendChild(document.createElement("TD"));
                         newNode.appendChild(document.createTextNode(m.time)); 
                         count+=1;
                       }
-                      if(statement.length > 20){
+                      if(statement.length > 15){
                         $("#more").show();
                       }
                     })
@@ -176,9 +180,9 @@
                         moneyIn = 0;
                       }
                       var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode("£"+moneyOut.toFixed(2)));
+                      newNode.appendChild(document.createTextNode("£"+parseFloat(moneyOut).toFixed(2)));
                       var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode("£"+moneyIn.toFixed(2))); 
+                      newNode.appendChild(document.createTextNode("£"+parseFloat(moneyIn).toFixed(2))); 
                       var newNode = tr.appendChild(document.createElement("TD"));
                       newNode.appendChild(document.createTextNode(m.date));
                       var newNode = tr.appendChild(document.createElement("TD"));
