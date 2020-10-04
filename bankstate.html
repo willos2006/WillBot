@@ -1,197 +1,255 @@
 <head>
-	<title>The Bank of WillBot</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
+  <title>The Bank of WillBot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
 
-	</script>
-	<style>
-		* {
-			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-		}
-
-		.container {
-			width: 75%;
-			padding-left: 12.5%;
-		}
-
-		#param {
-			width: 100%;
-			display: inline-flex;
-			justify-content: space-around;
-		}
-
-		table,
-		td,
-		th {
-			border: 1px solid black;
-			text-align: center;
-		}
-
-    td{
-      word-wrap:break-word;
+  </script>
+  <style>
+    * {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
-	</style>
+
+    .container {
+      width: 75%;
+      padding-left: 12.5%;
+    }
+
+    #param {
+      width: 100%;
+      display: inline-flex;
+      justify-content: space-around;
+    }
+
+    table,
+    td,
+    th {
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    td {
+      word-wrap: break-word;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-header {
+      padding: 2px 16px;
+      background-color: #5cb85c;
+      color: white;
+    }
+
+    .modal-body {
+      padding: 2px 16px;
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: #fefefe;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 80%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      animation-name: animatetop;
+      animation-duration: 0.4s
+    }
+
+    @keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0
+      }
+
+      to {
+        top: 0;
+        opacity: 1
+      }
+    }
+  </style>
 </head>
 
 <body>
-	<br>
-    <div style="display: flex; justify-content: center;">
-        <div style="display: inline-flex;">
-            <img height=100
-                src="https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/4/29/1240996556472/exclamation-001.jpg?width=620&quality=85&auto=format&fit=max&s=1c6fbbdbc2878bbd9cbb8f4d9ea9ce67">
-        </div>
-        <div style="display: inline-flex;">
-            <h1 style="display: inline;">The Bank of WillBot</h1>
-        </div>
-        <div style="display: inline-flex;">
-            <img height=100
-                src="https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/4/29/1240996556472/exclamation-001.jpg?width=620&quality=85&auto=format&fit=max&s=1c6fbbdbc2878bbd9cbb8f4d9ea9ce67">
-        </div>
+  <div id='loginModal' class="modal">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Login</h2>
     </div>
+    <div class="modla-body">
+      <label>Enter Password:</label><br>
+      <input type="password" name="password" id="password" placeholder="Password">
+    </div>
+  </div>
+  <br>
+  <div style="display: flex; justify-content: center;">
+    <div style="display: inline-flex;">
+      <img height=100
+        src="https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/4/29/1240996556472/exclamation-001.jpg?width=620&quality=85&auto=format&fit=max&s=1c6fbbdbc2878bbd9cbb8f4d9ea9ce67">
+    </div>
+    <div style="display: inline-flex;">
+      <h1 style="display: inline;">The Bank of WillBot</h1>
+    </div>
+    <div style="display: inline-flex;">
+      <img height=100
+        src="https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/4/29/1240996556472/exclamation-001.jpg?width=620&quality=85&auto=format&fit=max&s=1c6fbbdbc2878bbd9cbb8f4d9ea9ce67">
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="container">
+    <div id="param">
+      <h3 id='ownername'>Account Owner: Loading...</h3>
+      <h3 id='ownerid'>Account ID: Loading...</h3>
+      <h3 id='ownerbal'>Account Balance: £0.00</h3>
+    </div>
+    <br>
     <hr>
     <br>
-    <div class="container">
-        <div id="param">
-            <h3 id='ownername'>Account Owner: Loading...</h3>
-            <h3 id='ownerid'>Account ID: Loading...</h3>
-            <h3 id='ownerbal'>Account Balance: £0.00</h3>
-        </div>
-        <br>
-        <hr>
-        <br>
-        <div style="text-align: center; width: 60%; transform: translateX(25%);">
-          <h3 style="display: inline;">Statement:</h3>
-        </div>
-        <div style="width: 80%; transform: translateX(10%); text-align: right">
-          <a class='collapse' href='#'>See Less</a>
-            <table id='statement' style="table-layout: fixed; width: 100%; border-collapse: collapse;">
-                <tr style="text-align: center;">
-                    <th class="top"><b><i>Note</i></b></th>
-                    <th class="top"><b><i>Money In</i></b></th>
-                    <th class="top"><b><i>Money Out</i></b></th>
-                    <th class="top"><b><i>Date</i></b></th>
-                    <th class="top"><b><i>Time</i></b></th>
-                </tr>
-                <br>
-                <tr id="loading">
-                    <td colspan="5">
-                        <a>Nothing to show here...</a>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <a id='more' href='#'>See More</a>
-            <a class='collapse' href='#'>See Less</a>
-        </div>
+    <div style="text-align: center; width: 60%; transform: translateX(25%);">
+      <h3 style="display: inline;">Statement:</h3>
     </div>
-    <script>
-        function getQueryVariable(variable) {
-            var query = window.location.search.substring(1);
-            var vars = query.split("&");
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split("=");
-                if (pair[0] == variable) { return pair[1]; }
-            }
-            return ("Loading...");
+    <div style="width: 80%; transform: translateX(10%); text-align: right">
+      <a class='collapse' href='#'>See Less</a>
+      <table id='statement' style="table-layout: fixed; width: 100%; border-collapse: collapse;">
+        <tr style="text-align: center;">
+          <th class="top"><b><i>Note</i></b></th>
+          <th class="top"><b><i>Money In</i></b></th>
+          <th class="top"><b><i>Money Out</i></b></th>
+          <th class="top"><b><i>Date</i></b></th>
+          <th class="top"><b><i>Time</i></b></th>
+        </tr>
+        <br>
+        <tr id="loading">
+          <td colspan="5">
+            <a>Nothing to show here...</a>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <a id='more' href='#'>See More</a>
+      <a class='collapse' href='#'>See Less</a>
+    </div>
+  </div>
+  <script>
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+      }
+      return ("Loading...");
+    }
+    $("#more").hide();
+    $(".collapse").hide();
+    var id = getQueryVariable("id");
+    var name = decodeURIComponent(getQueryVariable("name"));
+    var isFull = getQueryVariable("fullList");
+    name = name.replace("%20", " ");
+    var hasAccount = false;
+    var statement = [];
+    console.log(window.location)
+    $("#more").on("click", function () {
+      window.location = (window.location).toString().replace("fullList=false", "fullList=true");
+    })
+    $(".collapse").on("click", function () {
+      window.location = (window.location).toString().replace("fullList=true", "fullList=false");
+    })
+    $('#ownername').html("Account Owner: " + name);
+    $('#ownerid').html("Account ID: " + id);
+    $.ajax({
+      url: '../shop.json',
+      dataType: 'json',
+      success: function (data) {
+        data = JSON.stringify(data);
+        data = JSON.parse(data);
+        var index = data.findIndex(x => x.userID == parseInt(id));
+        if (index != -1) {
+          hasAccount = true;
+          balance = data[index].money;
+          $("#ownerbal").html("Account Balance: £" + parseFloat(balance).toFixed(2));
         }
-        $("#more").hide();
-        $(".collapse").hide();
-        var id = getQueryVariable("id");
-        var name = decodeURIComponent(getQueryVariable("name"));
-        var isFull = getQueryVariable("fullList");
-        name = name.replace("%20", " ");
-        var hasAccount = false;
-        var statement = [];
-        console.log(window.location)
-        $("#more").on("click", function(){
-          window.location = (window.location).toString().replace("fullList=false", "fullList=true");
-        })
-        $(".collapse").on("click", function(){
-           window.location = (window.location).toString().replace("fullList=true", "fullList=false");
-        })
-        $('#ownername').html("Account Owner: "+ name);
-        $('#ownerid').html("Account ID: "+id);
-        $.ajax({
-            url: '../shop.json',
-            dataType: 'json',
-            success: function(data){
-                data = JSON.stringify(data);
-                data = JSON.parse(data);
-                var index = data.findIndex(x => x.userID == parseInt(id));
-                if(index != -1){
-                    hasAccount = true;
-                    balance = data[index].money;
-                    $("#ownerbal").html("Account Balance: £"+parseFloat(balance).toFixed(2));
+        statement = data[index].statement;
+        if (statement.length > 0) {
+          var count = 0;
+          if (isFull == 'false') {
+            statement.reverse().forEach(m => {
+              if (count < 15) {
+                $('#loading').remove();
+                var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
+                var newNode = tr.appendChild(document.createElement("TD"));
+                newNode.appendChild(document.createTextNode(m.itemName));
+                var moneyIn; var moneyOut;
+                if (m.itemPrice > 0) {
+                  moneyOut = m.itemPrice;
+                  moneyIn = 0;
                 }
-                statement = data[index].statement;
-                if(statement.length > 0){
-                  var count = 0;
-                  if(isFull == 'false'){
-                    statement.reverse().forEach(m => {
-                      if(count < 15){
-                        $('#loading').remove();
-                        var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
-                        var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode(m.itemName)); 
-                        var moneyIn; var moneyOut;
-                        if(m.itemPrice > 0){
-                          moneyOut = m.itemPrice;
-                          moneyIn = 0;
-                        }
-                        else if (m.itemPrice < 0){
-                          moneyOut = 0;
-                          moneyIn = m.itemPrice * -1;
-                        }
-                        else{
-                          moneyOut = 0;
-                          moneyIn = 0;
-                        }
-                        var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode("£"+parseFloat(moneyOut).toFixed(2)));
-                        var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode("£"+parseFloat(moneyIn).toFixed(2))); 
-                        var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode(m.date));
-                        var newNode = tr.appendChild(document.createElement("TD"));
-                        newNode.appendChild(document.createTextNode(m.time)); 
-                        count+=1;
-                      }
-                      if(statement.length > 15){
-                        $("#more").show();
-                      }
-                    })
-                  }
-                  else{
-                    statement.reverse().forEach(m => {
-                      $('#loading').remove();
-                      var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
-                      var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode(m.itemName)); 
-                      var moneyIn; var moneyOut;
-                      if(m.itemPrice > 0){
-                        moneyOut = m.itemPrice;
-                        moneyIn = 0;
-                      }
-                      else if (m.itemPrice < 0){
-                        moneyOut = 0;
-                        moneyIn = m.itemPrice * -1;
-                      }
-                      else{
-                        moneyOut = 0;
-                        moneyIn = 0;
-                      }
-                      var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode("£"+parseFloat(moneyOut).toFixed(2)));
-                      var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode("£"+parseFloat(moneyIn).toFixed(2))); 
-                      var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode(m.date));
-                      var newNode = tr.appendChild(document.createElement("TD"));
-                      newNode.appendChild(document.createTextNode(m.time)); 
-                      $(".collapse").show();
-                    })
-                  }
+                else if (m.itemPrice < 0) {
+                  moneyOut = 0;
+                  moneyIn = m.itemPrice * -1;
                 }
-            }
-        });
-    </script>
+                else {
+                  moneyOut = 0;
+                  moneyIn = 0;
+                }
+                var newNode = tr.appendChild(document.createElement("TD"));
+                newNode.appendChild(document.createTextNode("£" + parseFloat(moneyOut).toFixed(2)));
+                var newNode = tr.appendChild(document.createElement("TD"));
+                newNode.appendChild(document.createTextNode("£" + parseFloat(moneyIn).toFixed(2)));
+                var newNode = tr.appendChild(document.createElement("TD"));
+                newNode.appendChild(document.createTextNode(m.date));
+                var newNode = tr.appendChild(document.createElement("TD"));
+                newNode.appendChild(document.createTextNode(m.time));
+                count += 1;
+              }
+              if (statement.length > 15) {
+                $("#more").show();
+              }
+            })
+          }
+          else {
+            statement.reverse().forEach(m => {
+              $('#loading').remove();
+              var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
+              var newNode = tr.appendChild(document.createElement("TD"));
+              newNode.appendChild(document.createTextNode(m.itemName));
+              var moneyIn; var moneyOut;
+              if (m.itemPrice > 0) {
+                moneyOut = m.itemPrice;
+                moneyIn = 0;
+              }
+              else if (m.itemPrice < 0) {
+                moneyOut = 0;
+                moneyIn = m.itemPrice * -1;
+              }
+              else {
+                moneyOut = 0;
+                moneyIn = 0;
+              }
+              var newNode = tr.appendChild(document.createElement("TD"));
+              newNode.appendChild(document.createTextNode("£" + parseFloat(moneyOut).toFixed(2)));
+              var newNode = tr.appendChild(document.createElement("TD"));
+              newNode.appendChild(document.createTextNode("£" + parseFloat(moneyIn).toFixed(2)));
+              var newNode = tr.appendChild(document.createElement("TD"));
+              newNode.appendChild(document.createTextNode(m.date));
+              var newNode = tr.appendChild(document.createElement("TD"));
+              newNode.appendChild(document.createTextNode(m.time));
+              $(".collapse").show();
+            })
+          }
+        }
+      }
+    });
+  </script>
 </body>
