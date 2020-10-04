@@ -520,7 +520,7 @@ module.exports = async (client, configFile) => {
               var date = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
               var hours = currentDate.getHours()
               if(hours.toString().length < 2){
-                hours = 0 + hour.toString();
+                hours = 0 + hours.toString();
               }
               var mins = currentDate.getMinutes();
               if(mins.toString().length < 2){
