@@ -1,148 +1,150 @@
 <head>
-	<title>The Bank of WillBot</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
+  <title>The Bank of WillBot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
 
-	</script>
-	<style>
-		* {
-			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-		}
+  </script>
+  <style>
+    * {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
 
-		.container {
-			width: 75%;
-			padding-left: 12.5%;
-		}
+    .container {
+      width: 75%;
+      padding-left: 12.5%;
+    }
 
-		#param {
-			width: 100%;
-			display: inline-flex;
-			justify-content: space-around;
-		}
+    #param {
+      width: 100%;
+      display: inline-flex;
+      justify-content: space-around;
+    }
 
-		table,
-		td,
-		th {
-			border: 1px solid black;
-			text-align: center;
-		}
+    table,
+    td,
+    th {
+      border: 1px solid black;
+      text-align: center;
+    }
 
-		td {
-			word-wrap: break-word;
-		}
+    td {
+      word-wrap: break-word;
+    }
 
-		.modal {
-			display: block;
-			/* Hidden by default */
-			position: fixed;
-			/* Stay in place */
-			z-index: 1;
-			/* Sit on top */
-			padding-top: 100px;
-			/* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%;
-			/* Full width */
-			height: 100%;
-			/* Full height */
-			overflow: auto;
-			/* Enable scroll if needed */
-			background-color: rgb(0, 0, 0);
-			/* Fallback color */
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Black w/ opacity */
-		}
+    .modal {
+      display: block;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
 
-		/* Modal Content */
-		.modal-content {
-			position: relative;
-			background-color: #fefefe;
-			margin: auto;
-			padding: 0;
-			border: 1px solid #888;
-			width: 80%;
-			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-			-webkit-animation-name: animatetop;
-			-webkit-animation-duration: 0.4s;
-			animation-name: animatetop;
-			animation-duration: 0.4s
-		}
+    /* Modal Content */
+    .modal-content {
+      position: relative;
+      background-color: #fefefe;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 80%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s
+    }
 
-		/* Add Animation */
-		@-webkit-keyframes animatetop {
-			from {
-				top: -300px;
-				opacity: 0
-			}
-			to {
-				top: 0;
-				opacity: 1
-			}
-		}
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0
+      }
 
-		@keyframes animatetop {
-			from {
-				top: -300px;
-				opacity: 0
-			}
-			to {
-				top: 0;
-				opacity: 1
-			}
-		}
+      to {
+        top: 0;
+        opacity: 1
+      }
+    }
 
-		/* The Close Button */
-		.close {
-			color: white;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
+    @keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0
+      }
 
-		.close:hover,
-		.close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
-		}
+      to {
+        top: 0;
+        opacity: 1
+      }
+    }
 
-		.modal-header {
-			padding: 2px 16px;
-			background-color: #5cb85c;
-			color: white;
-		}
+    /* The Close Button */
+    .close {
+      color: white;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
 
-		.modal-body {
-			padding: 20px;
-			padding-left: 35%
-		}
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-    input{
+    .modal-header {
+      padding: 2px 16px;
+      background-color: #5cb85c;
+      color: white;
+    }
+
+    .modal-body {
+      padding: 20px;
+      padding-left: 35%
+    }
+
+    input {
       height: 30px
     }
 
-		.modal-footer {
-			padding: 2px 16px;
-			background-color: #C0C0C0;
-			color: black;
-			padding: 9px 16px;
-			height: 25px;
-		}
+    .modal-footer {
+      padding: 2px 16px;
+      background-color: #C0C0C0;
+      color: black;
+      padding: 9px 16px;
+      height: 25px;
+    }
 
-		.modal-footer:hover .done {
-			color: white;
-		}
+    .modal-footer:hover .done {
+      color: white;
+    }
 
-		.modal-footer:hover {
-			background-color: #5cb85c;
-		}
-	</style>
+    .modal-footer:hover {
+      background-color: #5cb85c;
+    }
+  </style>
 </head>
 
 <body>
-	<div id='loginModal' class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
+  <div id='loginModal' class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
         <h2>Log in</h2>
       </div>
       <div class="modal-body">
@@ -155,7 +157,7 @@
         <a class="done">Log me in</a>
       </div>
     </div>
-	</div>
+  </div>
   <br>
   <div style="display: flex; justify-content: center;">
     <div style="display: inline-flex;">
@@ -207,7 +209,50 @@
     </div>
   </div>
   <script>
-    if("<%= Session['loggedIn']" != null && "<%= Session['loggedIn']" == true){
+    var id = getQueryVariable("id");
+    var name = decodeURIComponent(getQueryVariable("name"));
+    var isFull = getQueryVariable("fullList");
+    name = name.replace("%20", " ");
+    $('.modalFooter').on('click', function () {
+      //loading all vars needed
+      var password;
+      var exists;
+      $.ajax({
+        url: '../logins.json',
+        dataType: 'json',
+        success: function (data) {
+          data = JSON.stringify(data);
+          data = JSON.parse(data);
+          index = data.findIndex(x => id == id);
+          if (index == -1) {
+            exists = false;
+            password = data[index].password;
+          }
+          else {
+            exists = true;
+          }
+        }
+      });
+      if ($('#password').value == '') {
+        var modaldiv = $('.modal-content');
+        var newNode = document.createElement("A");
+        newNode.style.color = "red";
+        modaldiv.appendChild(newNode.createTextNode("Please enter a password!"));
+      }
+      else if ($('#password').value != password) {
+        var modaldiv = $('.modal-content');
+        var newNode = document.createElement("A");
+        newNode.style.color = "red";
+        modaldiv.appendChild(newNode.createTextNode("Please enter a password!"));
+      }
+      else if (!exists) {
+        var modaldiv = $('.modal-content');
+        var newNode = document.createElement("A");
+        newNode.style.color = "red";
+        modaldiv.appendChild(newNode.createTextNode("It looks like you havn't created an account yet... click the link above to obtain one!"));
+      }
+    });
+    if ("<%= Session['loggedIn']" != null && "<%= Session['loggedIn']" == true) {
       function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split("&");
@@ -219,10 +264,6 @@
       }
       $("#more").hide();
       $(".collapse").hide();
-      var id = getQueryVariable("id");
-      var name = decodeURIComponent(getQueryVariable("name"));
-      var isFull = getQueryVariable("fullList");
-      name = name.replace("%20", " ");
       var hasAccount = false;
       var statement = [];
       console.log(window.location)
