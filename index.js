@@ -11,7 +11,7 @@ var prefix = settingFile.prefix
 var stuff;
 var json;
 bot.setMaxListeners(100);
-bot.login(process.env.token);
+bot.login(process.env.TOKEN);
 module.exports.data = function(callback) {
   var stuff;
 var json;
