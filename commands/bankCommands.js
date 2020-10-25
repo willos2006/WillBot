@@ -8,8 +8,26 @@ module.exports = async (bot, config) => {
         embed.setFooter(msg.author.tag);
         if (msg.content.toLowerCase().startsWith(prefix + 'onlinebanking')) {
             var username = encodeURIComponent(msg.author.tag.replace(" ", "%20"));
+            var fs = require('fs');
+            fs.readFile('logins.json', 'utf8', function(err, data){
+                data = JSON.parse(data);
+                var count = 0;
+                data.forEach(m => {
+                    if(m.id == msg.author.id){
+                        count += 1;
+                    }
+                });
+                if(count > 0){
+                    var jsonStuff = {
+                        id: msg.author.id.toString(),
+                        password: "0000"
+                    }
+                    data.append(JSON.stringify(jsonStuff));
+                    fs.writeFile('logins.json', data, 'utf8', function(){});
+                }
+            });
             embed.setTitle("Bank Statement");
-            embed.setDescription("Click on the link below to have access to your online banking:\n https://willbot.willos2006.repl.co/bankstate?id=" + msg.author.id + "&name=" + username + "&fullList=false");
+            embed.setDescription("Click on the link below to have access to your online banking:\n https://willbot.willos2006.repl.co/bankstate?id=" + msg.author.id + "&name=" + username + "&fullList=false\nPlease note that if you have not used this before hand, login using the password `0000`. You will then be given further instructions.");
             await msg.author.send({ embed });
             embed.setTitle("Sent DM")
             embed.setDescription("Please check your DM's for the link to your online banking.");
