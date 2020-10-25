@@ -1,160 +1,182 @@
 <head>
-  <title>The Bank of WillBot</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
+	<title>The Bank of WillBot</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
 
-  </script>
-  <style>
-    * {
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
+	</script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<style>
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
 
-    .container {
-      width: 75%;
-      padding-left: 12.5%;
-    }
+		.container {
+			width: 75%;
+			padding-left: 12.5%;
+		}
 
-    #param {
-      width: 100%;
-      display: inline-flex;
-      justify-content: space-around;
-    }
+		#param {
+			width: 100%;
+			display: inline-flex;
+			justify-content: space-around;
+		}
 
-    table,
-    td,
-    th {
-      border: 1px solid black;
-      text-align: center;
-    }
+		table,
+		td,
+		th {
+			border: 1px solid black;
+			text-align: center;
+		}
 
-    td {
-      word-wrap: break-word;
-    }
+		td {
+			word-wrap: break-word;
+		}
 
-    .modal {
-      display: block;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      padding-top: 100px;
-      /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
-    }
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: fixed;
+			/* Stay in place */
+			z-index: 1;
+			/* Sit on top */
+			padding-top: 100px;
+			/* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 100%;
+			/* Full height */
+			overflow: auto;
+			/* Enable scroll if needed */
+			background-color: rgb(0, 0, 0);
+			/* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Black w/ opacity */
+		}
 
-    /* Modal Content */
-    .modal-content {
-      position: relative;
-      background-color: #fefefe;
-      margin: auto;
-      padding: 0;
-      border: 1px solid #888;
-      width: 80%;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      -webkit-animation-name: animatetop;
-      -webkit-animation-duration: 0.4s;
-      animation-name: animatetop;
-      animation-duration: 0.4s
-    }
+		/* Modal Content */
+		.modal-content {
+			position: relative;
+			background-color: #fefefe;
+			margin: auto;
+			padding: 0;
+			border: 1px solid #888;
+			width: 80%;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-animation-name: animatetop;
+			-webkit-animation-duration: 0.4s;
+			animation-name: animatetop;
+			animation-duration: 0.4s
+		}
 
-    /* Add Animation */
-    @-webkit-keyframes animatetop {
-      from {
-        top: -300px;
-        opacity: 0
-      }
+		/* Add Animation */
+		@-webkit-keyframes animatetop {
+			from {
+				top: -300px;
+				opacity: 0
+			}
 
-      to {
-        top: 0;
-        opacity: 1
-      }
-    }
+			to {
+				top: 0;
+				opacity: 1
+			}
+		}
 
-    @keyframes animatetop {
-      from {
-        top: -300px;
-        opacity: 0
-      }
+		@keyframes animatetop {
+			from {
+				top: -300px;
+				opacity: 0
+			}
 
-      to {
-        top: 0;
-        opacity: 1
-      }
-    }
+			to {
+				top: 0;
+				opacity: 1
+			}
+		}
 
-    /* The Close Button */
-    .close {
-      color: white;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+		/* The Close Button */
+		.close {
+			color: white;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
 
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
 
-    .modal-header {
-      padding: 2px 16px;
-      background-color: #5cb85c;
-      color: white;
-    }
+		.modal-header {
+			padding: 2px 16px;
+			background-color: #5cb85c;
+			color: white;
+		}
 
-    .modal-body {
-      padding: 20px;
-      padding-left: 35%
-    }
+		.modal-body {
+			padding: 20px;
+			padding-left: 35%
+		}
 
-    input {
-      height: 30px
-    }
+		input {
+			height: 30px
+		}
 
-    .modal-footer {
-      padding: 2px 16px;
-      background-color: #C0C0C0;
-      color: black;
-      padding: 9px 16px;
-      height: 25px;
-    }
+		.modal-footer {
+			padding: 2px 16px;
+			background-color: #C0C0C0;
+			color: black;
+			padding: 9px 16px;
+			height: 25px;
+			cursor: pointer;
+		}
 
-    .modal-footer:hover .done {
-      color: white;
-    }
+		.modal-footer:hover .done {
+			color: white;
+		}
 
-    .modal-footer:hover {
-      background-color: #5cb85c;
-    }
-  </style>
+		.modal-footer:hover {
+			background-color: #5cb85c;
+		}
+	</style>
 </head>
 
 <body>
-  <div id='loginModal' class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Log in</h2>
+	<div id='loginModal' class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Log in</h2>
+			</div>
+			<div class="modal-body">
+        <div id="login">
+          <br>
+          <label>Enter Password:</label><br>
+          <input type="password" name="password" id="password" placeholder="Password" style="width: 50%"><br><br>
+          <a style="color: red" id="error"></a>
+          <br>
+        </div>
+        <div id="create" style="display: none">
+          <h2>Please create a password</h2>
+          <label>New Password:</label><br>
+          <input type="password" name="pass1" id="pass1" placeholder="Enter new password" style="width: 50%"><br><br>
+          <label>New Password Again:</label><br>
+          <input type="password" name="pass2" id="pass2" placeholder="Enter password again" style="width: 50%">
+          <br><br>
+          <a style="color: red" id="error1"></a><br>
+        </div>
       </div>
-      <div class="modal-body">
-        <br>
-        <label>Enter Password:</label><br>
-        <input type="password" name="password" id="password" placeholder="Password" style="width: 50%">
-        <br><br>Seeing this for the first time and don't have a password?<br> Click <a href="#">here</a><br>
+      <div id="loginfoot">
+        <div class="modal-footer" style="text-align: center">
+          <a class="done">Log me in</a>
+        </div>
       </div>
-      <div class="modal-footer" style="text-align: center">
-        <a class="done">Log me in</a>
+      <div id="registerfoot" style="display: none">
+        <div class="modal-footer" style="text-align: center">
+          <a class="register">Register</a>
+        </div>
       </div>
     </div>
   </div>
@@ -209,90 +231,87 @@
     </div>
   </div>
   <script>
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+      }
+      return ("Loading...");
+    }
     var id = getQueryVariable("id");
     var name = decodeURIComponent(getQueryVariable("name"));
     var isFull = getQueryVariable("fullList");
     name = name.replace("%20", " ");
-    $('.modalFooter').on('click', function () {
-      //loading all vars needed
-      var password;
-      var exists;
-      $.ajax({
-        url: '../logins.json',
-        dataType: 'json',
-        success: function (data) {
-          data = JSON.stringify(data);
-          data = JSON.parse(data);
-          index = data.findIndex(x => id == id);
-          if (index == -1) {
-            exists = false;
-            password = data[index].password;
-          }
-          else {
-            exists = true;
-          }
-        }
-      });
-      if ($('#password').value == '') {
-        var modaldiv = $('.modal-content');
-        var newNode = document.createElement("A");
-        newNode.style.color = "red";
-        modaldiv.appendChild(newNode.createTextNode("Please enter a password!"));
-      }
-      else if ($('#password').value != password) {
-        var modaldiv = $('.modal-content');
-        var newNode = document.createElement("A");
-        newNode.style.color = "red";
-        modaldiv.appendChild(newNode.createTextNode("Please enter a password!"));
-      }
-      else if (!exists) {
-        var modaldiv = $('.modal-content');
-        var newNode = document.createElement("A");
-        newNode.style.color = "red";
-        modaldiv.appendChild(newNode.createTextNode("It looks like you havn't created an account yet... click the link above to obtain one!"));
-      }
-    });
-    if ("<%= Session['loggedIn']" != null && "<%= Session['loggedIn']" == true) {
-      function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-          var pair = vars[i].split("=");
-          if (pair[0] == variable) { return pair[1]; }
-        }
-        return ("Loading...");
-      }
-      $("#more").hide();
-      $(".collapse").hide();
-      var hasAccount = false;
-      var statement = [];
-      console.log(window.location)
-      $("#more").on("click", function () {
-        window.location = (window.location).toString().replace("fullList=false", "fullList=true");
-      })
-      $(".collapse").on("click", function () {
-        window.location = (window.location).toString().replace("fullList=true", "fullList=false");
-      })
-      $('#ownername').html("Account Owner: " + name);
-      $('#ownerid').html("Account ID: " + id);
-      $.ajax({
-        url: '../shop.json',
-        dataType: 'json',
-        success: function (data) {
-          data = JSON.stringify(data);
-          data = JSON.parse(data);
-          var index = data.findIndex(x => x.userID == parseInt(id));
-          if (index != -1) {
-            hasAccount = true;
-            balance = data[index].money;
-            $("#ownerbal").html("Account Balance: £" + parseFloat(balance).toFixed(2));
-          }
-          statement = data[index].statement;
-          if (statement.length > 0) {
-            var count = 0;
-            if (isFull == 'false') {
-              statement.reverse().forEach(m => {
-                if (count < 15) {
+    $("#more").hide();
+    $(".collapse").hide();
+    function start(){
+      if (document.cookie == 'true') {
+        var hasAccount = false;
+        var statement = [];
+        $('#loginModal').hide();
+        console.log(window.location)
+        $("#more").on("click", function () {
+          window.location = (window.location).toString().replace("fullList=false", "fullList=true");
+        })
+        $(".collapse").on("click", function () {
+          window.location = (window.location).toString().replace("fullList=true", "fullList=false");
+        })
+        $('#ownername').html("Account Owner: " + name);
+        $('#ownerid').html("Account ID: " + id);
+        $.ajax({
+          url: '../shop.json',
+          dataType: 'json',
+          success: function (data) {
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+            var index = data.findIndex(x => x.userID == parseInt(id));
+            if (index != -1) {
+              hasAccount = true;
+              balance = data[index].money;
+              $("#ownerbal").html("Account Balance: £" + parseFloat(balance).toFixed(2));
+            }
+            statement = data[index].statement;
+            if (statement.length > 0) {
+              var count = 0;
+              if (isFull == 'false') {
+                statement.reverse().forEach(m => {
+                  if (count < 15) {
+                    $('#loading').remove();
+                    var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
+                    var newNode = tr.appendChild(document.createElement("TD"));
+                    newNode.appendChild(document.createTextNode(m.itemName));
+                    var moneyIn; var moneyOut;
+                    if (m.itemPrice > 0) {
+                      moneyOut = m.itemPrice;
+                      moneyIn = 0;
+                    }
+                    else if (m.itemPrice < 0) {
+                      moneyOut = 0;
+                      moneyIn = m.itemPrice * -1;
+                    }
+                    else {
+                      moneyOut = 0;
+                      moneyIn = 0;
+                    }
+                    var newNode = tr.appendChild(document.createElement("TD"));
+                    newNode.appendChild(document.createTextNode("£" + parseFloat(moneyOut).toFixed(2)));
+                    var newNode = tr.appendChild(document.createElement("TD"));
+                    newNode.appendChild(document.createTextNode("£" + parseFloat(moneyIn).toFixed(2)));
+                    var newNode = tr.appendChild(document.createElement("TD"));
+                    newNode.appendChild(document.createTextNode(m.date));
+                    var newNode = tr.appendChild(document.createElement("TD"));
+                    newNode.appendChild(document.createTextNode(m.time));
+                    count += 1;
+                  }
+                  if (statement.length > 15) {
+                    $("#more").show();
+                  }
+                })
+              }
+              else {
+                statement.reverse().forEach(m => {
                   $('#loading').remove();
                   var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
                   var newNode = tr.appendChild(document.createElement("TD"));
@@ -318,46 +337,111 @@
                   newNode.appendChild(document.createTextNode(m.date));
                   var newNode = tr.appendChild(document.createElement("TD"));
                   newNode.appendChild(document.createTextNode(m.time));
-                  count += 1;
-                }
-                if (statement.length > 15) {
-                  $("#more").show();
-                }
-              })
+                  $(".collapse").show();
+                })
+              }
             }
-            else {
-              statement.reverse().forEach(m => {
-                $('#loading').remove();
-                var tr = document.getElementById('statement').appendChild(document.createElement("TR"));
-                var newNode = tr.appendChild(document.createElement("TD"));
-                newNode.appendChild(document.createTextNode(m.itemName));
-                var moneyIn; var moneyOut;
-                if (m.itemPrice > 0) {
-                  moneyOut = m.itemPrice;
-                  moneyIn = 0;
-                }
-                else if (m.itemPrice < 0) {
-                  moneyOut = 0;
-                  moneyIn = m.itemPrice * -1;
-                }
-                else {
-                  moneyOut = 0;
-                  moneyIn = 0;
-                }
-                var newNode = tr.appendChild(document.createElement("TD"));
-                newNode.appendChild(document.createTextNode("£" + parseFloat(moneyOut).toFixed(2)));
-                var newNode = tr.appendChild(document.createElement("TD"));
-                newNode.appendChild(document.createTextNode("£" + parseFloat(moneyIn).toFixed(2)));
-                var newNode = tr.appendChild(document.createElement("TD"));
-                newNode.appendChild(document.createTextNode(m.date));
-                var newNode = tr.appendChild(document.createElement("TD"));
-                newNode.appendChild(document.createTextNode(m.time));
-                $(".collapse").show();
-              })
-            }
+          }
+        });
+      }
+      else{
+        $('#loginModal').show();
+      }
+    }
+    start();
+    async function create(){
+      if($('#pass1').val() == '' || $('#pass2').val() == ''){
+        $("#error1").html("Please enter values in both fields");
+      }
+      else if($('#pass1').val() != $('#pass2').val()){
+        $("#error1").html("Your passwords must match");
+      }
+      else{
+        var pass = $('#pass1').val();
+        await $.post({
+          url: '../hash',
+          data: {id: id, plaintext: pass},
+          error: function(){
+            $("#error1").html("There was an error. Please try again later")
+          },
+          success: function(){
+            location.reload()
+          }
+        });
+      }
+    }
+    async function verify(){
+      //loading all vars needed
+      var password;
+      var exists;
+      await $.ajax({
+        url: '../logins.json',
+        dataType: 'json',
+        success: function (data) {
+          data = JSON.stringify(data);
+          data = JSON.parse(data);
+          index = data.findIndex(x => x.id == id);
+          if (index == -1) {
+            exists = false;
+          }
+          else {
+            exists = true;
+            password = data[index].password;
           }
         }
       });
+      var verifyRes;
+      try{
+        await $.post({
+          url: '../verify',
+          data: {plaintext: $('#password').val(), hashed: password},
+          success: function(data){
+            verifyRes = data;
+          }
+        });
+      }
+      catch(err){/**/}
+      if (!exists) {
+        var text = $("#error");
+        text.html("It looks like you havn't created an account yet... Please contact a server admin");
+        $('.modal-content').effect("shake")
+      }
+      else if ($('#password').val() == '') {
+        var text = $("#error");
+        text.html("Please enter a password!");
+        $('.modal-content').effect("shake")
+      }
+      else if($('#password').val() == password && password == '0000'){
+        $('#create').show()
+        $("#login").hide()
+        $('#loginfoot').hide()
+        $('#registerfoot').show()
+      }
+      else if (verifyRes == false) {
+        var text = $("#error");
+        text.html("Password Incorrect!");
+        $('.modal-content').effect("shake")
+      }
+       else if (verifyRes == true) {
+        document.cookie = "true";
+        start();
+      }
     }
+    $('.modal-footer').on('click', async function () {
+      if($('#login').css("display") == 'block'){
+        verify();
+      }
+      if($('#create').css("display") == 'block'){
+        create();
+      }
+    });
+    document.addEventListener("keypress", function(event){
+      if($('#loginModal').css("display") == 'block' && $('#login').css("display") == 'block' && event.keyCode == 13){
+        verify();
+      }
+      if($('#loginModal').css("display") == 'block' && $('#create').css("display") == 'block' && event.keyCode == 13){
+        create();
+      }
+    })
   </script>
 </body>

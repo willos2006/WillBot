@@ -61,8 +61,32 @@ module.exports.contact = function(contactform) {
 var embed = new Discord.MessageEmbed()
 
 const keepAlive = require('./server');
-keepAlive();
+keepAlive.keepAlive;
 var data = [];
+
+keepAlive.server.get('/data', async (req, res) => {
+  var userTot;
+	var userOnline;
+  let guild = bot.guilds.cache.get(configFile.guildID);
+	userTot = guild.members.cache.array().length;
+  userOnline = guild.members.cache.filter(user => user.presence.status != 'offline').array().length;
+  var botMoney = 0;
+  const fs = require('fs');
+  fs.readFile('shop.json', 'utf8', function (err, data){
+    data = JSON.parse(data);
+    data.forEach(m => {
+      botMoney += m.money;
+    });
+  });
+  setTimeout(function(){
+    var json = {
+      tot: userTot,
+      totOn: userOnline,
+      totMon: "£" + botMoney.toFixed(2)
+    }
+    res.send(json);
+  }, 20)
+});
 
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
