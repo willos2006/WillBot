@@ -17,13 +17,13 @@ module.exports = async (bot, config) => {
                         count += 1;
                     }
                 });
-                if(count > 0){
+                if(count == 0){
                     var jsonStuff = {
                         id: msg.author.id.toString(),
                         password: "0000"
                     }
-                    data.append(JSON.stringify(jsonStuff));
-                    fs.writeFile('logins.json', data, 'utf8', function(){});
+                    data.push(jsonStuff);
+                    fs.writeFile('logins.json', JSON.stringify(data), 'utf8', function(){});
                 }
             });
             embed.setTitle("Bank Statement");

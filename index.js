@@ -1,5 +1,6 @@
 ﻿//require('dotenv').config();
 'use strict';
+require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION']
@@ -10,7 +11,7 @@ var prefix = settingFile.prefix
 var stuff;
 var json;
 bot.setMaxListeners(100);
-bot.login(process.env.TOKEN);
+bot.login(process.env.token);
 module.exports.data = function(callback) {
   var stuff;
 var json;
