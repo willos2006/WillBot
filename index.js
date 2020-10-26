@@ -147,6 +147,9 @@ bot.on('ready', () => {
 
   eventFunction = require('./commands/bankCommands.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./commands/imageSearch.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {

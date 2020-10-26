@@ -7,7 +7,7 @@ module.exports = async (client, configFile) => {
   client.on('message', async msg => {
     embed.setFooter(msg.author.tag)
     if (
-      msg.content.startsWith(prefix + 'removeRole') &&
+      msg.content.toLowerCase().startsWith(prefix + 'removerole') &&
       msg.member.roles.cache.find(role => role.name === 'Admins')
     ) {
       embed.setTitle("Success");
@@ -74,7 +74,7 @@ module.exports = async (client, configFile) => {
       }
       msg.channel.send({ embed });
     }
-    else if (msg.content.startsWith(prefix + 'removeRole')) {
+    else if (msg.content.toLowerCase().startsWith(prefix + 'removerole')) {
       embed.setTitle("Insufficient Permissions");
       embed.setDescription(
         'You must have the `Admins` role to use this command!'
@@ -82,7 +82,7 @@ module.exports = async (client, configFile) => {
       msg.channel.send({ embed });
     }
     if (
-      msg.content.startsWith(prefix + 'giveRole') &&
+      msg.content.toLowerCase().startsWith(prefix + 'giverole') &&
       msg.member.roles.cache.find(role => role.name === 'Admins')
     ) {
       embed.setTitle("Success");
@@ -122,7 +122,7 @@ module.exports = async (client, configFile) => {
         embed.setDescription('Invalid Input');
       }
       msg.channel.send({ embed });
-    } else if (msg.content.startsWith(prefix + 'giveRole')) {
+    } else if (msg.content.toLowerCase().startsWith(prefix + 'giverole')) {
       embed.setTitle("Insufficient Permissions");
       embed.setDescription(
         'You must have the `Admins` role to use this command!'
