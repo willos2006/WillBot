@@ -150,6 +150,9 @@ bot.on('ready', () => {
 
   eventFunction = require('./commands/imageSearch.js');
   eventFunction(bot, configFile)
+
+  eventFunction = require('./commands/chatbot.js');
+  eventFunction(bot, configFile)
 });
 
 bot.on('guildMemberAdd', member => {
