@@ -4,13 +4,13 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION']
-});
+}, { intents: ['GUILDS', 'GUILD_MESSAGES'] });
 const configFile = require('./settings/config.json');
 const settingFile = require('./settings/settings.json')
 var prefix = settingFile.prefix
 var stuff;
 var json;
-bot.setMaxListeners(100);
+bot.setMaxListeners(200);
 bot.login(process.env.TOKEN);
 module.exports.data = function(callback) {
   var stuff;
