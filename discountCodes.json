@@ -3,5 +3,10 @@
         "code": "spoink123",
         "percent": 50,
         "param": "(function(item, cat, price, person) {if(item == 'extra special beans'){return true;}})"
+    },
+    {
+      "code": "willisepic69",
+      "percent": 75,
+      "param": "(function(item, cat, price, person) {if(item == 'full-on roadman kit'){return true;}})"
     }
 ]

@@ -55,7 +55,6 @@ server.post('/verify', jsonParser, async (req, res) => {
 server.post('/hash', jsonParser, async (req, res) => {
   var data;
   data = req.body
-  console.log(data.plaintext)
   var plaintext = data.plaintext;
   var hash = passwordHash.generate(plaintext);
   await fs.readFile('logins.json', 'utf8', function(err, data1){

@@ -500,18 +500,18 @@ module.exports = async (client, configFile) => {
           var data = JSON.parse(data);
           data.forEach(m => {
             if (m.code != response) {
-              error += 1;
+              //
             }
             else {
               discount = m.percent;
-              if (eval(m.param)(item, cat, price, msg.author.id) != true) {
+              if (eval(m.param)(item, cat, price, msg.author.id) == true) {
                 error += 1;
               }
             }
           });
         });
         setTimeout(function() {
-          if (error == 0) {
+          if (error == 1) {
             fs.readFile('shop.json', 'utf8', function(err, data) {
               var stuff = JSON.parse(data);
               var index = stuff.findIndex(x => x.userID == msg.author.id);
